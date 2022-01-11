@@ -16,7 +16,6 @@
 	width: 50vw;
 	height: 100vh;
 	padding: 35px;
-	font-family: 'Roboto';
 }
 
 .content {
@@ -32,6 +31,10 @@
 
 .content__sentence {
 	font-size: 4.5rem;
+}
+
+.content__community {
+	color: var(--primary-color-active);
 }
 
 .buttongroup {
