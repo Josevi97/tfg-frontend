@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+/* Menor que (should be variables)
+ *
+ * 576  Extra small     100%
+ * 768  Small           540px
+ * 992  Medium          720px
+ * 1200 Large           960px
+ * 1400 Extra large     1140px
+ * if not, XXL          1320px
+ *
+ */
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary-color: #fca503;
+	--primary-color-active: #fc8c03;
+}
+
+@media screen and (max-width: 1400px) {
+	* {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	* {
+		font-size: 13px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	* {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	* {
+		font-size: 11px;
+	}
+}
