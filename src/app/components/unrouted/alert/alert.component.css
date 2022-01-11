@@ -1,0 +1,24 @@
+.alert {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.backalert {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border: 1px solid var(--secondary-color);
+	border-radius: 5px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+	background-color: white;
+	animation: popup 0.2s;
+	z-index: 1;
+}
+
+.content {
+	padding: 25px;
+	animation: fade 0.5s;
+	z-index: 2;
+}

@@ -7,9 +7,11 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './components/routed/auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/routed/home/home.component';
+import { AlertComponent } from './components/unrouted/alert/alert.component';
+import { BackgroundComponent } from './components/unrouted/background/background.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, HomeComponent],
+  declarations: [AppComponent, AuthComponent, HomeComponent, AlertComponent, BackgroundComponent],
   imports: [
     HttpClientModule,
     AppRoutingModule,

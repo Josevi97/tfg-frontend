@@ -50,3 +50,25 @@
 		font-size: 12px;
 	}
 }
+
+@keyframes popup {
+	from {
+		width: 0;
+		height: 0;
+	}
+
+	to {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
