@@ -1,6 +1,6 @@
 .background {
 	position: absolute;
-	background-image: url('../../../../assets/auth_img.jpg');
+	background-image: url('../../../../assets/images/auth_img.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 100vw;
@@ -12,10 +12,10 @@
 	display: flex;
 	align-items: center;
 	right: 0;
-	background-color: rgb(255, 255, 255);
+	background-color: white;
 	width: 50vw;
 	height: 100vh;
-	padding: 25px;
+	padding: 35px;
 	font-family: 'Roboto';
 }
 
@@ -26,7 +26,8 @@
 }
 
 .content__name {
-	font-size: 3rem;
+	font-family: dancing_script;
+	font-size: 3.2rem;
 }
 
 .content__sentence {
@@ -70,7 +71,12 @@
 
 .content__link {
 	font-size: 1.2rem;
+	color: var(--secondary-color);
 	width: fit-content;
+}
+
+.content__link:hover {
+	color: var(--secondary-color-active);
 }
 
 .aside__copyright {
