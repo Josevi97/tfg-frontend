@@ -1,3 +1,5 @@
+<template #alert></template>
+
 <div class="background"></div>
 <aside class="aside">
 	<div class="content">
@@ -8,7 +10,9 @@
 			>!
 		</p>
 		<div class="buttongroup">
-			<button class="buttongroup__button">Iniciar sesion</button>
+			<button class="buttongroup__button" (click)="generateComponent()">
+				Iniciar sesion
+			</button>
 			<button class="buttongroup__button-active">Crear una cuenta</button>
 		</div>
 		<a class="content__link" routerLink="/home"

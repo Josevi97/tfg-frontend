@@ -8,16 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BackgroundComponent implements OnInit {
 	@Input() onClick: Function;
 
-	constructor() {
-		if (!this.onClick) {
-			const info = 'background.component: onclick: null';
-			console.log(info);
-
-			this.onClick = () => {
-				console.log(info);
-			};
-		}
-	}
+	constructor() {}
 
 	ngOnInit(): void {}
 }
