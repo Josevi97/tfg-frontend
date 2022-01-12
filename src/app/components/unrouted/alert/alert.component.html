@@ -1,10 +1,10 @@
-<app-background [onClick]="onBackgroundClick.bind(this)"> </app-background>
-<div class="alert">
+<app-background [onClick]="close.bind(this)"> </app-background>
+<div class="alert centrate-middle">
 	<div class="backalert"></div>
 	<div class="content">
-		<p>Hola</p>
-		<p>Hola</p>
-		<p>Hola</p>
-		<p>Hola</p>
+		<app-close-button [onClick]="close.bind(this)"></app-close-button>
+		<div class="componentContainer">
+			<template #component></template>
+		</div>
 	</div>
 </div>

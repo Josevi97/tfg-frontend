@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 	styleUrls: ['./background.component.css'],
 })
 export class BackgroundComponent implements OnInit {
-	@Input() onClick: Function;
+	@Input() public onClick: Function;
 
 	constructor() {}
 

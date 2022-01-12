@@ -34,7 +34,7 @@
 }
 
 .content__community {
-	color: var(--primary-color-active);
+	color: var(--primary-color);
 }
 
 .buttongroup {
@@ -45,41 +45,12 @@
 
 .buttongroup button {
 	width: 300px;
-	border: 1px solid var(--primary-color);
-	border-radius: 5px;
-	padding: 15px;
 	font-size: 1.5rem;
-	cursor: pointer;
-}
-
-.buttongroup__button {
-	background-color: transparent;
-	color: var(--primary-color);
-}
-
-.buttongroup__button-active {
-	background-color: var(--primary-color);
-	color: white;
-}
-
-.buttongroup__button:hover {
-	background-color: var(--primary-color);
-	color: white;
-}
-
-.buttongroup__button:active,
-.buttongroup__button-active:active {
-	background-color: var(--primary-color-active);
 }
 
 .content__link {
 	font-size: 1.2rem;
-	color: var(--secondary-color);
 	width: fit-content;
-}
-
-.content__link:hover {
-	color: var(--secondary-color-active);
 }
 
 .aside__copyright {
@@ -94,8 +65,7 @@
 		justify-content: center;
 	}
 
-	.buttongroup__button,
-	.buttongroup__button-active,
+	.buttongroup button,
 	.content__link {
 		margin: auto;
 	}

@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { AlertComponent } from '../../unrouted/alert/alert.component';
+import { InitSessionComponent } from '../../unrouted/init-session/init-session.component';
 
 @Component({
 	selector: 'app-auth',
@@ -29,7 +30,11 @@ export class AuthComponent implements OnInit {
 			this.alertRef
 		);
 
-		a.instance.onBackgroundClick = () =>
-			this.componentFactory.destroyComponent(a);
+		a.instance.close = () => this.componentFactory.destroyComponent(a);
+		a.instance.onAfterViewInit = () =>
+			this.componentFactory.generateComponent(
+				InitSessionComponent,
+				a.instance.componentRef
+			);
 	}
 }

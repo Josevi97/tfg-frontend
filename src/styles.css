@@ -17,6 +17,20 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--primary-color: #fca503;
+	--primary-color-hover: #fc8c03;
+	--primary-color-active: #fc7703;
+	--secondary-color: #666666;
+	--secondary-color-hover: #3d3d3d;
+	--secondary-color-active: #242424;
+
+	--button-radius: 5px;
+	--hard-back-priority: 100;
+	--hard-middle-priority: calc(var(--hard-back-priority) + 1);
+	--hard-front-priority: calc(var(--hard-back-priority) + 2);
+}
+
 a,
 p,
 span,
@@ -24,16 +38,80 @@ strong {
 	font-size: 1em;
 }
 
-:root {
-	--primary-color: #fca503;
-	--primary-color-active: #fc8c03;
-	--secondary-color: #666666;
-	--secondary-color-active: #3d3d3d;
+button,
+input[type='submit'] {
+	border-radius: var(--button-radius);
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+	border: 1px solid var(--secondary-color);
+	border-radius: var(--button-radius);
+	padding: 15px;
+	outline: none;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus {
+	border: 1px solid var(--secondary-color-active);
+}
+
+button,
+input[type='submit'] {
+	cursor: pointer;
 }
 
 @font-face {
 	font-family: dancing_script;
 	src: url('assets/fonts/dancing_script/DancingScript-Bold.ttf');
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	color: white;
+	border: 1px solid var(--primary-color);
+	padding: 15px;
+}
+
+.btn-primary:hover {
+	background-color: var(--primary-color-hover);
+	color: white;
+}
+
+.btn-primary:active {
+	background-color: var(--primary-color-active);
+	color: white;
+}
+
+.btn-outline-primary {
+	background-color: transparent;
+	color: var(--primary-color);
+	border: 1px solid var(--primary-color);
+	padding: 15px;
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--primary-color-hover);
+	color: white;
+}
+
+.btn-outline-primary:active {
+	background-color: var(--primary-color-active);
+	color: white;
+}
+
+.link-secondary {
+	color: var(--secondary-color);
+}
+
+.link-secondary:hover {
+	color: var(--secondary-color-hover);
+}
+
+.link-secondary:active {
+	color: var(--secondary-color-active);
 }
 
 @media screen and (max-width: 1400px) {
@@ -45,18 +123,6 @@ strong {
 @media screen and (max-width: 1200px) {
 	* {
 		font-size: 14px;
-	}
-}
-
-@media screen and (max-width: 992px) {
-	* {
-		font-size: 13px;
-	}
-}
-
-@media screen and (max-width: 768px) {
-	* {
-		font-size: 12px;
 	}
 }
 
@@ -73,11 +139,15 @@ strong {
 }
 
 @keyframes fade {
-	from {
+	0% {
 		opacity: 0;
 	}
 
-	to {
+	50% {
+		opacity: 0;
+	}
+
+	100% {
 		opacity: 1;
 	}
 }
