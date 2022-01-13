@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/routed/home/home.component';
 import { AuthComponent } from './components/routed/auth/auth.component';
 import { SessionResolver } from './resolvers/session.resolver';
+import { SettingsComponent } from './components/routed/settings/settings.component';
 
 const routes: Routes = [
 	{
@@ -18,6 +19,11 @@ const routes: Routes = [
 	{
 		path: 'auth',
 		component: AuthComponent,
+		resolve: { session: SessionResolver },
+	},
+	{
+		path: 'settings',
+		component: SettingsComponent,
 		resolve: { session: SessionResolver },
 	},
 ];

@@ -10,10 +10,12 @@
 			>!
 		</p>
 		<div class="buttongroup">
-			<button class="btn-outline-primary" (click)="generateComponent()">
+			<button class="btn-outline-primary" (click)="generateComponent('init')">
 				Iniciar sesion
 			</button>
-			<button class="btn-primary">Crear una cuenta</button>
+			<button class="btn-primary" (click)="generateComponent('register')">
+				Crear una cuenta
+			</button>
 		</div>
 		<a class="content__link link-secondary" routerLink="/home"
 			>Seguir navegando sin sesion como anonimo.</a

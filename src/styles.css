@@ -36,6 +36,10 @@
 	src: url('assets/fonts/dancing_script/DancingScript-Bold.ttf');
 }
 
+a {
+	text-decoration: none;
+}
+
 a,
 p,
 span,
@@ -53,7 +57,7 @@ input[type='email'],
 input[type='password'] {
 	border: 1px solid var(--secondary-color);
 	border-radius: var(--button-radius);
-	padding: 15px;
+	padding: 10px;
 	outline: none;
 }
 
@@ -114,15 +118,47 @@ input[type='submit'] {
 	color: var(--secondary-color-active);
 }
 
+.wrap {
+	width: 50%;
+	height: 100%;
+	margin: auto;
+}
+
 @media screen and (max-width: 1400px) {
 	* {
 		font-size: 15px;
+	}
+
+	.wrap {
+		width: 70%;
 	}
 }
 
 @media screen and (max-width: 1200px) {
 	* {
 		font-size: 14px;
+	}
+
+	.wrap {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.wrap {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.wrap {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.wrap {
+		width: 100%;
 	}
 }
 

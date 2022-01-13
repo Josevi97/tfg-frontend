@@ -1,0 +1,32 @@
+.navbar {
+	height: 70px;
+	border-bottom: 1px solid var(--secondary-color);
+	z-index: var(--hard-middle-priority);
+}
+
+.navbar .wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar__logo,
+.navbar__submenu {
+	display: block;
+	padding: 0 15px;
+}
+
+.navbar__logo {
+	color: black;
+	font-size: 2.5rem;
+	font-family: dancing_script;
+}
+
+.navbar__input {
+	font-size: 1rem;
+}
+
+.navbar__submenu {
+	font-size: 1rem;
+}

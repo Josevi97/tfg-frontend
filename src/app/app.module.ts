@@ -13,6 +13,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CloseButtonComponent } from './components/unrouted/close-button/close-button.component';
 import { IconsService } from './services/icons/icons.service';
 import { InitSessionComponent } from './components/unrouted/init-session/init-session.component';
+import { RegisterAccountComponent } from './components/unrouted/register-account/register-account.component';
+import { MenuComponent } from './components/unrouted/menu/menu.component';
+import { SettingsComponent } from './components/routed/settings/settings.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +26,9 @@ import { InitSessionComponent } from './components/unrouted/init-session/init-se
 		BackgroundComponent,
 		CloseButtonComponent,
 		InitSessionComponent,
+  RegisterAccountComponent,
+  MenuComponent,
+  SettingsComponent,
 	],
 	imports: [
 		HttpClientModule,

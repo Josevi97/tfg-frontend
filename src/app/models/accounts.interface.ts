@@ -16,3 +16,11 @@ export interface IAccount {
 	entranceVotes: number;
 	commentVotes: number;
 }
+
+export interface IRegisterAccount {
+	login: string;
+	email: string;
+	username: string;
+	originalPassword: string;
+	repeatedPassword: string;
+}

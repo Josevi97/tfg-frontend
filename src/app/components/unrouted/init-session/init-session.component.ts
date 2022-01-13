@@ -11,10 +11,12 @@ import { SessionService } from 'src/app/services/session/session.service';
 export class InitSessionComponent implements OnInit {
 	constructor(private sessionService: SessionService, private router: Router) {}
 
-	ngOnInit(): void {
+	ngOnInit(): void {}
+
+	onSubmit(): void {
 		const data: ILogin = {
-			login: 'user123',
-			password: 'user123',
+			login: 'admin',
+			password: 'admin',
 		};
 
 		this.sessionService.login(data).subscribe(
