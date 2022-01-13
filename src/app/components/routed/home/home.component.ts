@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IAccount } from '../../../models/accounts.interface';
 
 @Component({
@@ -10,7 +10,7 @@ import { IAccount } from '../../../models/accounts.interface';
 export class HomeComponent implements OnInit {
 	public sessionAccount: IAccount;
 
-	constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
+	constructor(private activatedRoute: ActivatedRoute) {}
 
 	ngOnInit(): void {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];

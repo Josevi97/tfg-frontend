@@ -25,4 +25,10 @@ export class SessionService {
 			.post<String>(this.SESSION_URI, data, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
+
+	logout(): Observable<String> {
+		return this.http
+			.delete<String>(this.SESSION_URI, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
 }
