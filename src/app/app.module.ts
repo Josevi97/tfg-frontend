@@ -22,7 +22,7 @@ import { InitSessionComponent } from './components/unrouted/init-session/init-se
 		AlertComponent,
 		BackgroundComponent,
 		CloseButtonComponent,
-  InitSessionComponent,
+		InitSessionComponent,
 	],
 	imports: [
 		HttpClientModule,
