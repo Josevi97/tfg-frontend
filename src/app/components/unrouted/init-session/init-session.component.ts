@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILogin } from 'src/app/models/session.interface';
+import { IconsService } from 'src/app/services/icons/icons.service';
 import { SessionService } from 'src/app/services/session/session.service';
 
 @Component({
@@ -9,7 +10,11 @@ import { SessionService } from 'src/app/services/session/session.service';
 	styleUrls: ['./init-session.component.css'],
 })
 export class InitSessionComponent implements OnInit {
-	constructor(private sessionService: SessionService, private router: Router) {}
+	constructor(
+		private sessionService: SessionService,
+		private router: Router,
+		public iconsService: IconsService
+	) {}
 
 	ngOnInit(): void {}
 

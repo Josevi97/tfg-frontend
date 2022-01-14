@@ -1,9 +1,34 @@
 <form class="form" (submit)="onSubmit()">
 	<p class="form__title">Registrar cuenta</p>
-	<input class="form__input" type="text" placeholder="login" />
-	<input class="form__input" type="text" placeholder="email" />
-	<input class="form__input" type="text" placeholder="username" />
-	<input class="form__input" type="password" placeholder="password" />
-	<input class="form__input" type="password" placeholder="repeat password" />
+	<div class="inputContainer">
+		<input class="form__input" type="text" placeholder="login" />
+		<div class="form__inputBorderBack">
+			<div class="form__inputBorderFor"></div>
+		</div>
+	</div>
+	<div class="inputContainer">
+		<input class="form__input" type="email" placeholder="email" />
+		<div class="form__inputBorderBack">
+			<div class="form__inputBorderFor"></div>
+		</div>
+	</div>
+	<div class="inputContainer">
+		<input class="form__input" type="email" placeholder="username" />
+		<div class="form__inputBorderBack">
+			<div class="form__inputBorderFor"></div>
+		</div>
+	</div>
+	<div class="inputContainer">
+		<input class="form__input" type="email" placeholder="password" />
+		<div class="form__inputBorderBack">
+			<div class="form__inputBorderFor"></div>
+		</div>
+	</div>
+	<div class="inputContainer">
+		<input class="form__input" type="email" placeholder="repeat password" />
+		<div class="form__inputBorderBack">
+			<div class="form__inputBorderFor"></div>
+		</div>
+	</div>
 	<input class="form__input btn-outline-primary" type="submit" value="Crear" />
 </form>
