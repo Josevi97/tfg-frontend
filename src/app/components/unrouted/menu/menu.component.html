@@ -1,9 +1,15 @@
+<template #popup></template>
+
 <nav class="navbar">
 	<div class="wrap">
 		<a routerLink="/home" class="navbar__logo btn-normal">Sheyras</a>
 		<input class="navbar__input" type="text" placeholder="Buscar por aqui" />
-		<a routerLink="/auth" class="link-secondary navbar__submenu">
-			Autenticarse
+		<a
+			*ngIf="sessionAccount.id === undefined"
+			routerLink="/auth"
+			class="link-secondary navbar__submenu"
+		>
+			Acceder
 		</a>
 	</div>
 </nav>

@@ -16,6 +16,7 @@ import { InitSessionComponent } from './components/unrouted/init-session/init-se
 import { RegisterAccountComponent } from './components/unrouted/register-account/register-account.component';
 import { MenuComponent } from './components/unrouted/menu/menu.component';
 import { SettingsComponent } from './components/routed/settings/settings.component';
+import { PopupComponent } from './components/unrouted/popup/popup.component';
 
 @NgModule({
 	declarations: [
@@ -26,9 +27,10 @@ import { SettingsComponent } from './components/routed/settings/settings.compone
 		BackgroundComponent,
 		CloseButtonComponent,
 		InitSessionComponent,
-  RegisterAccountComponent,
-  MenuComponent,
-  SettingsComponent,
+		RegisterAccountComponent,
+		MenuComponent,
+		SettingsComponent,
+		PopupComponent,
 	],
 	imports: [
 		HttpClientModule,

@@ -119,6 +119,7 @@ input[type='submit'] {
 }
 
 .wrap {
+	position: relative;
 	width: 50%;
 	height: 100%;
 	margin: auto;

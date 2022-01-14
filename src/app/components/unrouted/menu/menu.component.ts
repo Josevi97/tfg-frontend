@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IAccount } from 'src/app/models/accounts.interface';
 
 @Component({
 	selector: 'app-menu',
@@ -6,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-	constructor() {}
+	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
 
-	ngOnInit(): void {}
+	public sessionAccount: IAccount;
+
+	constructor(private activatedRoute: ActivatedRoute) {}
+
+	ngOnInit(): void {
+		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
+	}
 }
