@@ -1,0 +1,69 @@
+.entrance {
+	display: flex;
+	box-shadow: 0 0 1px var(--secondary-color);
+	align-items: center;
+	padding: 15px;
+}
+
+.entrance__arrows {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 30px 0 15px;
+	text-align: center;
+}
+
+.entrance__arrows button {
+	color: var(--secondary-color);
+	font-size: 3rem;
+}
+
+.entrance__arrows button:hover {
+	color: var(--primary-color-hover);
+	font-size: 3rem;
+}
+
+.entrance__arrows button:active {
+	color: var(--primary-color-active);
+	font-size: 3rem;
+}
+
+.entrance__arrows img {
+	width: 1.8rem;
+}
+
+.entrance__votes {
+	font-size: 1.5rem;
+}
+
+.entrance__content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.entrance__community {
+	font-size: 1.3rem;
+}
+
+.entrance__date {
+	color: var(--secondary-color);
+	font-size: 0.9rem;
+}
+
+.entrance__body {
+	display: block;
+	height: 2.5rem;
+}
+
+.extra {
+	display: flex;
+	flex-direction: column;
+	text-align: right;
+}

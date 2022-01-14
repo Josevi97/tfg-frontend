@@ -1,8 +1,5 @@
 <div class="closeButtonContainer">
 	<button (click)="onClick()" class="closeButton">
-		<fa-icon
-			[icon]="iconsService.getIcon('times')"
-			class="closeButton__icon"
-		></fa-icon>
+		<i class="{{ iconsService.getIcon('times') }} closeButton__icon"></i>
 	</button>
 </div>

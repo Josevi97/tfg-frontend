@@ -17,6 +17,7 @@ import { RegisterAccountComponent } from './components/unrouted/register-account
 import { MenuComponent } from './components/unrouted/menu/menu.component';
 import { SettingsComponent } from './components/routed/settings/settings.component';
 import { PopupComponent } from './components/unrouted/popup/popup.component';
+import { EntranceComponent } from './components/unrouted/entrance/entrance.component';
 
 @NgModule({
 	declarations: [
@@ -31,6 +32,7 @@ import { PopupComponent } from './components/unrouted/popup/popup.component';
 		MenuComponent,
 		SettingsComponent,
 		PopupComponent,
+  EntranceComponent,
 	],
 	imports: [
 		HttpClientModule,

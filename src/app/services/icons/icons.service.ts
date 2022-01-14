@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
 	providedIn: 'root',
@@ -10,11 +9,16 @@ export class IconsService {
 	public getIcon(icon: string) {
 		switch (icon) {
 			case 'times':
-				return faTimes;
+				return 'fas fa-times';
 			case 'check':
-				return faCheck;
+				return 'fas fa-check';
+			case 'arrowUp':
+				return 'fas fa-caret-up';
+			case 'arrowDown':
+				return 'fas fa-caret-down';
+			case 'comment':
+				return 'far fa-comment';
 		}
-
-		return faTimes;
+		return 'fas fa-times';
 	}
 }

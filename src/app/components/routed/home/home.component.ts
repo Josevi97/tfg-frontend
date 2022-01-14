@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SessionService } from 'src/app/services/session/session.service';
+import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
+import { EntranceService } from 'src/app/services/entrance/entrance.service';
 import { IAccount } from '../../../models/accounts.interface';
 
 @Component({
@@ -10,15 +11,17 @@ import { IAccount } from '../../../models/accounts.interface';
 })
 export class HomeComponent implements OnInit {
 	public sessionAccount: IAccount;
+	public entrances: IEntrance[];
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private sessionService: SessionService
+		private entranceService: EntranceService
 	) {}
 
 	ngOnInit(): void {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
-		console.log('home.component: ngOnInit');
-		console.log(this.sessionAccount);
+		this.entranceService.getAllEntrances().subscribe((data: IEntrancePage) => {
+			this.entrances = data.content;
+		});
 	}
 }
