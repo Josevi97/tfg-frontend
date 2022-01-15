@@ -9,23 +9,9 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	gap: 5px;
 	padding: 0 30px 0 15px;
 	text-align: center;
-}
-
-.entrance__arrows button {
-	color: var(--secondary-color);
-	font-size: 3rem;
-}
-
-.entrance__arrows button:hover {
-	color: var(--primary-color-hover);
-	font-size: 3rem;
-}
-
-.entrance__arrows button:active {
-	color: var(--primary-color-active);
-	font-size: 3rem;
 }
 
 .entrance__arrows img {
@@ -53,7 +39,7 @@
 }
 
 .entrance__date {
-	color: var(--secondary-color);
+	color: var(--light-color);
 	font-size: 0.9rem;
 }
 
@@ -66,4 +52,16 @@
 	display: flex;
 	flex-direction: column;
 	text-align: right;
+}
+
+.entrance__comment {
+	color: var(--light-color);
+}
+
+.entrance__comment:hover {
+	color: var(--primary-color-hover);
+}
+
+.entrance__comment:active {
+	color: var(--primary-color-active);
 }
