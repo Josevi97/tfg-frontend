@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/routed/home/home.component';
 import { AlertComponent } from './components/unrouted/alert/alert.component';
 import { BackgroundComponent } from './components/unrouted/background/background.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CloseButtonComponent } from './components/unrouted/close-button/close-button.component';
 import { IconsService } from './services/icons/icons.service';
 import { InitSessionComponent } from './components/unrouted/init-session/init-session.component';
@@ -18,6 +17,7 @@ import { MenuComponent } from './components/unrouted/menu/menu.component';
 import { SettingsComponent } from './components/routed/settings/settings.component';
 import { PopupComponent } from './components/unrouted/popup/popup.component';
 import { EntranceComponent } from './components/unrouted/entrance/entrance.component';
+import { VotesComponent } from './components/unrouted/votes/votes.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +32,8 @@ import { EntranceComponent } from './components/unrouted/entrance/entrance.compo
 		MenuComponent,
 		SettingsComponent,
 		PopupComponent,
-  EntranceComponent,
+		EntranceComponent,
+		VotesComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -40,7 +41,6 @@ import { EntranceComponent } from './components/unrouted/entrance/entrance.compo
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		FontAwesomeModule,
 	],
 	providers: [IconsService],
 	bootstrap: [AppComponent],

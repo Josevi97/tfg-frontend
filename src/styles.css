@@ -42,6 +42,25 @@ a {
 	text-decoration: none;
 }
 
+i {
+	color: var(--light-color);
+	cursor: pointer;
+}
+
+i.active {
+	color: var(--primary-color);
+}
+
+a:hover i,
+button:hover i {
+	color: var(--primary-color-hover);
+}
+
+a:active i,
+button:active i {
+	color: var(--primary-color-active);
+}
+
 a,
 p,
 i,

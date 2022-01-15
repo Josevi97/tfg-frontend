@@ -11,6 +11,6 @@ export class SessionResolver implements Resolve<Observable<IAccount>> {
 	constructor(private sessionService: SessionService) {}
 
 	resolve(): Observable<IAccount> {
-		return this.sessionService.check().pipe(catchError((err) => of(err)));
+		return this.sessionService.check().pipe(catchError((err) => of(null)));
 	}
 }

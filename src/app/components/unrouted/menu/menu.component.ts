@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IAccount } from 'src/app/models/accounts.interface';
+import { SessionService } from 'src/app/services/session/session.service';
 
 @Component({
 	selector: 'app-menu',
@@ -12,9 +13,22 @@ export class MenuComponent implements OnInit {
 
 	public sessionAccount: IAccount;
 
-	constructor(private activatedRoute: ActivatedRoute) {}
+	constructor(
+		private router: Router,
+		private activatedRoute: ActivatedRoute,
+		private sessionService: SessionService
+	) {}
 
 	ngOnInit(): void {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
+	}
+
+	checkSession(): void {}
+
+	logout(): void {
+		this.sessionService.logout().subscribe(() => {
+			this.sessionAccount = this.activatedRoute.snapshot.data['data'];
+			this.router.navigate(['']);
+		});
 	}
 }

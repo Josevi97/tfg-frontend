@@ -15,6 +15,7 @@
 		"experimentalDecorators": true,
 		"strictPropertyInitialization": false,
 		"moduleResolution": "node",
+		"strictNullChecks": false,
 		"importHelpers": true,
 		"target": "es2017",
 		"module": "es2020",

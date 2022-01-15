@@ -1,32 +1,32 @@
 <div class="entrance">
-	<div class="entrance__arrows">
-		<button class="btn-normal">
-			<img src="../../../../assets/images/voteUpOutline.svg" />
-		</button>
-		<p class="entrance__votes">{{ entrance.votes }}</p>
-		<button class="btn-normal">
-			<img src="../../../../assets/images/voteDownOutline.svg" />
-		</button>
-	</div>
+	<app-votes [votes]="entrance.votes"></app-votes>
 	<div class="entrance__content">
 		<div class="header">
 			<div class="data">
-				<h2 class="entrance__title link-primary">{{ entrance.title }}</h2>
+				<p class="entrance__title link-primary">{{ entrance.title }}</p>
 				<a class="entrance__account link-secondary"
 					>@{{ entrance.account.login }}</a
 				>
 			</div>
 			<div class="extra">
-				<a class="entrance__community link-secondary"
-					>#{{ entrance.community.name }}</a
-				>
+				<div>
+					<a class="entrance__community link-secondary"
+						>#{{ entrance.community.name }}</a
+					>
+				</div>
 				<span class="entrance__date">{{ entrance.createdAt }}</span>
 			</div>
 		</div>
 		<p class="entrance__body">{{ entrance.body }}</p>
-		<a class="entrance__comment">
-			<i class="{{ iconsService.getIcon('comment') }}"></i>
-			{{ entrance.comments }}
-		</a>
+		<div class="icons">
+			<a class="entrance__inspect btn-normal">
+				<i class="{{ iconsService.getIcon('inspect') }}"></i>
+			</a>
+			<a class="entrance__comment">
+				<i class="{{ iconsService.getIcon('comment') }}">
+					{{ entrance.votes }}</i
+				>
+			</a>
+		</div>
 	</div>
 </div>

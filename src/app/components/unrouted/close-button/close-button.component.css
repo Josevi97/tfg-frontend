@@ -4,17 +4,6 @@
 	margin-bottom: 10px;
 }
 
-.closeButton {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.closeButton__icon {
+.closeButtonContainer__icon {
 	font-size: 30px;
-	color: var(--secondary-color);
-}
-
-.closeButton__icon:hover {
-	color: var(--secondary-color-active);
 }

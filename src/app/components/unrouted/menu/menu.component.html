@@ -5,11 +5,18 @@
 		<a routerLink="/home" class="navbar__logo btn-normal">Sheyras</a>
 		<input class="navbar__input" type="text" placeholder="Buscar por aqui" />
 		<a
-			*ngIf="sessionAccount.id === undefined"
+			*ngIf="!sessionAccount"
 			routerLink="/auth"
 			class="link-secondary navbar__submenu"
 		>
 			Acceder
+		</a>
+		<a
+			*ngIf="sessionAccount"
+			(click)="logout()"
+			class="link-secondary navbar__submenu"
+		>
+			Logout
 		</a>
 	</div>
 </nav>
