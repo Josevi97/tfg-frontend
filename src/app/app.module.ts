@@ -18,6 +18,8 @@ import { SettingsComponent } from './components/routed/settings/settings.compone
 import { PopupComponent } from './components/unrouted/popup/popup.component';
 import { EntranceComponent } from './components/unrouted/entrance/entrance.component';
 import { VotesComponent } from './components/unrouted/votes/votes.component';
+import { SortComponent } from './components/unrouted/sort/sort.component';
+import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
 
 @NgModule({
 	declarations: [
@@ -34,6 +36,8 @@ import { VotesComponent } from './components/unrouted/votes/votes.component';
 		PopupComponent,
 		EntranceComponent,
 		VotesComponent,
+  SortComponent,
+  AccountDetailsComponent,
 	],
 	imports: [
 		HttpClientModule,

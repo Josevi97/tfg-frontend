@@ -1,0 +1,24 @@
+.content {
+	margin-bottom: 10px;
+}
+
+.sortList {
+	display: flex;
+	gap: 15px;
+	list-style: none;
+}
+
+.sortList__icon {
+	display: flex;
+	align-items: center;
+}
+
+.sortList__text {
+	font-size: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+	.sortList__text {
+		display: none;
+	}
+}

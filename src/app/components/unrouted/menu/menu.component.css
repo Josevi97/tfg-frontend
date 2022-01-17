@@ -2,6 +2,7 @@
 	height: 70px;
 	border-bottom: 1px solid var(--secondary-color);
 	z-index: var(--hard-middle-priority);
+	margin-bottom: 30px;
 }
 
 .navbar .wrap {
