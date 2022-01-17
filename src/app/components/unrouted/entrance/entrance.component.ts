@@ -8,6 +8,7 @@ import { IconsService } from 'src/app/services/icons/icons.service';
 	styleUrls: ['./entrance.component.css'],
 })
 export class EntranceComponent implements OnInit {
+	@Input() public onCommentsClick: Function;
 	@Input() public entrance: IEntrance;
 
 	constructor(public iconsService: IconsService) {}

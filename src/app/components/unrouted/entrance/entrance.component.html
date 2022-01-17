@@ -4,25 +4,24 @@
 		<div class="header">
 			<div class="data">
 				<p class="entrance__title link-primary">{{ entrance.title }}</p>
-				<a class="entrance__account link-secondary"
-					>@{{ entrance.account.login }}</a
-				>
-			</div>
-			<div class="extra">
-				<div>
+				<p>
+					Enviado por
+					<a class="entrance__account link-secondary"
+						>@{{ entrance.account.login }}</a
+					>
+					en
 					<a class="entrance__community link-secondary"
 						>#{{ entrance.community.name }}</a
 					>
-				</div>
-				<span class="entrance__date">{{ entrance.createdAt }}</span>
+					-
+
+					<span class="entrance__date">{{ entrance.createdAt }}</span>
+				</p>
 			</div>
 		</div>
 		<p class="entrance__body">{{ entrance.body }}</p>
 		<div class="icons">
-			<a class="entrance__inspect btn-normal">
-				<i class="{{ iconsService.getIcon('inspect') }}"></i>
-			</a>
-			<a class="entrance__comment">
+			<a (click)="onCommentsClick()" class="entrance__comment">
 				<i class="{{ iconsService.getIcon('comment') }}">
 					{{ entrance.votes }}</i
 				>

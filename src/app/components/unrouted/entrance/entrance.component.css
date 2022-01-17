@@ -22,24 +22,13 @@
 	font-weight: bold;
 }
 
-.entrance__community {
-	font-size: 1.3rem;
-}
-
 .entrance__date {
 	color: var(--light-color);
-	font-size: 0.9rem;
 }
 
 .entrance__body {
 	display: block;
 	height: 2.5rem;
-}
-
-.extra {
-	display: flex;
-	flex-direction: column;
-	text-align: right;
 }
 
 .icons {

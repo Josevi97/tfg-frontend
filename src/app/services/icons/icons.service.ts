@@ -8,8 +8,8 @@ export class IconsService {
 
 	public getIcon(icon: string) {
 		switch (icon) {
-			case 'inspect':
-				return 'far fa-eye';
+			case 'search':
+				return 'fas fa-search';
 			case 'comment':
 				return 'far fa-comment';
 		}
