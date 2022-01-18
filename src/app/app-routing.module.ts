@@ -10,6 +10,7 @@ import { CommunitiesComponent } from './components/routed/communities/communitie
 import { AccountsComponent } from './components/routed/accounts/accounts.component';
 import { EntranceComponent } from './components/routed/entrance/entrance.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
+import { NotFoundComponent } from './components/routed/not-found/not-found.component';
 
 const routes: Routes = [
 	{
@@ -61,6 +62,10 @@ const routes: Routes = [
 		path: 'admin',
 		component: AdminComponent,
 		resolve: { session: SessionResolver },
+	},
+	{
+		path: '**',
+		component: NotFoundComponent,
 	},
 ];
 

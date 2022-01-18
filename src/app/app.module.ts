@@ -28,6 +28,7 @@ import { AccountsComponent } from './components/routed/accounts/accounts.compone
 import { AdminComponent } from './components/routed/admin/admin.component';
 import { ListEndComponent } from './components/unrouted/list-end/list-end.component';
 import { CopyrightComponent } from './components/unrouted/copyright/copyright.component';
+import { NotFoundComponent } from './components/routed/not-found/not-found.component';
 
 @NgModule({
 	declarations: [
@@ -56,6 +57,7 @@ import { CopyrightComponent } from './components/unrouted/copyright/copyright.co
 		AccountsComponent,
 		AdminComponent,
   CopyrightComponent,
+  NotFoundComponent,
 	],
 	imports: [
 		HttpClientModule,
