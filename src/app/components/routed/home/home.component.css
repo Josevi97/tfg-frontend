@@ -1,9 +1,9 @@
 .content {
 	display: flex;
-	gap: 10px;
+	gap: 30px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1400px) {
 	.content {
 		flex-direction: column;
 	}

@@ -1,3 +1,30 @@
-<div class="post">
-	<p>account-details works!</p>
+<div class="content">
+	<div class="head">
+		<img
+			width="70"
+			class="head__image"
+			src="../../../../assets/images/not-account-image-found.png"
+			alt="not found"
+		/>
+
+		<div class="block">
+			<p class="block__number">{{ account.following }}</p>
+			<p class="block__text">siguiendo</p>
+		</div>
+
+		<div class="block">
+			<p class="block__number">{{ account.followers }}</p>
+			<p class="block__text">seguidores</p>
+		</div>
+	</div>
+	<div class="subhead">
+		<p class="subhead__title">{{ account.username }}</p>
+		<p class="subhead__subtitle">@{{ account.login }}</p>
+	</div>
+	<p class="body">
+		{{ account.description }}
+	</p>
+	<button *ngIf="showFollowButton" class="btn-primary content__button">
+		Seguir
+	</button>
 </div>

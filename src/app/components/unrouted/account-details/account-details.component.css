@@ -1,0 +1,49 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.head {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.head__image {
+	border-radius: 50%;
+}
+
+.block {
+	text-align: center;
+}
+
+.block__number {
+	font-size: 1.3rem;
+}
+
+.block__text {
+	color: var(--secondary-color);
+}
+
+.subhead__title {
+	font-size: 1.5rem;
+	color: var(--primary-color);
+}
+
+.subhead button {
+	width: 150px;
+}
+
+@media screen and (max-width: 1400px) {
+	.content__button {
+		width: 200px;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.content,
+	.content__button {
+		width: 100%;
+	}
+}

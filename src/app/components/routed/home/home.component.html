@@ -3,12 +3,36 @@
 <app-menu></app-menu>
 <div class="wrap content">
 	<div class="entranceList">
-		<app-sort></app-sort>
+		<app-sort>
+			<li>
+				<a class="sortList__link">
+					<i class="material-icons sortList__icon active">
+						apps
+						<span class="sortList__text">Todos</span>
+					</i>
+				</a>
+			</li>
+			<li>
+				<a class="sortList__link">
+					<i class="material-icons sortList__icon">
+						shuffle
+						<span class="sortList__text">Siguiendo</span>
+					</i>
+				</a>
+			</li>
+		</app-sort>
 		<app-entrance
 			*ngFor="let entrance of entrances"
 			[entrance]="entrance"
 			[onCommentsClick]="sendComment.bind(this, entrance)"
 		></app-entrance>
 	</div>
-	<app-account-details> </app-account-details>
+	<aside class="aside__details">
+		<app-account-details
+			*ngIf="sessionAccount"
+			[account]="sessionAccount"
+			[showFollowButton]="false"
+		>
+		</app-account-details>
+	</aside>
 </div>

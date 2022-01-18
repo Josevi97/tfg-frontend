@@ -2,9 +2,9 @@
 	<ul class="sortList">
 		<li>
 			<a class="sortList__link">
-				<i class="material-icons sortList__icon">
+				<i class="material-icons sortList__icon active">
 					calendar_today
-					<span class="sortList__text">New</span>
+					<span class="sortList__text">Nuevos</span>
 				</i>
 			</a>
 		</li>
@@ -12,7 +12,7 @@
 			<a class="sortList__link">
 				<i class="material-icons sortList__icon">
 					whatshot
-					<span class="sortList__text">Hot</span>
+					<span class="sortList__text">Activos</span>
 				</i>
 			</a>
 		</li>
@@ -20,7 +20,7 @@
 			<a class="sortList__link">
 				<i class="material-icons sortList__icon">
 					comment
-					<span class="sortList__text">Comments</span>
+					<span class="sortList__text">Comentarios</span>
 				</i>
 			</a>
 		</li>
@@ -28,9 +28,13 @@
 			<a class="sortList__link">
 				<i class="material-icons sortList__icon">
 					star_outline
-					<span class="sortList__text">Votes</span>
+					<span class="sortList__text">Votos</span>
 				</i>
 			</a>
 		</li>
+	</ul>
+
+	<ul class="type">
+		<ng-content></ng-content>
 	</ul>
 </div>
