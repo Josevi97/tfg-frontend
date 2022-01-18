@@ -51,6 +51,7 @@ i {
 
 .active {
 	color: var(--primary-color);
+	cursor: default;
 }
 
 a:not('active'):hover i,
