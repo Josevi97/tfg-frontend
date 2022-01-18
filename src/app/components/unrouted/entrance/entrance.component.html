@@ -1,9 +1,9 @@
-<div class="post">
+<a (click)="navigateToEntrance()" class="post content">
 	<app-votes [votes]="entrance.votes"></app-votes>
 	<div class="entrance__content">
 		<div class="header">
 			<div class="data">
-				<p class="entrance__title link-primary">{{ entrance.title }}</p>
+				<p class="entrance__title">{{ entrance.title }}</p>
 				<p class="entrance__subtitle">
 					Enviado por
 					<a class="entrance__account link-secondary"
@@ -21,11 +21,14 @@
 		</div>
 		<p class="entrance__body">{{ entrance.body }}</p>
 		<div class="icons">
-			<a (click)="onCommentsClick()" class="entrance__comment">
+			<a
+				(click)="onCommentsClick(); $event.stopPropagation()"
+				class="entrance__comment"
+			>
 				<i class="{{ iconsService.getIcon('comment') }}">
 					{{ entrance.comments }}</i
 				>
 			</a>
 		</div>
 	</div>
-</div>
+</a>

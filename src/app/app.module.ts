@@ -17,6 +17,7 @@ import { MenuComponent } from './components/unrouted/menu/menu.component';
 import { SettingsComponent } from './components/routed/settings/settings.component';
 import { PopupComponent } from './components/unrouted/popup/popup.component';
 import { EntranceComponent } from './components/unrouted/entrance/entrance.component';
+import { EntranceComponent as REntranceComponent } from './components/routed/entrance/entrance.component';
 import { VotesComponent } from './components/unrouted/votes/votes.component';
 import { SortComponent } from './components/unrouted/sort/sort.component';
 import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
@@ -25,29 +26,36 @@ import { AccountComponent } from './components/routed/account/account.component'
 import { CommunitiesComponent } from './components/routed/communities/communities.component';
 import { AccountsComponent } from './components/routed/accounts/accounts.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
+import { ListEndComponent } from './components/unrouted/list-end/list-end.component';
+import { CopyrightComponent } from './components/unrouted/copyright/copyright.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		AuthComponent,
-		HomeComponent,
+
 		AlertComponent,
 		BackgroundComponent,
 		CloseButtonComponent,
 		InitSessionComponent,
 		RegisterAccountComponent,
 		MenuComponent,
-		SettingsComponent,
 		PopupComponent,
 		EntranceComponent,
 		VotesComponent,
-  SortComponent,
-  AccountDetailsComponent,
-  CommunityComponent,
-  AccountComponent,
-  CommunitiesComponent,
-  AccountsComponent,
-  AdminComponent,
+		SortComponent,
+		AccountDetailsComponent,
+		ListEndComponent,
+
+		AuthComponent,
+		HomeComponent,
+		SettingsComponent,
+		CommunityComponent,
+		AccountComponent,
+		REntranceComponent,
+		CommunitiesComponent,
+		AccountsComponent,
+		AdminComponent,
+  CopyrightComponent,
 	],
 	imports: [
 		HttpClientModule,

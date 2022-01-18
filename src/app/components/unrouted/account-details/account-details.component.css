@@ -7,23 +7,11 @@
 .head {
 	display: flex;
 	align-items: center;
-	gap: 30px;
+	gap: 15px;
 }
 
 .head__image {
 	border-radius: 50%;
-}
-
-.block {
-	text-align: center;
-}
-
-.block__number {
-	font-size: 1.3rem;
-}
-
-.block__text {
-	color: var(--secondary-color);
 }
 
 .subhead__title {
@@ -39,9 +27,44 @@
 	width: 150px;
 }
 
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	color: var(--secondary-color);
+}
+
+.info p {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.info__variable {
+	color: black;
+}
+
 @media screen and (max-width: 1400px) {
 	.content__button {
 		width: 200px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.head {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.info {
+		flex-direction: row;
+		justify-content: center;
+		gap: 30px;
 	}
 }
 

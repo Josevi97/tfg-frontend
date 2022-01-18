@@ -1,3 +1,7 @@
+.content {
+	cursor: default;
+}
+
 .entrance__content {
 	display: flex;
 	flex-direction: column;
@@ -13,6 +17,7 @@
 .entrance__title {
 	font-size: 1.5rem;
 	font-weight: bold;
+	color: var(--primary-color);
 }
 
 .entrance__subtitle {

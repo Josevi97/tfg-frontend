@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IEntrance } from 'src/app/models/entrances.interface';
 
 @Component({
-  selector: 'app-entrance',
-  templateUrl: './entrance.component.html',
-  styleUrls: ['./entrance.component.css']
+	templateUrl: './entrance.component.html',
+	styleUrls: ['./entrance.component.css'],
 })
 export class EntranceComponent implements OnInit {
+	public entrance: IEntrance;
 
-  constructor() { }
+	constructor(private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {
+		this.entrance = this.activatedRoute.snapshot.params['entrance'];
+	}
 }

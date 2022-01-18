@@ -5,7 +5,6 @@ import { InitSessionComponent } from '../../unrouted/init-session/init-session.c
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
 
 @Component({
-	selector: 'app-auth',
 	templateUrl: './auth.component.html',
 	styleUrls: ['./auth.component.css'],
 })

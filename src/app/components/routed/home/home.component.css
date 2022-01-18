@@ -3,6 +3,12 @@
 	gap: 30px;
 }
 
+.entranceList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .buttons button {
 	width: 100%;
 }

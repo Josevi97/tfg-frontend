@@ -10,8 +10,12 @@ export class IconsService {
 		switch (icon) {
 			case 'search':
 				return 'fas fa-search';
+			case 'copyright':
+				return 'far fa-copyright';
 			case 'comment':
 				return 'far fa-comment';
+			case 'copyright':
+				return 'far fa-copyright';
 		}
 
 		return '';

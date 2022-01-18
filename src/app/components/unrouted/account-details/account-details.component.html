@@ -1,29 +1,29 @@
 <div class="content">
 	<div class="head">
 		<img
-			width="70"
+			width="60"
 			class="head__image"
 			src="../../../../assets/images/not-account-image-found.png"
 			alt="not found"
 		/>
-
-		<div class="block">
-			<p class="block__number">{{ account.following }}</p>
-			<p class="block__text">siguiendo</p>
-		</div>
-
-		<div class="block">
-			<p class="block__number">{{ account.followers }}</p>
-			<p class="block__text">seguidores</p>
+		<div class="subhead">
+			<p class="subhead__title">{{ account.username }}</p>
+			<p class="subhead__subtitle">@{{ account.login }}</p>
 		</div>
 	</div>
-	<div class="subhead">
-		<p class="subhead__title">{{ account.username }}</p>
-		<p class="subhead__subtitle">@{{ account.login }}</p>
+	<div class="body">
+		<div class="info">
+			<p>
+				<span class="info__variable">{{ account.following }} </span> siguiendo
+			</p>
+			<p>
+				<span class="info__variable">{{ account.followers }} </span>seguidores
+			</p>
+		</div>
+		<p>
+			{{ account.description }}
+		</p>
 	</div>
-	<p class="body">
-		{{ account.description }}
-	</p>
 	<button *ngIf="showFollowButton" class="btn-primary content__button">
 		Seguir
 	</button>

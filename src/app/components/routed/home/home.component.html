@@ -21,6 +21,7 @@
 			[entrance]="entrance"
 			[onCommentsClick]="sendComment.bind(this, entrance)"
 		></app-entrance>
+		<app-list-end [hasContent]="entrances?.length > 0"></app-list-end>
 	</div>
 	<aside class="asideDetails">
 		<app-account-details
@@ -39,5 +40,6 @@
 				Modo administrador
 			</a>
 		</div>
+		<app-copyright> </app-copyright>
 	</aside>
 </div>

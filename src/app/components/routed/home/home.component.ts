@@ -9,7 +9,6 @@ import { AlertComponent } from '../../unrouted/alert/alert.component';
 import { EntranceComponent } from '../../unrouted/entrance/entrance.component';
 
 @Component({
-	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.css'],
 })
