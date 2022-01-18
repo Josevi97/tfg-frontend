@@ -31,6 +31,10 @@
 	color: var(--primary-color);
 }
 
+.subhead__subtitle {
+	color: var(--secondary-color);
+}
+
 .subhead button {
 	width: 150px;
 }

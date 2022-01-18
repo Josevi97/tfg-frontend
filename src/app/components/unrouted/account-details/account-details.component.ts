@@ -8,6 +8,7 @@ import { IAccount } from 'src/app/models/accounts.interface';
 })
 export class AccountDetailsComponent implements OnInit {
 	@Input() public account: IAccount;
+	@Input() public active: boolean;
 	@Input() public showFollowButton: boolean;
 
 	constructor() {}

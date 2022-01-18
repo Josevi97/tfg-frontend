@@ -1,34 +1,13 @@
 <div class="post content">
 	<ul class="sortList">
-		<li>
-			<a class="sortList__link">
-				<i class="material-icons sortList__icon active">
-					calendar_today
-					<span class="sortList__text">Nuevos</span>
-				</i>
-			</a>
-		</li>
-		<li>
-			<a class="sortList__link">
-				<i class="material-icons sortList__icon">
-					whatshot
-					<span class="sortList__text">Activos</span>
-				</i>
-			</a>
-		</li>
-		<li>
-			<a class="sortList__link">
-				<i class="material-icons sortList__icon">
-					comment
-					<span class="sortList__text">Comentarios</span>
-				</i>
-			</a>
-		</li>
-		<li>
-			<a class="sortList__link">
-				<i class="material-icons sortList__icon">
-					star_outline
-					<span class="sortList__text">Votos</span>
+		<li *ngFor="let element of data">
+			<a (click)="onClick(element.key)" class="sortList__link">
+				<i
+					[class.active]="state === element.key"
+					class="material-icons sortList__icon"
+				>
+					{{ element.icon }}
+					<span class="sortList__text">{{ element.text }}</span>
 				</i>
 			</a>
 		</li>

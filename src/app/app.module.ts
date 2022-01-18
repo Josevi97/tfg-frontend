@@ -20,6 +20,11 @@ import { EntranceComponent } from './components/unrouted/entrance/entrance.compo
 import { VotesComponent } from './components/unrouted/votes/votes.component';
 import { SortComponent } from './components/unrouted/sort/sort.component';
 import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
+import { CommunityComponent } from './components/routed/community/community.component';
+import { AccountComponent } from './components/routed/account/account.component';
+import { CommunitiesComponent } from './components/routed/communities/communities.component';
+import { AccountsComponent } from './components/routed/accounts/accounts.component';
+import { AdminComponent } from './components/routed/admin/admin.component';
 
 @NgModule({
 	declarations: [
@@ -38,6 +43,11 @@ import { AccountDetailsComponent } from './components/unrouted/account-details/a
 		VotesComponent,
   SortComponent,
   AccountDetailsComponent,
+  CommunityComponent,
+  AccountComponent,
+  CommunitiesComponent,
+  AccountsComponent,
+  AdminComponent,
 	],
 	imports: [
 		HttpClientModule,

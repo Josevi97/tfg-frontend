@@ -4,19 +4,14 @@
 <div class="wrap content">
 	<div class="entranceList">
 		<app-sort>
-			<li>
-				<a class="sortList__link">
-					<i class="material-icons sortList__icon active">
-						apps
-						<span class="sortList__text">Todos</span>
-					</i>
-				</a>
-			</li>
-			<li>
-				<a class="sortList__link">
-					<i class="material-icons sortList__icon">
-						shuffle
-						<span class="sortList__text">Siguiendo</span>
+			<li *ngFor="let element of sortData">
+				<a (click)="changeState(element.key)" class="sortList__link">
+					<i
+						[class.active]="state === element.key"
+						class="material-icons sortList__icon active"
+					>
+						{{ element.icon }}
+						<span class="sortList__text">{{ element.text }}</span>
 					</i>
 				</a>
 			</li>
@@ -27,12 +22,22 @@
 			[onCommentsClick]="sendComment.bind(this, entrance)"
 		></app-entrance>
 	</div>
-	<aside class="aside__details">
+	<aside class="asideDetails">
 		<app-account-details
 			*ngIf="sessionAccount"
+			[active]="false"
 			[account]="sessionAccount"
 			[showFollowButton]="false"
 		>
 		</app-account-details>
+		<div class="buttons">
+			<a
+				*ngIf="sessionAccount && sessionAccount.admin"
+				[routerLink]="['/admin']"
+				class="asideDetails__button btn-primary"
+			>
+				Modo administrador
+			</a>
+		</div>
 	</aside>
 </div>

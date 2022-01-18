@@ -50,7 +50,7 @@ i {
 	cursor: pointer;
 }
 
-i.active {
+.active {
 	color: var(--primary-color);
 }
 
@@ -67,14 +67,20 @@ button:not('active'):active i {
 a,
 p,
 i,
+button,
+input,
 span,
 strong {
 	font-size: 1em;
 }
 
+a[class*='btn'],
 button,
 input[type='submit'] {
+	display: block;
+	text-align: center;
 	border-radius: var(--button-radius);
+	cursor: pointer;
 }
 
 input[type='text'],
@@ -82,11 +88,6 @@ input[type='email'],
 input[type='password'] {
 	padding: 10px;
 	outline: none;
-}
-
-button,
-input[type='submit'] {
-	cursor: pointer;
 }
 
 .btn-normal {
@@ -222,7 +223,10 @@ input[type='submit'] {
 	font-size: 1rem;
 }
 
-.aside__details {
+.asideDetails {
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
 	width: var(--aside-size);
 }
 
@@ -245,7 +249,7 @@ input[type='submit'] {
 		width: 65%;
 	}
 
-	.aside__details {
+	.asideDetails {
 		width: 100%;
 	}
 }

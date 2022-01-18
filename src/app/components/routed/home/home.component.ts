@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
+import { ISort } from 'src/app/models/sort.interface';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntranceService } from 'src/app/services/entrance/entrance.service';
 import { IAccount } from '../../../models/accounts.interface';
@@ -18,11 +19,28 @@ export class HomeComponent implements OnInit {
 	public sessionAccount: IAccount;
 	public entrances: IEntrance[];
 
+	public state: string;
+	public sortData: ISort[];
+
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private entranceService: EntranceService,
 		private componentFactoryService: ComponentFactoryService
-	) {}
+	) {
+		this.state = 'all';
+		this.sortData = [
+			{
+				icon: 'apps',
+				text: 'Todos',
+				key: 'all',
+			},
+			{
+				icon: 'shuffle',
+				text: 'Siguiendo',
+				key: 'own',
+			},
+		];
+	}
 
 	ngOnInit(): void {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
@@ -52,5 +70,9 @@ export class HomeComponent implements OnInit {
 		};
 
 		console.log(data);
+	}
+
+	changeState(key: string): void {
+		this.state = key;
 	}
 }
