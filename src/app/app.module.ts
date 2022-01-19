@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactory, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -26,6 +26,12 @@ import { CopyrightComponent } from './components/unrouted/copyright/copyright.co
 import { NotFoundComponent } from './components/routed/not-found/not-found.component';
 import { AsideDetailsComponent } from './components/unrouted/aside-details/aside-details.component';
 import { MainComponent } from './components/routed/main/main.component';
+import { SessionService } from './services/session/session.service';
+import { AccountsService } from './services/accounts/accounts.service';
+import { EntrancesService } from './services/entrances/entrances.service';
+import { CommunitiesService } from './services/communities/communities.service';
+import { ErrorService } from './services/error/error.service';
+import { ComponentFactoryService } from './services/componentFactory/component-factory.service';
 
 @NgModule({
 	declarations: [
@@ -60,7 +66,15 @@ import { MainComponent } from './components/routed/main/main.component';
 		FormsModule,
 		ReactiveFormsModule,
 	],
-	providers: [IconsService],
+	providers: [
+		ComponentFactoryService,
+		ErrorService,
+		SessionService,
+		AccountsService,
+		EntrancesService,
+		CommunitiesService,
+		IconsService,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

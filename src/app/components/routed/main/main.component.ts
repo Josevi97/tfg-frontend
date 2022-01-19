@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
+import { CommunitiesService } from 'src/app/services/communities/communities.service';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
-import { EntranceService } from 'src/app/services/entrance/entrance.service';
+import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { IAccount } from '../../../models/accounts.interface';
 import { AlertComponent } from '../../unrouted/alert/alert.component';
 import { EntranceComponent } from '../../unrouted/entrance/entrance.component';
@@ -28,7 +29,8 @@ export class MainComponent implements OnInit {
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private accountsService: AccountsService,
-		private entranceService: EntranceService,
+		private entrancesService: EntrancesService,
+		private communitiesService: CommunitiesService,
 		private componentFactoryService: ComponentFactoryService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
@@ -69,7 +71,7 @@ export class MainComponent implements OnInit {
 
 	ngOnInit(): void {
 		if (this.account === undefined && this.community === undefined) {
-			this.entranceService
+			this.entrancesService
 				.getAllEntrances()
 				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
 		} else if (this.account !== undefined) {
@@ -80,6 +82,9 @@ export class MainComponent implements OnInit {
 				.getEntrancesByAccount(this.account)
 				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
 		} else {
+			this.communitiesService
+				.getEntrancesByCommunity(this.community)
+				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
 		}
 
 		console.log(this.entrances);
