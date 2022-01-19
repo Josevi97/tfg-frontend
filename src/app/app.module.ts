@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/routed/auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './components/routed/home/home.component';
 import { AlertComponent } from './components/unrouted/alert/alert.component';
 import { BackgroundComponent } from './components/unrouted/background/background.component';
 import { CloseButtonComponent } from './components/unrouted/close-button/close-button.component';
@@ -21,15 +20,12 @@ import { EntranceComponent as REntranceComponent } from './components/routed/ent
 import { VotesComponent } from './components/unrouted/votes/votes.component';
 import { SortComponent } from './components/unrouted/sort/sort.component';
 import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
-import { CommunityComponent } from './components/routed/community/community.component';
-import { AccountComponent } from './components/routed/account/account.component';
-import { CommunitiesComponent } from './components/routed/communities/communities.component';
-import { AccountsComponent } from './components/routed/accounts/accounts.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
 import { ListEndComponent } from './components/unrouted/list-end/list-end.component';
 import { CopyrightComponent } from './components/unrouted/copyright/copyright.component';
 import { NotFoundComponent } from './components/routed/not-found/not-found.component';
 import { AsideDetailsComponent } from './components/unrouted/aside-details/aside-details.component';
+import { MainComponent } from './components/routed/main/main.component';
 
 @NgModule({
 	declarations: [
@@ -49,17 +45,13 @@ import { AsideDetailsComponent } from './components/unrouted/aside-details/aside
 		ListEndComponent,
 
 		AuthComponent,
-		HomeComponent,
+		MainComponent,
 		SettingsComponent,
-		CommunityComponent,
-		AccountComponent,
 		REntranceComponent,
-		CommunitiesComponent,
-		AccountsComponent,
 		AdminComponent,
-  CopyrightComponent,
-  NotFoundComponent,
-  AsideDetailsComponent,
+		CopyrightComponent,
+		NotFoundComponent,
+		AsideDetailsComponent,
 	],
 	imports: [
 		HttpClientModule,

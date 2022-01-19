@@ -10,10 +10,10 @@ import { AlertComponent } from '../../unrouted/alert/alert.component';
 import { EntranceComponent } from '../../unrouted/entrance/entrance.component';
 
 @Component({
-	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css'],
+	templateUrl: './main.component.html',
+	styleUrls: ['./main.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class MainComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
 	public sessionAccount: IAccount;
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 		this.community = this.activatedRoute.snapshot.params['community'];
 		this.currentAccount = this.sessionAccount;
 
-		if (this.account === undefined) {
+		if (this.account === undefined && this.community === undefined) {
 			this.state = 'all';
 			this.sortData = [
 				{
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
 					key: 'own',
 				},
 			];
-		} else {
+		} else if (this.account !== undefined) {
 			this.state = 'entrances';
 			this.sortData = [
 				{

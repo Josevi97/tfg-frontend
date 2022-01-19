@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/routed/home/home.component';
 import { AuthComponent } from './components/routed/auth/auth.component';
 import { SessionResolver } from './resolvers/session.resolver';
 import { SettingsComponent } from './components/routed/settings/settings.component';
 import { EntranceComponent } from './components/routed/entrance/entrance.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
 import { NotFoundComponent } from './components/routed/not-found/not-found.component';
+import { MainComponent } from './components/routed/main/main.component';
 
 const routes: Routes = [
 	{
@@ -16,7 +16,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'home',
-		component: HomeComponent,
+		component: MainComponent,
 		resolve: { session: SessionResolver },
 	},
 	{
@@ -31,12 +31,12 @@ const routes: Routes = [
 	},
 	{
 		path: 'account/:account',
-		component: HomeComponent,
+		component: MainComponent,
 		resolve: { session: SessionResolver },
 	},
 	{
 		path: 'community/:community',
-		component: HomeComponent,
+		component: MainComponent,
 		resolve: { session: SessionResolver },
 	},
 	{
