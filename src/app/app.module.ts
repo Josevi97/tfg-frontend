@@ -29,6 +29,7 @@ import { AdminComponent } from './components/routed/admin/admin.component';
 import { ListEndComponent } from './components/unrouted/list-end/list-end.component';
 import { CopyrightComponent } from './components/unrouted/copyright/copyright.component';
 import { NotFoundComponent } from './components/routed/not-found/not-found.component';
+import { AsideDetailsComponent } from './components/unrouted/aside-details/aside-details.component';
 
 @NgModule({
 	declarations: [
@@ -58,6 +59,7 @@ import { NotFoundComponent } from './components/routed/not-found/not-found.compo
 		AdminComponent,
   CopyrightComponent,
   NotFoundComponent,
+  AsideDetailsComponent,
 	],
 	imports: [
 		HttpClientModule,

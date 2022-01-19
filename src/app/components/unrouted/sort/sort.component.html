@@ -14,6 +14,16 @@
 	</ul>
 
 	<ul class="type">
-		<ng-content></ng-content>
+		<li *ngFor="let element of extraElements">
+			<a (click)="onExtraClick(element.key)" class="sortList__link">
+				<i
+					[class.active]="extraState === element.key"
+					class="material-icons sortList__icon active"
+				>
+					{{ element.icon }}
+					<span class="sortList__text">{{ element.text }}</span>
+				</i>
+			</a>
+		</li>
 	</ul>
 </div>

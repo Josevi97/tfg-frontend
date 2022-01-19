@@ -33,7 +33,6 @@
 	--hard-front-priority: calc(var(--hard-back-priority) + 2);
 
 	--content-gap: 30px;
-	--aside-size: 300px;
 }
 
 @font-face {
@@ -219,20 +218,26 @@ input[type='password'] {
 	padding: 15px;
 }
 
+.pageContent {
+	display: flex;
+	gap: 30px;
+}
+
+.list {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .sortList__icon {
 	display: flex;
 	align-items: center;
 }
 
+.sortList__icon,
 .sortList__text {
-	font-size: 1rem;
-}
-
-.asideDetails {
-	display: flex;
-	gap: 20px;
-	flex-direction: column;
-	width: var(--aside-size);
+	font-size: 1.2rem;
 }
 
 @keyframes inputFocus {
@@ -254,8 +259,12 @@ input[type='password'] {
 		width: 65%;
 	}
 
-	.asideDetails {
-		width: 100%;
+	.pageContent {
+		flex-direction: column;
+	}
+
+	.list {
+		order: 2;
 	}
 }
 

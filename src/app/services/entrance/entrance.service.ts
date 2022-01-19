@@ -15,7 +15,7 @@ export class EntranceService {
 
 	getAllEntrances(): Observable<IEntrancePage> {
 		return this.http
-			.get<any>(this.ENTRANCE_URI)
+			.get<IEntrancePage>(this.ENTRANCE_URI)
 			.pipe(catchError(this.errorService.handleError));
 	}
 }

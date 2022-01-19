@@ -1,20 +1,13 @@
 <template #alert></template>
 
 <app-menu></app-menu>
-<div class="wrap content">
-	<div class="entranceList">
-		<app-sort>
-			<li *ngFor="let element of sortData">
-				<a (click)="changeState(element.key)" class="sortList__link">
-					<i
-						[class.active]="state === element.key"
-						class="material-icons sortList__icon active"
-					>
-						{{ element.icon }}
-						<span class="sortList__text">{{ element.text }}</span>
-					</i>
-				</a>
-			</li>
+<div class="wrap pageContent">
+	<div class="list">
+		<app-sort
+			[extraState]="state"
+			[extraElements]="sortData"
+			[onExtraClick]="this.changeState.bind(this)"
+		>
 		</app-sort>
 		<app-entrance
 			*ngFor="let entrance of entrances"
@@ -24,23 +17,15 @@
 		<app-list-end [hasContent]="entrances?.length > 0"></app-list-end>
 		<div></div>
 	</div>
-	<aside class="asideDetails">
+	<app-aside-details>
 		<app-account-details
-			*ngIf="sessionAccount"
+			*ngIf="sessionAccount || account !== undefined"
 			[active]="false"
-			[account]="sessionAccount"
-			[showFollowButton]="false"
+			[account]="currentAccount"
+			[showFollowButton]="
+				account !== undefined && currentAccount.id !== sessionAccount.id
+			"
 		>
 		</app-account-details>
-		<div class="buttons">
-			<a
-				*ngIf="sessionAccount && sessionAccount.admin"
-				[routerLink]="['/admin']"
-				class="asideDetails__button btn-primary"
-			>
-				Modo administrador
-			</a>
-		</div>
-		<app-copyright> </app-copyright>
-	</aside>
+	</app-aside-details>
 </div>

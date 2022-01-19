@@ -1,0 +1,12 @@
+.asideDetails {
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
+	width: 300px;
+}
+
+@media screen and (max-width: 1400px) {
+	.asideDetails {
+		width: 100%;
+	}
+}

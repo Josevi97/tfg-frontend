@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ISort } from 'src/app/models/sort.interface';
 
 @Component({
@@ -7,6 +7,10 @@ import { ISort } from 'src/app/models/sort.interface';
 	styleUrls: ['./sort.component.css'],
 })
 export class SortComponent implements OnInit {
+	@Input() public extraState: string;
+	@Input() public extraElements: ISort[];
+	@Input() public onExtraClick: Function;
+
 	public state: string;
 	public data: ISort[];
 
