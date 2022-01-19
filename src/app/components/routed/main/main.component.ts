@@ -38,7 +38,46 @@ export class MainComponent implements OnInit {
 		this.community = this.activatedRoute.snapshot.params['community'];
 		this.currentAccount = this.sessionAccount;
 
-		if (this.account === undefined && this.community === undefined) {
+		this.initSortData();
+	}
+
+	ngOnInit(): void {
+		this.initEntrances();
+	}
+
+	createAlert(): any {
+		const a = this.componentFactoryService.generateComponent(
+			AlertComponent,
+			this.alertRef
+		);
+
+		a.instance.close = () => this.componentFactoryService.destroyComponent(a);
+		return a;
+	}
+
+	sendComment(data: IEntrance): void {
+		const a = this.createAlert();
+		a.instance.onAfterViewInit = () => {
+			const e = this.componentFactoryService.generateComponent(
+				EntranceComponent,
+				a.instance.componentRef
+			);
+			e.instance.entrance = data;
+		};
+
+		console.log(data);
+	}
+
+	changeState(key: string): void {
+		this.state = key;
+	}
+
+	initSortData(): void {
+		if (
+			this.sessionAccount &&
+			this.account === undefined &&
+			this.community === undefined
+		) {
 			this.state = 'all';
 			this.sortData = [
 				{
@@ -69,51 +108,33 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	ngOnInit(): void {
+	initEntrances(): void {
 		if (this.account === undefined && this.community === undefined) {
 			this.entrancesService
 				.getAllEntrances()
 				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
-		} else if (this.account !== undefined) {
+		} else if (this.community !== undefined) {
+			this.communitiesService
+				.getEntrancesByCommunity(this.community)
+				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
+		} else {
 			this.accountsService
 				.findOne(this.account)
 				.subscribe((data: IAccount) => (this.currentAccount = data));
 			this.accountsService
 				.getEntrancesByAccount(this.account)
 				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
-		} else {
-			this.communitiesService
-				.getEntrancesByCommunity(this.community)
-				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
+		}
+	}
+
+	shouldShowSubtitle(key: string): boolean {
+		switch (key) {
+			case 'account':
+				return !this.account;
+			case 'community':
+				return !this.community;
 		}
 
-		console.log(this.entrances);
-	}
-
-	createAlert(): any {
-		const a = this.componentFactoryService.generateComponent(
-			AlertComponent,
-			this.alertRef
-		);
-
-		a.instance.close = () => this.componentFactoryService.destroyComponent(a);
-		return a;
-	}
-
-	sendComment(data: IEntrance): void {
-		const a = this.createAlert();
-		a.instance.onAfterViewInit = () => {
-			const e = this.componentFactoryService.generateComponent(
-				EntranceComponent,
-				a.instance.componentRef
-			);
-			e.instance.entrance = data;
-		};
-
-		console.log(data);
-	}
-
-	changeState(key: string): void {
-		this.state = key;
+		return false;
 	}
 }

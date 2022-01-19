@@ -8,14 +8,16 @@
 			<div class="data">
 				<p class="entrance__title">{{ entrance.title }}</p>
 				<p class="entrance__subtitle">
-					Enviado por
+					Enviado {{ showAccount ? 'por ' : '' }}
 					<a
+						*ngIf="showAccount"
 						(click)="navigateToAccount(); $event.stopPropagation()"
 						class="entrance__account link-secondary"
 						>@{{ entrance.account.login }}</a
 					>
-					en
+					{{ showCommunity ? 'en ' : '' }}
 					<a
+						*ngIf="showCommunity"
 						(click)="navigateToCommunity(); $event.stopPropagation()"
 						class="entrance__community link-secondary"
 						>#{{ entrance.community.name }}</a

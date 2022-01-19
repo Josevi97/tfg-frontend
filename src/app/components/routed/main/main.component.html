@@ -11,6 +11,8 @@
 		</app-sort>
 		<app-entrance
 			*ngFor="let entrance of entrances"
+			[showAccount]="shouldShowSubtitle('account')"
+			[showCommunity]="shouldShowSubtitle('community')"
 			[entrance]="entrance"
 			[onCommentsClick]="sendComment.bind(this, entrance)"
 		></app-entrance>

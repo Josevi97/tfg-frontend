@@ -11,6 +11,8 @@ import { IconsService } from 'src/app/services/icons/icons.service';
 export class EntranceComponent implements OnInit {
 	@Input() public onCommentsClick: Function;
 	@Input() public entrance: IEntrance;
+	@Input() public showAccount: boolean;
+	@Input() public showCommunity: boolean;
 
 	constructor(public iconsService: IconsService, public router: Router) {}
 
