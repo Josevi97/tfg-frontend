@@ -16,7 +16,19 @@ export class EntranceComponent implements OnInit {
 
 	ngOnInit(): void {}
 
+	onVotesClick(key: string): void {
+		console.log(key);
+	}
+
 	navigateToEntrance(): void {
 		this.router.navigate([`/entrance/${this.entrance.id}`]);
+	}
+
+	navigateToAccount(): void {
+		this.router.navigate([`/account/${this.entrance.account.id}`]);
+	}
+
+	navigateToCommunity(): void {
+		this.router.navigate([`/community/${this.entrance.community.id}`]);
 	}
 }

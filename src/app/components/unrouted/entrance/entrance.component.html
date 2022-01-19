@@ -1,16 +1,23 @@
 <a (click)="navigateToEntrance()" class="post content">
-	<app-votes [votes]="entrance.votes"></app-votes>
+	<app-votes
+		[onClick]="onVotesClick.bind(this)"
+		[votes]="entrance.votes"
+	></app-votes>
 	<div class="entrance__content">
 		<div class="header">
 			<div class="data">
 				<p class="entrance__title">{{ entrance.title }}</p>
 				<p class="entrance__subtitle">
 					Enviado por
-					<a class="entrance__account link-secondary"
+					<a
+						(click)="navigateToAccount(); $event.stopPropagation()"
+						class="entrance__account link-secondary"
 						>@{{ entrance.account.login }}</a
 					>
 					en
-					<a class="entrance__community link-secondary"
+					<a
+						(click)="navigateToCommunity(); $event.stopPropagation()"
+						class="entrance__community link-secondary"
 						>#{{ entrance.community.name }}</a
 					>
 					-

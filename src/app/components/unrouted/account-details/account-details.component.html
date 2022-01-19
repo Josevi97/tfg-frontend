@@ -1,16 +1,16 @@
 <div class="content">
-	<div class="head">
+	<a (click)="navigateToAccount()" class="head">
 		<img
 			width="60"
 			class="head__image"
 			src="../../../../assets/images/not-account-image-found.png"
 			alt="not found"
 		/>
-		<div class="subhead">
+		<span class="subhead">
 			<p class="subhead__title">{{ account.username }}</p>
 			<p class="subhead__subtitle">@{{ account.login }}</p>
-		</div>
-	</div>
+		</span>
+	</a>
 	<div class="body">
 		<div class="info">
 			<p>
