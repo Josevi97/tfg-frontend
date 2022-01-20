@@ -64,8 +64,6 @@ export class MainComponent implements OnInit {
 			);
 			e.instance.entrance = data;
 		};
-
-		console.log(data);
 	}
 
 	changeState(key: string): void {
