@@ -55,23 +55,6 @@
 	}
 }
 
-@media screen and (max-width: 768px) {
-	.head {
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.subhead {
-		text-align: center;
-	}
-
-	.info {
-		flex-direction: row;
-		justify-content: center;
-		gap: 30px;
-	}
-}
-
 @media screen and (max-width: 576px) {
 	.content,
 	.content__button {
