@@ -29,6 +29,11 @@
 	z-index: 2;
 }
 
+.buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
 .componentContainer {
 	padding: 30px;
 }

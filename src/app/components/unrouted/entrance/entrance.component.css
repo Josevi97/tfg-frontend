@@ -1,5 +1,21 @@
+.post {
+	display: flex;
+	align-items: center;
+}
+
 .content {
-	cursor: default;
+	display: flex;
+	gap: 20px;
+	padding: 5px 15px;
+	border-left: 3px solid var(--primary-color);
+}
+
+.content:hover {
+	border-left: 3px solid var(--primary-color-hover);
+}
+
+.content:hover .entrance__title {
+	color: var(--primary-color-hover);
 }
 
 .entrance__content {

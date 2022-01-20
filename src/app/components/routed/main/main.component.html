@@ -9,13 +9,15 @@
 			[onExtraClick]="this.changeState.bind(this)"
 		>
 		</app-sort>
-		<app-entrance
-			*ngFor="let entrance of entrances"
-			[showAccount]="shouldShowSubtitle('account')"
-			[showCommunity]="shouldShowSubtitle('community')"
-			[entrance]="entrance"
-			[onCommentsClick]="sendComment.bind(this, entrance)"
-		></app-entrance>
+		<div class="entrances">
+			<app-entrance
+				*ngFor="let entrance of entrances"
+				[showAccount]="shouldShowSubtitle('account')"
+				[showCommunity]="shouldShowSubtitle('community')"
+				[entrance]="entrance"
+				[onCommentsClick]="sendComment.bind(this, entrance)"
+			></app-entrance>
+		</div>
 		<app-list-end [hasContent]="entrances?.length > 0"></app-list-end>
 		<div></div>
 	</div>
@@ -25,7 +27,7 @@
 			[active]="false"
 			[account]="currentAccount"
 			[showFollowButton]="
-				account !== undefined && currentAccount.id !== sessionAccount.id
+				account !== undefined && currentAccount?.id !== sessionAccount?.id
 			"
 		>
 		</app-account-details>

@@ -57,13 +57,13 @@ i {
 	color: var(--primary-color);
 }
 
-a:hover > i:not(.active),
-button:hover > i:not(.active) {
+a:hover i,
+button:not('active'):hover i {
 	color: var(--primary-color-hover);
 }
 
-a:active i,
-button::active i {
+a:not('active'):active i,
+button:not('active'):active i {
 	color: var(--primary-color-active);
 }
 

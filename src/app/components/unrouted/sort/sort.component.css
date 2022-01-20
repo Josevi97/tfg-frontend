@@ -1,6 +1,8 @@
 .content {
 	display: flex;
 	justify-content: space-between;
+	background-color: var(--white-color);
+	padding: 15px;
 }
 
 .sortList,

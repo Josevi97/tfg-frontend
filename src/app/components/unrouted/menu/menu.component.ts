@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
 	logout(): void {
 		this.sessionService.logout().subscribe(() => {
 			this.sessionAccount = this.activatedRoute.snapshot.data['data'];
-			this.router.navigate(['']);
+			this.router.navigate(['/auth']);
 		});
 	}
 }

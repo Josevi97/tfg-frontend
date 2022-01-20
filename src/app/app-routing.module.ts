@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/routed/auth/auth.component';
 import { SessionResolver } from './resolvers/session.resolver';
 import { SettingsComponent } from './components/routed/settings/settings.component';
-import { EntranceComponent } from './components/routed/entrance/entrance.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
 import { NotFoundComponent } from './components/routed/not-found/not-found.component';
 import { MainComponent } from './components/routed/main/main.component';
@@ -37,11 +36,6 @@ const routes: Routes = [
 	{
 		path: 'community/:community',
 		component: MainComponent,
-		resolve: { session: SessionResolver },
-	},
-	{
-		path: 'entrance/:entrance',
-		component: EntranceComponent,
 		resolve: { session: SessionResolver },
 	},
 	{

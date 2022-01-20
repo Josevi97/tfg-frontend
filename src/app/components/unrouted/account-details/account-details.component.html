@@ -6,22 +6,22 @@
 			src="../../../../assets/images/not-account-image-found.png"
 			alt="not found"
 		/>
-		<span class="subhead">
-			<p class="subhead__title">{{ account.username }}</p>
-			<p class="subhead__subtitle">@{{ account.login }}</p>
-		</span>
+		<div class="subhead">
+			<p class="subhead__title">{{ account?.username }}</p>
+			<p class="subhead__subtitle">@{{ account?.login }}</p>
+		</div>
 	</a>
 	<div class="body">
 		<div class="info">
 			<p>
-				<span class="info__variable">{{ account.following }} </span> siguiendo
+				<span class="info__variable">{{ account?.following }} </span> siguiendo
 			</p>
 			<p>
-				<span class="info__variable">{{ account.followers }} </span>seguidores
+				<span class="info__variable">{{ account?.followers }} </span>seguidores
 			</p>
 		</div>
 		<p>
-			{{ account.description }}
+			{{ account?.description }}
 		</p>
 	</div>
 	<button *ngIf="showFollowButton" class="btn-primary content__button">

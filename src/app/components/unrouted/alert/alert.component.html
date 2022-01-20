@@ -2,7 +2,14 @@
 <div class="alert centrate-middle">
 	<div class="backalert"></div>
 	<div class="content">
-		<app-close-button [onClick]="close.bind(this)"></app-close-button>
+		<div class="buttons">
+			<div>
+				<ng-content></ng-content>
+			</div>
+			<button (click)="close()" class="btn-normal">
+				<i class="material-icons">close</i>
+			</button>
+		</div>
 		<div class="componentContainer">
 			<template #component></template>
 		</div>

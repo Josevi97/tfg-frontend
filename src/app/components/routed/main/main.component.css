@@ -1,3 +1,21 @@
+.pageContent {
+	display: flex;
+	gap: 60px;
+}
+
+.list {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.entrances {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
 .buttons button {
 	width: 100%;
 }

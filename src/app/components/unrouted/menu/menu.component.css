@@ -1,8 +1,8 @@
 .navbar {
 	height: 70px;
-	border-bottom: 1px solid var(--secondary-color);
+	box-shadow: 0 0 2px var(--light-color);
 	z-index: var(--hard-middle-priority);
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .navbar .wrap {
