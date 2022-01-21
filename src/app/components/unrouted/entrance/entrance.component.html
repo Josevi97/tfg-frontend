@@ -1,7 +1,8 @@
 <a class="post content">
 	<app-votes
 		[onClick]="onVotesClick.bind(this)"
-		[votes]="entrance.votes"
+		[vote]="entrance.sessionVoted"
+		[votes]="entrance.calculatedVotes"
 	></app-votes>
 	<div class="entrance__content">
 		<div class="header">

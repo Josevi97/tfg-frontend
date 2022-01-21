@@ -62,8 +62,8 @@ button:hover > i:not(.active) {
 	color: var(--primary-color-hover);
 }
 
-a:active i,
-button::active i {
+a:active > i:not(.active),
+button:active > i:not(.active) {
 	color: var(--primary-color-active);
 }
 

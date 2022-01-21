@@ -10,6 +10,7 @@ export interface IEntrance {
 	community: ICommunity;
 	comments: number;
 	votes: number;
+	sessionVoted: number;
 	calculatedVotes: number;
 }
 
