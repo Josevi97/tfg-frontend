@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IEntrance } from 'src/app/models/entrances.interface';
+import { IPost } from 'src/app/models/posts.interface';
 import { IconsService } from 'src/app/services/icons/icons.service';
 
 @Component({
-	selector: 'app-entrance',
-	templateUrl: './entrance.component.html',
-	styleUrls: ['./entrance.component.css'],
+	selector: 'app-post',
+	templateUrl: './post.component.html',
+	styleUrls: ['./post.component.css'],
 })
-export class EntranceComponent implements OnInit {
+export class PostComponent implements OnInit {
 	@Input() public onCommentsClick: Function;
-	@Input() public entrance: IEntrance;
+	@Input() public post: IPost;
 	@Input() public showAccount: boolean;
 	@Input() public showCommunity: boolean;
 
@@ -21,10 +21,10 @@ export class EntranceComponent implements OnInit {
 	onVotesClick(key: string): void {}
 
 	navigateToAccount(): void {
-		this.router.navigate([`/account/${this.entrance.account.id}`]);
+		this.router.navigate([`/account/${this.post.account.id}`]);
 	}
 
 	navigateToCommunity(): void {
-		this.router.navigate([`/community/${this.entrance.community.id}`]);
+		this.router.navigate([`/community/${this.post.community.id}`]);
 	}
 }

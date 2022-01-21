@@ -9,16 +9,15 @@
 			[onExtraClick]="this.changeState.bind(this)"
 		>
 		</app-sort>
-		<div class="entrances">
-			<app-entrance
-				*ngFor="let entrance of entrances"
+		<div class="posts">
+			<app-post
+				*ngFor="let post of posts"
 				[showAccount]="shouldShowSubtitle('account')"
 				[showCommunity]="shouldShowSubtitle('community')"
-				[entrance]="entrance"
-				[onCommentsClick]="sendComment.bind(this, entrance)"
-			></app-entrance>
+				[post]="post"
+			></app-post>
 		</div>
-		<app-list-end [hasContent]="entrances?.length > 0"></app-list-end>
+		<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
 		<div></div>
 	</div>
 	<app-aside-details>

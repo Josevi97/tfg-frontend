@@ -1,0 +1,47 @@
+<div class="post content">
+	<app-votes
+		[onClick]="onVotesClick.bind(this)"
+		[vote]="post.sessionVoted"
+		[votes]="post.votes"
+	></app-votes>
+	<div class="post__content">
+		<div class="header">
+			<div class="data">
+				<p class="post__title">{{ post.title }}</p>
+				<p class="post__subtitle">
+					Enviado
+					<span *ngIf="showAccount">por </span>
+					<a
+						*ngIf="showAccount"
+						(click)="navigateToAccount(); $event.stopPropagation()"
+						class="post__account link-secondary"
+						>@{{ post.account.login }}
+					</a>
+
+					<span *ngIf="showCommunity">en </span>
+					<a
+						*ngIf="showCommunity"
+						(click)="navigateToCommunity(); $event.stopPropagation()"
+						class="post__community link-secondary"
+						>#{{ post.community.name }}</a
+					>
+
+					hace
+					<span class="post__date">{{ post.createdAt | date }}</span>
+				</p>
+			</div>
+		</div>
+		<ng-content></ng-content>
+		<p class="post__body">{{ post.body }}</p>
+		<div class="icons">
+			<a
+				(click)="onCommentsClick(); $event.stopPropagation()"
+				class="post__comment"
+			>
+				<i class="{{ iconsService.getIcon('comment') }}">
+					{{ post.comments }}</i
+				>
+			</a>
+		</div>
+	</div>
+</div>

@@ -1,8 +1,6 @@
 <div class="content">
 	<button class="btn-normal" (click)="onClick('up'); $event.stopPropagation()">
-		<i class="material-icons upVote {{ vote === 1 ? 'pressed' : '' }}"
-			>forward</i
-		>
+		<i class="material-icons upVote {{ vote | vote: true }}">forward</i>
 	</button>
 	<p class="element__votes">{{ votes }}</p>
 	<button

@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
+import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
+import { PostsService } from 'src/app/services/posts/posts.service';
 import { IAccount } from '../../../models/accounts.interface';
 import { AlertComponent } from '../../unrouted/alert/alert.component';
-import { EntranceComponent } from '../../unrouted/entrance/entrance.component';
+import { PostComponent } from '../../unrouted/post/post.component';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -19,7 +21,7 @@ export class MainComponent implements OnInit {
 
 	public sessionAccount: IAccount;
 	public currentAccount: IAccount;
-	public entrances: IEntrance[];
+	public posts: IPost[];
 	public account: number;
 	public community: number;
 
@@ -31,7 +33,8 @@ export class MainComponent implements OnInit {
 		private accountsService: AccountsService,
 		private entrancesService: EntrancesService,
 		private communitiesService: CommunitiesService,
-		private componentFactoryService: ComponentFactoryService
+		private componentFactoryService: ComponentFactoryService,
+		private postsService: PostsService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
@@ -42,7 +45,7 @@ export class MainComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.initEntrances();
+		this.initPosts();
 	}
 
 	createAlert(): any {
@@ -59,7 +62,7 @@ export class MainComponent implements OnInit {
 		const a = this.createAlert();
 		a.instance.onAfterViewInit = () => {
 			const e = this.componentFactoryService.generateComponent(
-				EntranceComponent,
+				PostComponent,
 				a.instance.componentRef
 			);
 			e.instance.entrance = data;
@@ -106,22 +109,37 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	initEntrances(): void {
+	initPosts(): void {
 		if (this.account === undefined && this.community === undefined) {
 			this.entrancesService
 				.getAllEntrances()
-				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
+				.subscribe(
+					(data: IEntrancePage) =>
+						(this.posts = data.content.map((entrance) =>
+							this.postsService.toPost(entrance)
+						))
+				);
 		} else if (this.community !== undefined) {
 			this.communitiesService
 				.getEntrancesByCommunity(this.community)
-				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
+				.subscribe(
+					(data: IEntrancePage) =>
+						(this.posts = data.content.map((entrance) =>
+							this.postsService.toPost(entrance)
+						))
+				);
 		} else {
 			this.accountsService
 				.findOne(this.account)
 				.subscribe((data: IAccount) => (this.currentAccount = data));
 			this.accountsService
 				.getEntrancesByAccount(this.account)
-				.subscribe((data: IEntrancePage) => (this.entrances = data.content));
+				.subscribe(
+					(data: IEntrancePage) =>
+						(this.posts = data.content.map((entrance) =>
+							this.postsService.toPost(entrance)
+						))
+				);
 		}
 	}
 

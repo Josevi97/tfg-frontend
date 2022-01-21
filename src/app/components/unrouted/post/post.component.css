@@ -1,6 +1,7 @@
 .post {
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 }
 
 .content {
@@ -14,11 +15,11 @@
 	border-left: 3px solid var(--primary-color-hover);
 }
 
-.content:hover .entrance__title {
+.content:hover .post__title {
 	color: var(--primary-color-hover);
 }
 
-.entrance__content {
+.post__content {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -30,21 +31,21 @@
 	justify-content: space-between;
 }
 
-.entrance__title {
+.post__title {
 	font-size: 1.5rem;
 	font-weight: bold;
 	color: var(--primary-color);
 }
 
-.entrance__subtitle {
-	font-size: 1rem;
+.post__subtitle {
+	font-size: 0.97rem;
 }
 
-.entrance__date {
-	color: var(--light-color);
+.post__date {
+	font-style: italic;
 }
 
-.entrance__body {
+.post__body {
 	display: block;
 	height: 2.5rem;
 }

@@ -14,7 +14,6 @@ import { RegisterAccountComponent } from './components/unrouted/register-account
 import { MenuComponent } from './components/unrouted/menu/menu.component';
 import { SettingsComponent } from './components/routed/settings/settings.component';
 import { PopupComponent } from './components/unrouted/popup/popup.component';
-import { EntranceComponent } from './components/unrouted/entrance/entrance.component';
 import { VotesComponent } from './components/unrouted/votes/votes.component';
 import { SortComponent } from './components/unrouted/sort/sort.component';
 import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
@@ -30,6 +29,10 @@ import { EntrancesService } from './services/entrances/entrances.service';
 import { CommunitiesService } from './services/communities/communities.service';
 import { ErrorService } from './services/error/error.service';
 import { ComponentFactoryService } from './services/componentFactory/component-factory.service';
+import { DatePipe } from './pipes/date/date.pipe';
+import { VotePipe } from './pipes/vote/vote.pipe';
+import { PostsService } from './services/posts/posts.service';
+import { PostComponent } from './components/unrouted/post/post.component';
 
 @NgModule({
 	declarations: [
@@ -41,7 +44,7 @@ import { ComponentFactoryService } from './services/componentFactory/component-f
 		RegisterAccountComponent,
 		MenuComponent,
 		PopupComponent,
-		EntranceComponent,
+		PostComponent,
 		VotesComponent,
 		SortComponent,
 		AccountDetailsComponent,
@@ -54,6 +57,8 @@ import { ComponentFactoryService } from './services/componentFactory/component-f
 		SettingsComponent,
 		AdminComponent,
 		NotFoundComponent,
+		DatePipe,
+		VotePipe,
 	],
 	imports: [
 		HttpClientModule,
@@ -70,6 +75,7 @@ import { ComponentFactoryService } from './services/componentFactory/component-f
 		EntrancesService,
 		CommunitiesService,
 		IconsService,
+		PostsService,
 	],
 	bootstrap: [AppComponent],
 })
