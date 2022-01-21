@@ -28,7 +28,7 @@ export class AccountsService {
 
 	getEntrancesByAccount(id: number): Observable<IEntrancePage> {
 		return this.http
-			.get<IEntrancePage>(`${this.ACCOUNT_URI}/${id}/entrances`)
+			.get<IEntrancePage>(`${this.ACCOUNT_URI}/${id}/entrances`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 }
