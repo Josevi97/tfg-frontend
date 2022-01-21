@@ -33,7 +33,7 @@ export class SortComponent implements OnInit {
 				key: 'comments',
 			},
 			{
-				icon: 'star_outline',
+				icon: 'swap_vert',
 				text: 'Votos',
 				key: 'votes',
 			},

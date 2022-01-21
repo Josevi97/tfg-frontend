@@ -3,7 +3,11 @@
 <nav class="navbar">
 	<div class="wrap">
 		<a routerLink="/home" class="navbar__logo btn-normal">Sheyras</a>
-		<input class="navbar__input" type="text" placeholder="Buscar por aqui" />
+		<input
+			class="navbar__input input-secondary"
+			type="text"
+			placeholder="Buscar por aqui"
+		/>
 		<a
 			*ngIf="!sessionAccount"
 			routerLink="/auth"

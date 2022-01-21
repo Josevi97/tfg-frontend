@@ -23,5 +23,10 @@
 @media screen and (max-width: 1400px) {
 	.pageContent {
 		gap: 0;
+		flex-direction: column;
+	}
+
+	.list {
+		order: 2;
 	}
 }

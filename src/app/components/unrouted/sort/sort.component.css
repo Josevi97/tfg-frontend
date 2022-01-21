@@ -5,9 +5,30 @@
 	padding: 15px;
 }
 
+.sortList__icon {
+	display: flex;
+	align-items: center;
+}
+
+.sortList__icon {
+	display: flex;
+	gap: 5px;
+	font-size: 1.6rem;
+}
+
+.sortList__text {
+	font-size: 1rem;
+}
+
 .sortList,
 .type {
 	display: flex;
 	gap: 15px;
 	list-style: none;
+}
+
+@media screen and (max-width: 768px) {
+	.sortList__text {
+		display: none;
+	}
 }
