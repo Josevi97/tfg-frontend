@@ -18,4 +18,20 @@ export class EntrancesService {
 			.get<IEntrancePage>(this.ENTRANCE_URI, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
+
+	voteEntrance(id: number, vote: boolean): Observable<String> {
+		return this.http
+			.post<String>(
+				`${this.ENTRANCE_URI}/${id}/vote`,
+				JSON.stringify({ vote: vote }),
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	unvoteEntrance(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.ENTRANCE_URI}/${id}/vote`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
 }

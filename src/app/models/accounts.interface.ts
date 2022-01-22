@@ -16,6 +16,7 @@ export interface IAccount {
 	communityList: number;
 	entranceVotes: number;
 	commentVotes: number;
+	sessionFollow: number;
 }
 
 export interface IRegisterAccount {

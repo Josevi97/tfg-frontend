@@ -33,6 +33,7 @@ import { DatePipe } from './pipes/date/date.pipe';
 import { VotePipe } from './pipes/vote/vote.pipe';
 import { PostsService } from './services/posts/posts.service';
 import { PostComponent } from './components/unrouted/post/post.component';
+import { FollowPipe } from './pipes/follow/follow.pipe';
 
 @NgModule({
 	declarations: [
@@ -59,6 +60,7 @@ import { PostComponent } from './components/unrouted/post/post.component';
 		NotFoundComponent,
 		DatePipe,
 		VotePipe,
+  FollowPipe,
 	],
 	imports: [
 		HttpClientModule,

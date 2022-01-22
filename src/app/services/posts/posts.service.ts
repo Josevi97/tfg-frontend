@@ -10,6 +10,7 @@ export class PostsService {
 
 	toPost(entrance: IEntrance): IPost {
 		return {
+			id: entrance.id,
 			title: entrance.title,
 			account: entrance.account,
 			community: entrance.community,

@@ -1,11 +1,16 @@
 <div class="content">
 	<a (click)="navigateToAccount()" class="head">
-		<img
-			width="60"
-			class="head__image"
-			src="../../../../assets/images/not-account-image-found.png"
-			alt="not found"
-		/>
+		<div class="head__content">
+			<div class="head__avatar">
+				<img
+					width="60"
+					class="head__image"
+					src="../../../../assets/images/not-account-image-found.png"
+					alt="not found"
+				/>
+			</div>
+			<span *ngIf="account?.admin" class="head__admin">ADMIN</span>
+		</div>
 		<div class="subhead">
 			<p class="subhead__title">{{ account?.username }}</p>
 			<p class="subhead__subtitle">@{{ account?.login }}</p>
@@ -24,7 +29,12 @@
 			{{ account?.description }}
 		</p>
 	</div>
-	<button *ngIf="showFollowButton" class="btn-primary content__button">
-		Seguir
+	<button
+		*ngIf="showFollowButton"
+		class="btn-{{
+			account.sessionFollow | follow: true
+		}}primary content__button"
+	>
+		{{ account.sessionFollow | follow: false }}
 	</button>
 </div>
