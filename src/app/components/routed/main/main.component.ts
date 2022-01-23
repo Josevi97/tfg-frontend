@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ICommentPage } from 'src/app/models/comments.interface';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
@@ -70,6 +71,29 @@ export class MainComponent implements OnInit {
 	}
 
 	changeState(key: string): void {
+		if (key === this.state) {
+			return;
+		}
+
+		switch (key) {
+			case 'entrances':
+				this.accountsService
+					.getEntrancesByAccount(this.account)
+					.subscribe(
+						(data: IEntrancePage) =>
+							(this.posts = this.postsService.fromEntrances(data.content))
+					);
+				break;
+			case 'comments':
+				this.accountsService
+					.getCommentsByAccount(this.currentAccount.id)
+					.subscribe(
+						(data: ICommentPage) =>
+							(this.posts = this.postsService.fromComments(data.content))
+					);
+				break;
+		}
+
 		this.state = key;
 	}
 
@@ -103,7 +127,7 @@ export class MainComponent implements OnInit {
 				{
 					icon: 'comment',
 					text: 'Comentarios',
-					key: 'comment',
+					key: 'comments',
 				},
 			];
 		}
@@ -115,18 +139,14 @@ export class MainComponent implements OnInit {
 				.getAllEntrances()
 				.subscribe(
 					(data: IEntrancePage) =>
-						(this.posts = data.content.map((entrance) =>
-							this.postsService.toPost(entrance)
-						))
+						(this.posts = this.postsService.fromEntrances(data.content))
 				);
 		} else if (this.community !== undefined) {
 			this.communitiesService
 				.getEntrancesByCommunity(this.community)
 				.subscribe(
 					(data: IEntrancePage) =>
-						(this.posts = data.content.map((entrance) =>
-							this.postsService.toPost(entrance)
-						))
+						(this.posts = this.postsService.fromEntrances(data.content))
 				);
 		} else {
 			this.accountsService
@@ -136,9 +156,7 @@ export class MainComponent implements OnInit {
 				.getEntrancesByAccount(this.account)
 				.subscribe(
 					(data: IEntrancePage) =>
-						(this.posts = data.content.map((entrance) =>
-							this.postsService.toPost(entrance)
-						))
+						(this.posts = this.postsService.fromEntrances(data.content))
 				);
 		}
 	}

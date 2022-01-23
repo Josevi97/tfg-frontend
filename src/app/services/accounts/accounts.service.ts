@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IAccount, IRegisterAccount } from 'src/app/models/accounts.interface';
+import { ICommentPage } from 'src/app/models/comments.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
@@ -29,6 +30,12 @@ export class AccountsService {
 	getEntrancesByAccount(id: number): Observable<IEntrancePage> {
 		return this.http
 			.get<IEntrancePage>(`${this.ACCOUNT_URI}/${id}/entrances`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getCommentsByAccount(id: number): Observable<ICommentPage> {
+		return this.http
+			.get<ICommentPage>(`${this.ACCOUNT_URI}/${id}/comments`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 }

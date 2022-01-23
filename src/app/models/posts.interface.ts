@@ -11,4 +11,5 @@ export interface IPost {
 	votes: number;
 	comments: number;
 	sessionVoted: number;
+	type: string;
 }
