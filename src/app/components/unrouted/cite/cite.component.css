@@ -1,0 +1,16 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	background-color: var(--white-color);
+	padding: 15px;
+}
+
+.content__cite {
+	font-size: 0.97rem;
+}
+
+.content__body {
+	color: var(--secondary-color);
+	font-style: italic;
+}

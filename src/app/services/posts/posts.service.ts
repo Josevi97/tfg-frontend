@@ -15,12 +15,16 @@ export class PostsService {
 			title: entrance.title,
 			account: entrance.account,
 			community: entrance.community,
+			entrance: null,
+			comment: null,
 			createdAt: entrance.createdAt,
 			body: entrance.body,
 			votes: entrance.calculatedVotes,
 			comments: entrance.comments,
 			sessionVoted: entrance.sessionVoted,
+			post: null,
 			type: 'entrance',
+			responseType: 'a la entrada',
 		};
 	}
 
@@ -34,12 +38,18 @@ export class PostsService {
 			title: null,
 			account: comment.account,
 			community: null,
+			entrance: comment.entrance,
+			comment: comment.comment,
 			createdAt: comment.createdAt,
 			body: comment.body,
 			votes: comment.calculatedVotes,
 			comments: comment.responses,
 			sessionVoted: comment.sessionVoted,
+			post: comment.entrance
+				? this.fromEntrance(comment.entrance)
+				: this.fromComment(comment.comment),
 			type: 'comment',
+			responseType: 'al comentario',
 		};
 	}
 

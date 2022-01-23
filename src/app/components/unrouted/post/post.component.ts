@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IPost } from 'src/app/models/posts.interface';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { IconsService } from 'src/app/services/icons/icons.service';
+import { LocationService } from 'src/app/services/location/location.service';
 
 @Component({
 	selector: 'app-post',
@@ -17,7 +18,7 @@ export class PostComponent implements OnInit {
 
 	constructor(
 		public iconsService: IconsService,
-		public router: Router,
+		private location: LocationService,
 		private entranceService: EntrancesService
 	) {}
 
@@ -44,10 +45,10 @@ export class PostComponent implements OnInit {
 	}
 
 	navigateToAccount(): void {
-		this.router.navigate([`/account/${this.post.account.id}`]);
+		this.location.navigateToAccount(this.post.account.id);
 	}
 
 	navigateToCommunity(): void {
-		this.router.navigate([`/community/${this.post.community.id}`]);
+		this.location.navigateToCommunity(this.post.community.id);
 	}
 }

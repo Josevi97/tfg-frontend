@@ -23,6 +23,7 @@
 	<app-aside-details>
 		<app-account-details
 			*ngIf="sessionAccount || account !== undefined"
+			[show]="account !== undefined || community !== undefined"
 			[active]="false"
 			[account]="currentAccount"
 			[showFollowButton]="

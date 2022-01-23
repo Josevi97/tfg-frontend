@@ -8,6 +8,7 @@ import { IAccount } from 'src/app/models/accounts.interface';
 	styleUrls: ['./account-details.component.css'],
 })
 export class AccountDetailsComponent implements OnInit {
+	@Input() public show: boolean;
 	@Input() public account: IAccount;
 	@Input() public active: boolean;
 	@Input() public showFollowButton: boolean;

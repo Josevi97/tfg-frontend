@@ -34,6 +34,8 @@ import { VotePipe } from './pipes/vote/vote.pipe';
 import { PostsService } from './services/posts/posts.service';
 import { PostComponent } from './components/unrouted/post/post.component';
 import { FollowPipe } from './pipes/follow/follow.pipe';
+import { CiteComponent } from './components/unrouted/cite/cite.component';
+import { LocationService } from './services/location/location.service';
 
 @NgModule({
 	declarations: [
@@ -60,7 +62,8 @@ import { FollowPipe } from './pipes/follow/follow.pipe';
 		NotFoundComponent,
 		DatePipe,
 		VotePipe,
-  FollowPipe,
+		FollowPipe,
+		CiteComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -78,6 +81,7 @@ import { FollowPipe } from './pipes/follow/follow.pipe';
 		CommunitiesService,
 		IconsService,
 		PostsService,
+		LocationService,
 	],
 	bootstrap: [AppComponent],
 })

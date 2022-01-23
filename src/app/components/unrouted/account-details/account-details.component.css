@@ -85,4 +85,8 @@
 	.content__button {
 		width: 100%;
 	}
+
+	.hide__phone {
+		display: none;
+	}
 }

@@ -31,7 +31,7 @@
 				</p>
 			</div>
 		</div>
-		<ng-content></ng-content>
+		<app-cite *ngIf="post.type === 'comment'" [post]="post"></app-cite>
 		<p class="post__body">{{ post?.body }}</p>
 		<div class="icons">
 			<a
