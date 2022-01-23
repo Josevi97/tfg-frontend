@@ -1,6 +1,6 @@
 <div class="content">
 	<p class="content__cite">
-		Respuesta {{ post.responseType }} de
+		Respuesta {{ post.post.responseType }} de
 		<a
 			(click)="navigateToAccount(); $event.stopPropagation()"
 			class="post__community link-secondary"
@@ -8,7 +8,7 @@
 			@{{ post.post.account.login }}
 		</a>
 	</p>
-	<p class="content__body">
+	<q class="content__body">
 		{{ post.post.body }}
-	</p>
+	</q>
 </div>
