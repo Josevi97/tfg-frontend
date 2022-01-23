@@ -21,7 +21,7 @@
 		<div></div>
 	</div>
 	<app-aside-details>
-		<app-account-details
+		<app-entity
 			*ngIf="sessionAccount || account !== undefined"
 			[show]="account !== undefined || community !== undefined"
 			[active]="false"
@@ -30,6 +30,6 @@
 				account !== undefined && currentAccount?.id !== sessionAccount?.id
 			"
 		>
-		</app-account-details>
+		</app-entity>
 	</app-aside-details>
 </div>

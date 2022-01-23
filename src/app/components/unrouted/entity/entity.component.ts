@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { IAccount } from 'src/app/models/accounts.interface';
 
 @Component({
-	selector: 'app-account-details',
-	templateUrl: './account-details.component.html',
-	styleUrls: ['./account-details.component.css'],
+	selector: 'app-entity',
+	templateUrl: './entity.component.html',
+	styleUrls: ['./entity.component.css'],
 })
-export class AccountDetailsComponent implements OnInit {
+export class EntityComponent implements OnInit {
 	@Input() public show: boolean;
 	@Input() public account: IAccount;
 	@Input() public active: boolean;

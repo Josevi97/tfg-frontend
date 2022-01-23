@@ -16,7 +16,6 @@ import { SettingsComponent } from './components/routed/settings/settings.compone
 import { PopupComponent } from './components/unrouted/popup/popup.component';
 import { VotesComponent } from './components/unrouted/votes/votes.component';
 import { SortComponent } from './components/unrouted/sort/sort.component';
-import { AccountDetailsComponent } from './components/unrouted/account-details/account-details.component';
 import { AdminComponent } from './components/routed/admin/admin.component';
 import { ListEndComponent } from './components/unrouted/list-end/list-end.component';
 import { CopyrightComponent } from './components/unrouted/copyright/copyright.component';
@@ -36,6 +35,7 @@ import { PostComponent } from './components/unrouted/post/post.component';
 import { FollowPipe } from './pipes/follow/follow.pipe';
 import { CiteComponent } from './components/unrouted/cite/cite.component';
 import { LocationService } from './services/location/location.service';
+import { EntityComponent } from './components/unrouted/entity/entity.component';
 
 @NgModule({
 	declarations: [
@@ -50,7 +50,7 @@ import { LocationService } from './services/location/location.service';
 		PostComponent,
 		VotesComponent,
 		SortComponent,
-		AccountDetailsComponent,
+		EntityComponent,
 		ListEndComponent,
 		CopyrightComponent,
 		AsideDetailsComponent,
