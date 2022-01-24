@@ -21,6 +21,15 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	getEntrancesBySessionCommunities(): Observable<IEntrancePage> {
+		return this.http
+			.get<IEntrancePage>(
+				`${this.ACCOUNT_URI}/communities/entrances`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	register(data: IRegisterAccount): Observable<String> {
 		return this.http
 			.post<String>(this.ACCOUNT_URI, data, httpOptions)

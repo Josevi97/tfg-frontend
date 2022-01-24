@@ -11,16 +11,16 @@ export class PostsService {
 
 	fromEntrance(entrance: IEntrance): IPost {
 		return {
-			id: entrance.id,
-			title: entrance.title,
-			account: entrance.account,
-			community: entrance.community,
+			id: entrance?.id,
+			title: entrance?.title,
+			account: entrance?.account,
+			community: entrance?.community,
 			post: null,
-			body: entrance.body,
-			createdAt: entrance.createdAt,
-			votes: entrance.calculatedVotes,
-			comments: entrance.comments,
-			sessionVoted: entrance.sessionVoted,
+			body: entrance?.body,
+			createdAt: entrance?.createdAt,
+			votes: entrance?.calculatedVotes,
+			comments: entrance?.comments,
+			sessionVoted: entrance?.sessionVoted,
 			type: 'entrance',
 			responseType: 'a la entrada',
 		};
@@ -32,18 +32,18 @@ export class PostsService {
 
 	fromComment(comment: IComment): IPost {
 		return {
-			id: comment.id,
+			id: comment?.id,
 			title: null,
-			account: comment.account,
+			account: comment?.account,
 			community: null,
-			post: comment.entrance
+			post: comment?.entrance
 				? this.fromEntrance(comment.entrance)
 				: this.fromComment(comment.comment),
-			body: comment.body,
-			createdAt: comment.createdAt,
-			votes: comment.calculatedVotes,
-			comments: comment.responses,
-			sessionVoted: comment.sessionVoted,
+			body: comment?.body,
+			createdAt: comment?.createdAt,
+			votes: comment?.calculatedVotes,
+			comments: comment?.responses,
+			sessionVoted: comment?.sessionVoted,
 			type: 'comment',
 			responseType: 'al comentario',
 		};

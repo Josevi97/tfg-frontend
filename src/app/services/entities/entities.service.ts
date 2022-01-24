@@ -11,31 +11,31 @@ export class EntitiesService {
 
 	fromAccount(account: IAccount): IEntity {
 		return {
-			id: account.id,
-			title: account.username,
-			subtitle: account.login,
-			image: account.avatar,
-			following: account.following,
-			followers: account.followers,
-			body: account.description,
-			tag: account.admin ? 'admin' : null,
+			id: account?.id,
+			title: account?.username,
+			subtitle: account?.login,
+			image: account?.avatar,
+			following: account?.following,
+			followers: account?.followers,
+			body: account?.description,
+			tag: account?.admin ? 'admin' : null,
 			type: 'account',
-			sessionFollow: account.sessionFollow,
+			sessionFollow: account?.sessionFollow,
 		};
 	}
 
 	fromCommunity(community: ICommunity): IEntity {
 		return {
-			id: community.id,
-			title: community.name,
+			id: community?.id,
+			title: community?.name,
 			subtitle: null,
-			image: community.image,
+			image: community?.image,
 			following: null,
-			followers: community.communityList,
-			body: community.description,
+			followers: community?.communityList,
+			body: community?.description,
 			tag: null,
 			type: 'community',
-			sessionFollow: community.sessionFollow,
+			sessionFollow: community?.sessionFollow,
 		};
 	}
 }

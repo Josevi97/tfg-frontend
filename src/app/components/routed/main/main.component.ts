@@ -1,23 +1,17 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICommentPage } from 'src/app/models/comments.interface';
-import {
-	ICommunity,
-	ICommunityPage,
-} from 'src/app/models/communities.interface';
+import { ICommunity } from 'src/app/models/communities.interface';
 import { IEntity } from 'src/app/models/entities.interface';
-import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
+import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
-import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { IAccount } from '../../../models/accounts.interface';
-import { AlertComponent } from '../../unrouted/alert/alert.component';
-import { PostComponent } from '../../unrouted/post/post.component';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -40,7 +34,6 @@ export class MainComponent implements OnInit {
 		private accountsService: AccountsService,
 		private entrancesService: EntrancesService,
 		private communitiesService: CommunitiesService,
-		private componentFactoryService: ComponentFactoryService,
 		private postsService: PostsService,
 		private entitiesService: EntitiesService
 	) {
@@ -76,6 +69,22 @@ export class MainComponent implements OnInit {
 					.subscribe(
 						(data: ICommentPage) =>
 							(this.posts = this.postsService.fromComments(data.content))
+					);
+				break;
+			case 'all':
+				this.entrancesService
+					.getAllEntrances()
+					.subscribe(
+						(data: IEntrancePage) =>
+							(this.posts = this.postsService.fromEntrances(data.content))
+					);
+				break;
+			case 'own':
+				this.accountsService
+					.getEntrancesBySessionCommunities()
+					.subscribe(
+						(data: IEntrancePage) =>
+							(this.posts = this.postsService.fromEntrances(data.content))
 					);
 				break;
 		}
