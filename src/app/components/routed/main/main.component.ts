@@ -56,27 +56,6 @@ export class MainComponent implements OnInit {
 		this.initPosts();
 	}
 
-	createAlert(): any {
-		const a = this.componentFactoryService.generateComponent(
-			AlertComponent,
-			this.alertRef
-		);
-
-		a.instance.close = () => this.componentFactoryService.destroyComponent(a);
-		return a;
-	}
-
-	sendComment(data: IEntrance): void {
-		const a = this.createAlert();
-		a.instance.onAfterViewInit = () => {
-			const e = this.componentFactoryService.generateComponent(
-				PostComponent,
-				a.instance.componentRef
-			);
-			e.instance.entrance = data;
-		};
-	}
-
 	changeState(key: string): void {
 		if (key === this.state) {
 			return;
