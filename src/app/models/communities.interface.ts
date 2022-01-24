@@ -5,4 +5,11 @@ export interface ICommunity {
 	image: string;
 	createdAt: string;
 	entrances: number;
+	communityList: number;
+	sessionFollow: number;
+}
+
+export interface ICommunityPage {
+	content: ICommunity[];
+	totalElements: number;
 }

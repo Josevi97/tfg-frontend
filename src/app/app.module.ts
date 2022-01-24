@@ -36,6 +36,7 @@ import { FollowPipe } from './pipes/follow/follow.pipe';
 import { CiteComponent } from './components/unrouted/cite/cite.component';
 import { LocationService } from './services/location/location.service';
 import { EntityComponent } from './components/unrouted/entity/entity.component';
+import { EntitiesService } from './services/entities/entities.service';
 
 @NgModule({
 	declarations: [
@@ -82,6 +83,7 @@ import { EntityComponent } from './components/unrouted/entity/entity.component';
 		IconsService,
 		PostsService,
 		LocationService,
+		EntitiesService,
 	],
 	bootstrap: [AppComponent],
 })

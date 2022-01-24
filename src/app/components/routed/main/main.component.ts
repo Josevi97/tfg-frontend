@@ -1,12 +1,18 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICommentPage } from 'src/app/models/comments.interface';
+import {
+	ICommunity,
+	ICommunityPage,
+} from 'src/app/models/communities.interface';
+import { IEntity } from 'src/app/models/entities.interface';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
+import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { IAccount } from '../../../models/accounts.interface';
@@ -21,7 +27,7 @@ export class MainComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
 	public sessionAccount: IAccount;
-	public currentAccount: IAccount;
+	public currentEntity: IEntity;
 	public posts: IPost[];
 	public account: number;
 	public community: number;
@@ -35,12 +41,13 @@ export class MainComponent implements OnInit {
 		private entrancesService: EntrancesService,
 		private communitiesService: CommunitiesService,
 		private componentFactoryService: ComponentFactoryService,
-		private postsService: PostsService
+		private postsService: PostsService,
+		private entitiesService: EntitiesService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
 		this.community = this.activatedRoute.snapshot.params['community'];
-		this.currentAccount = this.sessionAccount;
+		this.currentEntity = this.entitiesService.fromAccount(this.sessionAccount);
 
 		this.initSortData();
 	}
@@ -86,7 +93,7 @@ export class MainComponent implements OnInit {
 				break;
 			case 'comments':
 				this.accountsService
-					.getCommentsByAccount(this.currentAccount.id)
+					.getCommentsByAccount(this.currentEntity.id)
 					.subscribe(
 						(data: ICommentPage) =>
 							(this.posts = this.postsService.fromComments(data.content))
@@ -143,6 +150,12 @@ export class MainComponent implements OnInit {
 				);
 		} else if (this.community !== undefined) {
 			this.communitiesService
+				.findOne(this.community)
+				.subscribe((data: ICommunity) => {
+					console.log(data);
+					this.currentEntity = this.entitiesService.fromCommunity(data);
+				});
+			this.communitiesService
 				.getEntrancesByCommunity(this.community)
 				.subscribe(
 					(data: IEntrancePage) =>
@@ -151,7 +164,10 @@ export class MainComponent implements OnInit {
 		} else {
 			this.accountsService
 				.findOne(this.account)
-				.subscribe((data: IAccount) => (this.currentAccount = data));
+				.subscribe(
+					(data: IAccount) =>
+						(this.currentEntity = this.entitiesService.fromAccount(data))
+				);
 			this.accountsService
 				.getEntrancesByAccount(this.account)
 				.subscribe(

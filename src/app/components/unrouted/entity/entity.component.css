@@ -6,7 +6,7 @@
 
 .head {
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	gap: 15px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .subhead__title {
-	font-size: 2rem;
+	font-size: 1.7rem;
 	font-weight: bold;
 	color: var(--primary-color);
 }

@@ -9,32 +9,36 @@
 					alt="not found"
 				/>
 			</div>
-			<span *ngIf="account?.admin" class="head__admin">ADMIN</span>
+			<span *ngIf="entity?.tag" class="head__admin">{{
+				entity.tag.toUpperCase()
+			}}</span>
 		</div>
 		<div class="subhead">
-			<p class="subhead__title">{{ account?.username }}</p>
-			<p class="subhead__subtitle">@{{ account?.login }}</p>
+			<p class="subhead__title">{{ entity?.title }}</p>
+			<p *ngIf="entity.subtitle" class="subhead__subtitle">
+				@{{ entity?.subtitle }}
+			</p>
 		</div>
 	</a>
 	<div class="body">
 		<div class="info">
-			<p>
-				<span class="info__variable">{{ account?.following }} </span> siguiendo
+			<p *ngIf="entity.following">
+				<span class="info__variable">{{ entity?.following }} </span> siguiendo
 			</p>
 			<p>
-				<span class="info__variable">{{ account?.followers }} </span>seguidores
+				<span class="info__variable">{{ entity?.followers }} </span>seguidores
 			</p>
 		</div>
 		<p>
-			{{ account?.description }}
+			{{ entity?.body }}
 		</p>
 	</div>
 	<button
 		*ngIf="showFollowButton"
 		class="btn-{{
-			account.sessionFollow | follow: true
+			entity?.sessionFollow | follow: true
 		}}primary content__button"
 	>
-		{{ account.sessionFollow | follow: false }}
+		{{ entity?.sessionFollow | follow: false }}
 	</button>
 </div>

@@ -25,9 +25,10 @@
 			*ngIf="sessionAccount || account !== undefined"
 			[show]="account !== undefined || community !== undefined"
 			[active]="false"
-			[account]="currentAccount"
+			[entity]="currentEntity"
 			[showFollowButton]="
-				account !== undefined && currentAccount?.id !== sessionAccount?.id
+				community !== undefined ||
+				(account !== undefined && currentEntity?.id !== sessionAccount?.id)
 			"
 		>
 		</app-entity>

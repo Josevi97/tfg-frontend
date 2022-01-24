@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAccount } from 'src/app/models/accounts.interface';
+import { IEntity } from 'src/app/models/entities.interface';
 
 @Component({
 	selector: 'app-entity',
@@ -9,7 +9,7 @@ import { IAccount } from 'src/app/models/accounts.interface';
 })
 export class EntityComponent implements OnInit {
 	@Input() public show: boolean;
-	@Input() public account: IAccount;
+	@Input() public entity: IEntity;
 	@Input() public active: boolean;
 	@Input() public showFollowButton: boolean;
 
@@ -18,6 +18,6 @@ export class EntityComponent implements OnInit {
 	ngOnInit(): void {}
 
 	navigateToAccount(): void {
-		this.router.navigate([`/account/${this.account.id}`]);
+		this.router.navigate([`/${this.entity.type}/${this.entity.id}`]);
 	}
 }
