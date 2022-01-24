@@ -49,49 +49,6 @@ export class MainComponent implements OnInit {
 		this.initPosts();
 	}
 
-	changeState(key: string): void {
-		if (key === this.state) {
-			return;
-		}
-
-		switch (key) {
-			case 'entrances':
-				this.accountsService
-					.getEntrancesByAccount(this.account)
-					.subscribe(
-						(data: IEntrancePage) =>
-							(this.posts = this.postsService.fromEntrances(data.content))
-					);
-				break;
-			case 'comments':
-				this.accountsService
-					.getCommentsByAccount(this.currentEntity.id)
-					.subscribe(
-						(data: ICommentPage) =>
-							(this.posts = this.postsService.fromComments(data.content))
-					);
-				break;
-			case 'all':
-				this.entrancesService
-					.getAllEntrances()
-					.subscribe(
-						(data: IEntrancePage) =>
-							(this.posts = this.postsService.fromEntrances(data.content))
-					);
-				break;
-			case 'own':
-				this.accountsService
-					.getEntrancesBySessionCommunities()
-					.subscribe(
-						(data: IEntrancePage) =>
-							(this.posts = this.postsService.fromEntrances(data.content))
-					);
-				break;
-		}
-
-		this.state = key;
-	}
-
 	initSortData(): void {
 		if (
 			this.sessionAccount &&
@@ -106,9 +63,14 @@ export class MainComponent implements OnInit {
 					key: 'all',
 				},
 				{
-					icon: 'shuffle',
-					text: 'Siguiendo',
-					key: 'own',
+					icon: 'forum',
+					text: 'Comunidades',
+					key: 'communities',
+				},
+				{
+					icon: 'account_box',
+					text: 'Cuentas',
+					key: 'accounts',
 				},
 			];
 		} else if (this.account !== undefined) {
@@ -130,12 +92,7 @@ export class MainComponent implements OnInit {
 
 	initPosts(): void {
 		if (this.account === undefined && this.community === undefined) {
-			this.entrancesService
-				.getAllEntrances()
-				.subscribe(
-					(data: IEntrancePage) =>
-						(this.posts = this.postsService.fromEntrances(data.content))
-				);
+			this.showAllEntrances();
 		} else if (this.community !== undefined) {
 			this.communitiesService
 				.findOne(this.community)
@@ -143,12 +100,7 @@ export class MainComponent implements OnInit {
 					console.log(data);
 					this.currentEntity = this.entitiesService.fromCommunity(data);
 				});
-			this.communitiesService
-				.getEntrancesByCommunity(this.community)
-				.subscribe(
-					(data: IEntrancePage) =>
-						(this.posts = this.postsService.fromEntrances(data.content))
-				);
+			this.showEntrancesByCommunity();
 		} else {
 			this.accountsService
 				.findOne(this.account)
@@ -156,13 +108,76 @@ export class MainComponent implements OnInit {
 					(data: IAccount) =>
 						(this.currentEntity = this.entitiesService.fromAccount(data))
 				);
-			this.accountsService
-				.getEntrancesByAccount(this.account)
-				.subscribe(
-					(data: IEntrancePage) =>
-						(this.posts = this.postsService.fromEntrances(data.content))
-				);
+			this.showEntrancesByAccount();
 		}
+	}
+
+	changeState(key: string): void {
+		if (key === this.state) {
+			return;
+		}
+
+		switch (key) {
+			case 'entrances':
+				this.showEntrancesByAccount();
+				break;
+			case 'comments':
+				this.showCommentsByAccount();
+				break;
+			case 'all':
+				this.showAllEntrances();
+				break;
+			case 'communities':
+				this.showEntrancesBySessionCommunities();
+				break;
+		}
+
+		this.state = key;
+	}
+
+	showAllEntrances(): void {
+		this.entrancesService
+			.getAllEntrances()
+			.subscribe(
+				(data: IEntrancePage) =>
+					(this.posts = this.postsService.fromEntrances(data.content))
+			);
+	}
+
+	showEntrancesBySessionCommunities(): void {
+		this.accountsService
+			.getEntrancesBySessionCommunities()
+			.subscribe(
+				(data: IEntrancePage) =>
+					(this.posts = this.postsService.fromEntrances(data.content))
+			);
+	}
+
+	showEntrancesByAccount(): void {
+		this.accountsService
+			.getEntrancesByAccount(this.account)
+			.subscribe(
+				(data: IEntrancePage) =>
+					(this.posts = this.postsService.fromEntrances(data.content))
+			);
+	}
+
+	showEntrancesByCommunity(): void {
+		this.communitiesService
+			.getEntrancesByCommunity(this.community)
+			.subscribe(
+				(data: IEntrancePage) =>
+					(this.posts = this.postsService.fromEntrances(data.content))
+			);
+	}
+
+	showCommentsByAccount(): void {
+		this.accountsService
+			.getCommentsByAccount(this.currentEntity.id)
+			.subscribe(
+				(data: ICommentPage) =>
+					(this.posts = this.postsService.fromComments(data.content))
+			);
 	}
 
 	shouldShowSubtitle(key: string): boolean {
