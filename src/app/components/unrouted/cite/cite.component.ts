@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IPost } from 'src/app/models/posts.interface';
 import { LocationService } from 'src/app/services/location/location.service';
 
@@ -9,6 +8,7 @@ import { LocationService } from 'src/app/services/location/location.service';
 	styleUrls: ['./cite.component.css'],
 })
 export class CiteComponent implements OnInit {
+	@Input() public onClick: Function;
 	@Input() public post: IPost;
 
 	constructor(private location: LocationService) {}

@@ -1,5 +1,7 @@
 import {
 	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	OnInit,
 	ViewChild,
@@ -10,6 +12,7 @@ import {
 	selector: 'app-alert',
 	templateUrl: './alert.component.html',
 	styleUrls: ['./alert.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent implements OnInit, AfterViewInit {
 	@ViewChild('component', { read: ViewContainerRef })
@@ -18,13 +21,14 @@ export class AlertComponent implements OnInit, AfterViewInit {
 	public close: Function;
 	public onAfterViewInit: Function;
 
-	constructor() {}
+	constructor(private ref: ChangeDetectorRef) {}
 
 	ngOnInit(): void {}
 
 	ngAfterViewInit(): void {
 		if (this.onAfterViewInit) {
 			this.onAfterViewInit();
+			this.ref.detectChanges();
 		}
 	}
 }

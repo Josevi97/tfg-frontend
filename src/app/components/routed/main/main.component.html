@@ -15,6 +15,12 @@
 				[showAccount]="shouldShowSubtitle('account')"
 				[showCommunity]="shouldShowSubtitle('community')"
 				[post]="post"
+				[showActionButtons]="false"
+				[onPostClick]="onPostClick.bind(this, post)"
+				[onCiteClick]="onCiteClick.bind(this)"
+				[onVotesClick]="onVotesClick.bind(this)"
+				[onCommentsClick]="onCommentsClick.bind(this, post)"
+				[showCite]="true"
 			></app-post>
 		</div>
 		<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
@@ -26,6 +32,7 @@
 			[show]="account !== undefined || community !== undefined"
 			[active]="account !== undefined || community !== undefined"
 			[entity]="currentEntity"
+			[onLinksClick]="onLinksClick.bind(this)"
 			[showFollowButton]="
 				community !== undefined ||
 				(account !== undefined && currentEntity?.id !== sessionAccount?.id)

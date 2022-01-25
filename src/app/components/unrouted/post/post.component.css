@@ -1,7 +1,6 @@
 .post {
 	display: flex;
 	align-items: center;
-	cursor: pointer;
 }
 
 .content {
@@ -52,5 +51,20 @@
 
 .icons {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	gap: 20px;
+}
+
+.buttons {
+	display: flex;
+	gap: 5px;
+}
+
+.buttons button {
+	padding: 8px;
+}
+
+.post-active {
+	cursor: pointer;
 }

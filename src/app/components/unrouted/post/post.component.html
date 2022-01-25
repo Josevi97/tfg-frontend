@@ -1,6 +1,9 @@
-<div class="post content">
+<div
+	(click)="onPostClick ? onPostClick() : null"
+	class="post content {{ onPostClick ? 'post-active' : '' }}"
+>
 	<app-votes
-		[onClick]="onVotesClick.bind(this)"
+		[onClick]="onVotesClick ? onVotesClick.bind(this) : null"
 		[vote]="post?.sessionVoted"
 		[votes]="post?.votes"
 	></app-votes>
@@ -31,17 +34,36 @@
 				</p>
 			</div>
 		</div>
-		<app-cite *ngIf="post.type === 'comment'" [post]="post"></app-cite>
+		<app-cite
+			*ngIf="showCite && post.type === 'comment'"
+			[onClick]="onCiteClick ? onCiteClick.bind(this) : null"
+			[post]="post"
+		></app-cite>
 		<p class="post__body">{{ post?.body }}</p>
 		<div class="icons">
 			<a
-				(click)="onCommentsClick(); $event.stopPropagation()"
+				(click)="
+					onCommentsClick ? onCommentsClick() : null; $event.stopPropagation()
+				"
 				class="post__comment"
 			>
 				<i class="{{ iconsService.getIcon('comment') }}">
-					{{ post.comments }}</i
-				>
+					<span> {{ post?.comments }}</span>
+				</i>
 			</a>
+
+			<div *ngIf="showActionButtons" class="buttons">
+				<button *ngIf="this.post.type !== 'comment'" class="btn-normal">
+					<i class="{{ iconsService.getIcon('edit') }}">
+						<span> Editar</span></i
+					>
+				</button>
+				<button class="btn-normal">
+					<i class="{{ iconsService.getIcon('delete') }}">
+						<span> Eliminar</span></i
+					>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -21,7 +21,6 @@
 }
 
 .content {
-	position: relative;
 	padding: 25px;
 	width: 100%;
 	height: 100%;
@@ -36,9 +35,10 @@
 
 .componentContainer {
 	padding: 30px;
+	width: 100%;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
 	.alert {
 		width: 100vw;
 		height: 100vh;

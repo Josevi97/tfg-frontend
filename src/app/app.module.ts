@@ -37,6 +37,7 @@ import { CiteComponent } from './components/unrouted/cite/cite.component';
 import { LocationService } from './services/location/location.service';
 import { EntityComponent } from './components/unrouted/entity/entity.component';
 import { EntitiesService } from './services/entities/entities.service';
+import { PinspectComponent } from './components/unrouted/pinspect/pinspect.component';
 
 @NgModule({
 	declarations: [
@@ -65,6 +66,7 @@ import { EntitiesService } from './services/entities/entities.service';
 		VotePipe,
 		FollowPipe,
 		CiteComponent,
+  PinspectComponent,
 	],
 	imports: [
 		HttpClientModule,

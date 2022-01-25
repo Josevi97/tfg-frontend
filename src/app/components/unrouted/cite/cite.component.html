@@ -1,4 +1,7 @@
-<div class="content">
+<div
+	(click)="onClick ? onClick(post.post) : null; $event.stopPropagation()"
+	class="content link-secondary"
+>
 	<p class="content__cite">
 		Respuesta {{ post.post.responseType }} de
 		<a

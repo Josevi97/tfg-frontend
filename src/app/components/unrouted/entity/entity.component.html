@@ -25,12 +25,19 @@
 	</a>
 	<div class="body">
 		<div class="info">
-			<p *ngIf="entity.following !== null">
+			<a
+				*ngIf="entity.following !== null"
+				(click)="onLinksClick ? onLinksClick('following') : null"
+				class="link-secondary"
+			>
 				<span class="info__variable">{{ entity?.following }} </span> siguiendo
-			</p>
-			<p>
+			</a>
+			<a
+				(click)="onLinksClick ? onLinksClick('followers') : null"
+				class="link-secondary"
+			>
 				<span class="info__variable">{{ entity?.followers }} </span>seguidores
-			</p>
+			</a>
 		</div>
 		<p>
 			{{ entity?.body }}

@@ -24,6 +24,9 @@
 	--secondary-color: #666666;
 	--secondary-color-hover: #3d3d3d;
 	--secondary-color-active: #242424;
+	--error-color: #ff2e12;
+	--error-color-hover: #de240b;
+	--error-color-active: #b81b06;
 	--white-color: #f7f7f7;
 	--light-color: #a6a6a6;
 
@@ -138,6 +141,23 @@ input[type='password'] {
 	color: white;
 }
 
+.btn-error {
+	background-color: var(--error-color);
+	color: white;
+	border: 1px solid var(--error-color);
+	padding: 15px;
+}
+
+.btn-error:hover {
+	background-color: var(--error-color-hover);
+	color: white;
+}
+
+.btn-error:active {
+	background-color: var(--error-color-active);
+	color: white;
+}
+
 .link-primary {
 	color: var(--primary-color);
 }
@@ -184,13 +204,19 @@ input[type='password'] {
 	gap: 15px;
 }
 
+@media screen and (max-width: 1750px) {
+	.wrap {
+		width: 75%;
+	}
+}
+
 @media screen and (max-width: 1400px) {
 	* {
 		font-size: 15px;
 	}
 
 	.wrap {
-		width: 65%;
+		width: 80%;
 	}
 }
 
@@ -200,7 +226,7 @@ input[type='password'] {
 	}
 
 	.wrap {
-		width: 80%;
+		width: 90%;
 	}
 }
 
@@ -212,7 +238,7 @@ input[type='password'] {
 
 @media screen and (max-width: 768px) {
 	.wrap {
-		width: 90%;
+		width: 100%;
 	}
 }
 

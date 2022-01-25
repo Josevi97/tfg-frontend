@@ -12,6 +12,7 @@ export class EntityComponent implements OnInit {
 	@Input() public entity: IEntity;
 	@Input() public active: boolean;
 	@Input() public showFollowButton: boolean;
+	@Input() public onLinksClick: Function;
 
 	constructor(private router: Router) {}
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
+import { ICommentPage } from 'src/app/models/comments.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
@@ -16,6 +17,12 @@ export class EntrancesService {
 	getAllEntrances(): Observable<IEntrancePage> {
 		return this.http
 			.get<IEntrancePage>(this.ENTRANCE_URI, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getResponses(id: number): Observable<ICommentPage> {
+		return this.http
+			.get<ICommentPage>(`${this.ENTRANCE_URI}/${id}/comments`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

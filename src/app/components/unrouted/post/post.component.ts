@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IPost } from 'src/app/models/posts.interface';
-import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { IconsService } from 'src/app/services/icons/icons.service';
 import { LocationService } from 'src/app/services/location/location.service';
 
@@ -11,38 +9,22 @@ import { LocationService } from 'src/app/services/location/location.service';
 	styleUrls: ['./post.component.css'],
 })
 export class PostComponent implements OnInit {
+	@Input() public onPostClick: Function;
+	@Input() public onCiteClick: Function;
 	@Input() public onCommentsClick: Function;
+	@Input() public onVotesClick: Function;
 	@Input() public post: IPost;
 	@Input() public showAccount: boolean;
 	@Input() public showCommunity: boolean;
+	@Input() public showActionButtons: boolean;
+	@Input() public showCite: boolean;
 
 	constructor(
 		public iconsService: IconsService,
-		private location: LocationService,
-		private entranceService: EntrancesService
+		private location: LocationService
 	) {}
 
 	ngOnInit(): void {}
-
-	onVotesClick(key: string): void {
-		this.entranceService.unvoteEntrance(this.post.id).subscribe(
-			() => {
-				if (
-					(key === 'up' && this.post.sessionVoted !== 1) ||
-					(key === 'down' && this.post.sessionVoted !== 0)
-				) {
-					this.createVote(key);
-				}
-			},
-			() => this.createVote(key)
-		);
-	}
-
-	createVote(key: string): void {
-		this.entranceService
-			.voteEntrance(this.post.id, key === 'up')
-			.subscribe(() => {});
-	}
 
 	navigateToAccount(): void {
 		this.location.navigateToAccount(this.post.account.id);

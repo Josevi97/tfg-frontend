@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+	Component,
+	ComponentRef,
+	OnInit,
+	ViewChild,
+	ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICommentPage } from 'src/app/models/comments.interface';
 import { ICommunity } from 'src/app/models/communities.interface';
@@ -8,10 +14,13 @@ import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
+import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { IAccount } from '../../../models/accounts.interface';
+import { AlertComponent } from '../../unrouted/alert/alert.component';
+import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -35,7 +44,8 @@ export class MainComponent implements OnInit {
 		private entrancesService: EntrancesService,
 		private communitiesService: CommunitiesService,
 		private postsService: PostsService,
-		private entitiesService: EntitiesService
+		private entitiesService: EntitiesService,
+		private componentFactoryService: ComponentFactoryService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
@@ -96,10 +106,10 @@ export class MainComponent implements OnInit {
 		} else if (this.community !== undefined) {
 			this.communitiesService
 				.findOne(this.community)
-				.subscribe((data: ICommunity) => {
-					console.log(data);
-					this.currentEntity = this.entitiesService.fromCommunity(data);
-				});
+				.subscribe(
+					(data: ICommunity) =>
+						(this.currentEntity = this.entitiesService.fromCommunity(data))
+				);
 			this.showEntrancesByCommunity();
 		} else {
 			this.accountsService
@@ -201,5 +211,53 @@ export class MainComponent implements OnInit {
 		}
 
 		return false;
+	}
+
+	createAlert(): ComponentRef<AlertComponent> {
+		const a = this.componentFactoryService.generateComponent(
+			AlertComponent,
+			this.alertRef
+		);
+
+		a.instance.close = () => this.componentFactoryService.destroyComponent(a);
+		return a;
+	}
+
+	onPostClick(post: IPost): void {
+		const a = this.createAlert();
+
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				PinspectComponent,
+				a.instance.componentRef
+			);
+			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.post = post;
+		};
+	}
+
+	onCiteClick(post: IPost): void {
+		console.log('cite clicked');
+	}
+
+	onVotesClick(): void {
+		console.log('votes clicked');
+	}
+
+	onCommentsClick(post: IPost): void {
+		const a = this.createAlert();
+
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				PinspectComponent,
+				a.instance.componentRef
+			);
+			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.post = post;
+		};
+	}
+
+	onLinksClick(key: string): void {
+		const a = this.createAlert();
 	}
 }

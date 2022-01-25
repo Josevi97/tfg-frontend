@@ -1,0 +1,26 @@
+<div class="content">
+	<app-post
+		[showAccount]="true"
+		[showCommunity]="true"
+		[post]="post"
+		[showActionButtons]="shouldShowActionButtons(post)"
+		[showCite]="true"
+	></app-post>
+	<div class="separator">
+		<span class="separator__text">RESPUESTAS</span>
+		<hr class="separator__line" />
+	</div>
+
+	<div class="responses">
+		<app-post
+			*ngFor="let p of posts"
+			[showAccount]="true"
+			[showCommunity]="true"
+			[post]="p"
+			[showActionButtons]="shouldShowActionButtons(p)"
+			[showCite]="false"
+		></app-post>
+	</div>
+
+	<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
+</div>

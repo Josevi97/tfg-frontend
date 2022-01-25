@@ -1,11 +1,14 @@
 <div class="content">
-	<button class="btn-normal" (click)="onClick('up'); $event.stopPropagation()">
+	<button
+		class="btn-normal"
+		(click)="onClick ? onClick('up') : null; $event.stopPropagation()"
+	>
 		<i class="material-icons upVote {{ vote | vote: true }}">forward</i>
 	</button>
 	<p class="element__votes">{{ votes }}</p>
 	<button
 		class="btn-normal element__down"
-		(click)="onClick('down'); $event.stopPropagation()"
+		(click)="onClick ? onClick('down') : null; $event.stopPropagation()"
 	>
 		<i class="material-icons downVote {{ vote === 0 ? 'pressed' : '' }}"
 			>forward</i

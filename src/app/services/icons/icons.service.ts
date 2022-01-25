@@ -14,6 +14,10 @@ export class IconsService {
 				return 'far fa-copyright';
 			case 'comment':
 				return 'far fa-comment';
+			case 'edit':
+				return 'far fa-edit';
+			case 'delete':
+				return 'far fa-trash-alt';
 			case 'copyright':
 				return 'far fa-copyright';
 		}
