@@ -74,6 +74,10 @@
 	color: black;
 }
 
+.entity-active {
+	cursor: default;
+}
+
 @media screen and (max-width: 1400px) {
 	.content__button {
 		width: 200px;

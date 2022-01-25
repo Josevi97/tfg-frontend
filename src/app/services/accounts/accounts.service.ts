@@ -30,6 +30,15 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	getEntrancesBySessionFollowing(): Observable<IEntrancePage> {
+		return this.http
+			.get<IEntrancePage>(
+				`${this.ACCOUNT_URI}/following/entrances`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	register(data: IRegisterAccount): Observable<String> {
 		return this.http
 			.post<String>(this.ACCOUNT_URI, data, httpOptions)

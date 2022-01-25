@@ -49,7 +49,7 @@ i {
 }
 
 .active {
-	color: var(--primary-color-active);
+	color: var(--primary-color);
 	cursor: default;
 }
 

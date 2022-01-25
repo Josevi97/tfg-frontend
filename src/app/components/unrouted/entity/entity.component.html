@@ -1,5 +1,8 @@
 <div class="content {{ !show ? 'hide__phone' : '' }}">
-	<a (click)="navigateToAccount()" class="head">
+	<a
+		(click)="navigateToAccount()"
+		class="head {{ active ? 'entity-active' : '' }}"
+	>
 		<div class="head__content">
 			<div class="head__avatar">
 				<img
@@ -22,7 +25,7 @@
 	</a>
 	<div class="body">
 		<div class="info">
-			<p *ngIf="entity.following">
+			<p *ngIf="entity.following !== null">
 				<span class="info__variable">{{ entity?.following }} </span> siguiendo
 			</p>
 			<p>

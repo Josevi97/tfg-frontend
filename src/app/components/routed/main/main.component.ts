@@ -130,6 +130,9 @@ export class MainComponent implements OnInit {
 			case 'communities':
 				this.showEntrancesBySessionCommunities();
 				break;
+			case 'accounts':
+				this.showEntrancesBySesssionFollowing();
+				break;
 		}
 
 		this.state = key;
@@ -147,6 +150,15 @@ export class MainComponent implements OnInit {
 	showEntrancesBySessionCommunities(): void {
 		this.accountsService
 			.getEntrancesBySessionCommunities()
+			.subscribe(
+				(data: IEntrancePage) =>
+					(this.posts = this.postsService.fromEntrances(data.content))
+			);
+	}
+
+	showEntrancesBySesssionFollowing(): void {
+		this.accountsService
+			.getEntrancesBySessionFollowing()
 			.subscribe(
 				(data: IEntrancePage) =>
 					(this.posts = this.postsService.fromEntrances(data.content))

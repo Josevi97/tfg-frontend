@@ -24,7 +24,7 @@
 		<app-entity
 			*ngIf="sessionAccount || account !== undefined"
 			[show]="account !== undefined || community !== undefined"
-			[active]="false"
+			[active]="account !== undefined || community !== undefined"
 			[entity]="currentEntity"
 			[showFollowButton]="
 				community !== undefined ||
