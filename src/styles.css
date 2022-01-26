@@ -190,6 +190,10 @@ input[type='password'] {
 	border: 1px solid var(--secondary-color-hover);
 }
 
+.cursor-default {
+	cursor: default;
+}
+
 .wrap {
 	position: relative;
 	width: 65%;

@@ -13,12 +13,12 @@
 				/>
 			</div>
 			<span *ngIf="entity?.tag" class="head__admin">{{
-				entity.tag.toUpperCase()
+				entity?.tag.toUpperCase()
 			}}</span>
 		</div>
 		<div class="subhead">
 			<p class="subhead__title">{{ entity?.title }}</p>
-			<p *ngIf="entity.subtitle" class="subhead__subtitle">
+			<p *ngIf="entity?.subtitle" class="subhead__subtitle">
 				@{{ entity?.subtitle }}
 			</p>
 		</div>
@@ -27,14 +27,26 @@
 		<div class="info">
 			<a
 				*ngIf="entity.following !== null"
-				(click)="onLinksClick ? onLinksClick('following') : null"
-				class="link-secondary"
+				(click)="
+					entity?.following > 0 && onLinksClick
+						? onLinksClick('following', entity.type)
+						: null
+				"
+				class="{{
+					entity?.following > 0 ? 'link-secondary' : 'cursor-default'
+				}}"
 			>
 				<span class="info__variable">{{ entity?.following }} </span> siguiendo
 			</a>
 			<a
-				(click)="onLinksClick ? onLinksClick('followers') : null"
-				class="link-secondary"
+				(click)="
+					entity?.followers > 0 && onLinksClick
+						? onLinksClick('followers', entity.type)
+						: null
+				"
+				class="{{
+					entity?.followers > 0 ? 'link-secondary' : 'cursor-default'
+				}}"
 			>
 				<span class="info__variable">{{ entity?.followers }} </span>seguidores
 			</a>
@@ -45,6 +57,7 @@
 	</div>
 	<button
 		*ngIf="showFollowButton"
+		(click)="onFollowClick ? onFollowClick() : null"
 		class="btn-{{
 			entity?.sessionFollow | follow: true
 		}}primary content__button"

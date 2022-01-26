@@ -1,3 +1,5 @@
+import { IAccount } from './accounts.interface';
+
 export interface ICommunity {
 	id: number;
 	name: string;
@@ -11,5 +13,15 @@ export interface ICommunity {
 
 export interface ICommunityPage {
 	content: ICommunity[];
+	totalElements: number;
+}
+
+export interface ICommunityList {
+	account: IAccount;
+	community: ICommunity;
+}
+
+export interface ICommunityListPage {
+	content: ICommunityList[];
 	totalElements: number;
 }

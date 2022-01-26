@@ -1,0 +1,31 @@
+<div class="content">
+	<p>{{ header }}</p>
+	<div *ngIf="entities?.length > 0">
+		<div *ngFor="let entity of entities">
+			<div class="card">
+				<div class="head">
+					<img
+						width="50"
+						class="card__image"
+						src="../../../../assets/images/not-account-image-found.png"
+						alt="not found"
+					/>
+					<div>
+						<p class="card__title">{{ entity?.title }}</p>
+						<p class="card__subtitle">@{{ entity?.subtitle }}</p>
+					</div>
+				</div>
+				<button
+					*ngIf="sessionAccount.id !== entity.id"
+					(click)="onFollowClick ? onFollowClick(entity) : null"
+					class="btn-{{
+						entity?.sessionFollow | follow: true
+					}}primary card__button"
+				>
+					{{ entity?.sessionFollow | follow: false }}
+				</button>
+			</div>
+		</div>
+	</div>
+	<app-list-end [hasContent]="entities?.length > 0"></app-list-end>
+</div>

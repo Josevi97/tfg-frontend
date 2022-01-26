@@ -24,6 +24,10 @@ export class EntitiesService {
 		};
 	}
 
+	fromAccounts(accounts: IAccount[]): IEntity[] {
+		return accounts.map((account) => this.fromAccount(account));
+	}
+
 	fromCommunity(community: ICommunity): IEntity {
 		return {
 			id: community?.id,

@@ -7,7 +7,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICommentPage } from 'src/app/models/comments.interface';
-import { ICommunity } from 'src/app/models/communities.interface';
+import {
+	ICommunity,
+	ICommunityListPage,
+} from 'src/app/models/communities.interface';
 import { IEntity } from 'src/app/models/entities.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
@@ -17,9 +20,13 @@ import { CommunitiesService } from 'src/app/services/communities/communities.ser
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
+import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
-import { IAccount } from '../../../models/accounts.interface';
-import { AlertComponent } from '../../unrouted/alert/alert.component';
+import {
+	IAccount,
+	IAccountFollowPage,
+} from '../../../models/accounts.interface';
+import { ElistComponent } from '../../unrouted/elist/elist.component';
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 
 @Component({
@@ -45,7 +52,8 @@ export class MainComponent implements OnInit {
 		private communitiesService: CommunitiesService,
 		private postsService: PostsService,
 		private entitiesService: EntitiesService,
-		private componentFactoryService: ComponentFactoryService
+		private componentFactoryService: ComponentFactoryService,
+		private interactivityService: InteractivityService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
@@ -213,18 +221,8 @@ export class MainComponent implements OnInit {
 		return false;
 	}
 
-	createAlert(): ComponentRef<AlertComponent> {
-		const a = this.componentFactoryService.generateComponent(
-			AlertComponent,
-			this.alertRef
-		);
-
-		a.instance.close = () => this.componentFactoryService.destroyComponent(a);
-		return a;
-	}
-
 	onPostClick(post: IPost): void {
-		const a = this.createAlert();
+		const a = this.componentFactoryService.createAlert(this.alertRef);
 
 		a.instance.onAfterViewInit = () => {
 			const component = this.componentFactoryService.generateComponent(
@@ -245,7 +243,7 @@ export class MainComponent implements OnInit {
 	}
 
 	onCommentsClick(post: IPost): void {
-		const a = this.createAlert();
+		const a = this.componentFactoryService.createAlert(this.alertRef);
 
 		a.instance.onAfterViewInit = () => {
 			const component = this.componentFactoryService.generateComponent(
@@ -257,7 +255,74 @@ export class MainComponent implements OnInit {
 		};
 	}
 
-	onLinksClick(key: string): void {
-		const a = this.createAlert();
+	onLinksClick(key: string, type: string): void {
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				ElistComponent,
+				a.instance.componentRef
+			);
+
+			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.header =
+				key === 'following' ? 'Siguiendo' : 'Seguidores';
+
+			component.instance.onFollowClick = (e: IEntity) =>
+				this.interactivityService.calculateFollow(e, (_e: IEntity) => {
+					component.instance.updateEntity(_e);
+					this.currentEntity.following += _e.sessionFollow === -1 ? -1 : 1;
+				});
+
+			switch (type) {
+				case 'account':
+					this.handleAccountFollow(key, component);
+					break;
+				case 'community':
+					this.handleCommunityFollow(component);
+					break;
+			}
+		};
+	}
+
+	handleAccountFollow(
+		key: string,
+		component: ComponentRef<ElistComponent>
+	): void {
+		switch (key) {
+			case 'following':
+				this.accountsService
+					.getFollowingByAccount(this.currentEntity.id)
+					.subscribe((data: IAccountFollowPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromAccounts(
+								this.accountsService.getFollowing(data)
+							)
+						);
+					});
+				break;
+			case 'followers':
+				this.accountsService
+					.getFollowersByAccount(this.currentEntity.id)
+					.subscribe((data: IAccountFollowPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromAccounts(
+								this.accountsService.getFollowers(data)
+							)
+						);
+					});
+				break;
+		}
+	}
+
+	handleCommunityFollow(component: ComponentRef<ElistComponent>): void {
+		this.communitiesService
+			.getFollowersByAccount(this.currentEntity.id)
+			.subscribe((data: ICommunityListPage) => {
+				component.instance.setEntities(
+					this.entitiesService.fromAccounts(
+						this.communitiesService.getFollowers(data)
+					)
+				);
+			});
 	}
 }

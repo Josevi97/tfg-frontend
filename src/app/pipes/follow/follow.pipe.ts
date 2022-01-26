@@ -9,8 +9,6 @@ export class FollowPipe implements PipeTransform {
 			switch (value) {
 				case 0:
 					return 'Dejar de seguir';
-				case 1:
-					return 'Seguir tambien';
 				default:
 					return 'Seguir';
 			}

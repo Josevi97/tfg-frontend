@@ -11,7 +11,7 @@
 		<hr class="separator__line" />
 	</div>
 
-	<div class="responses">
+	<div *ngIf="posts?.length > 0" class="responses">
 		<app-post
 			*ngFor="let p of posts"
 			[showAccount]="true"

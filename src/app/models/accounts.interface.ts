@@ -19,10 +19,25 @@ export interface IAccount {
 	sessionFollow: number;
 }
 
+export interface IAccountPage {
+	content: IAccount[];
+	totalElements: number;
+}
+
 export interface IRegisterAccount {
 	login: string;
 	email: string;
 	username: string;
 	originalPassword: string;
 	repeatedPassword: string;
+}
+
+export interface IAccountFollow {
+	from: IAccount;
+	to: IAccount;
+}
+
+export interface IAccountFollowPage {
+	content: IAccountFollow[];
+	totalElements: number;
 }

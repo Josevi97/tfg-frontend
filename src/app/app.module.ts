@@ -38,6 +38,8 @@ import { LocationService } from './services/location/location.service';
 import { EntityComponent } from './components/unrouted/entity/entity.component';
 import { EntitiesService } from './services/entities/entities.service';
 import { PinspectComponent } from './components/unrouted/pinspect/pinspect.component';
+import { InteractivityService } from './services/interactivity/interactivity.service';
+import { ElistComponent } from './components/unrouted/elist/elist.component';
 
 @NgModule({
 	declarations: [
@@ -66,7 +68,8 @@ import { PinspectComponent } from './components/unrouted/pinspect/pinspect.compo
 		VotePipe,
 		FollowPipe,
 		CiteComponent,
-  PinspectComponent,
+		PinspectComponent,
+  ElistComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -86,6 +89,7 @@ import { PinspectComponent } from './components/unrouted/pinspect/pinspect.compo
 		PostsService,
 		LocationService,
 		EntitiesService,
+		InteractivityService,
 	],
 	bootstrap: [AppComponent],
 })

@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { ICommunity } from 'src/app/models/communities.interface';
+import { IAccount } from 'src/app/models/accounts.interface';
+import {
+	ICommunity,
+	ICommunityList,
+	ICommunityListPage,
+} from 'src/app/models/communities.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
@@ -24,5 +29,32 @@ export class CommunitiesService {
 		return this.http
 			.get<IEntrancePage>(`${this.COMMUNITY_URI}/${id}/entrances`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getFollowersByAccount(id: number): Observable<ICommunityListPage> {
+		return this.http
+			.get<ICommunityListPage>(
+				`${this.COMMUNITY_URI}/${id}/followers`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	followAccount(id: number): Observable<String> {
+		return this.http
+			.post<String>(`${this.COMMUNITY_URI}/${id}/follow`, null, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	unfollowAccount(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.COMMUNITY_URI}/${id}/follow`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getFollowers(data: ICommunityListPage): IAccount[] {
+		return data.content.map(
+			(communityList: ICommunityList) => communityList.account
+		);
 	}
 }

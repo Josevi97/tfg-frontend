@@ -4,6 +4,7 @@ import {
 	Injectable,
 	ViewContainerRef,
 } from '@angular/core';
+import { AlertComponent } from 'src/app/components/unrouted/alert/alert.component';
 
 @Injectable({
 	providedIn: 'root',
@@ -25,5 +26,12 @@ export class ComponentFactoryService {
 
 	destroyComponent(componentRef: ComponentRef<any>) {
 		componentRef.destroy();
+	}
+
+	createAlert(componentRef: ViewContainerRef): ComponentRef<AlertComponent> {
+		const a = this.generateComponent(AlertComponent, componentRef);
+
+		a.instance.close = () => this.destroyComponent(a);
+		return a;
 	}
 }

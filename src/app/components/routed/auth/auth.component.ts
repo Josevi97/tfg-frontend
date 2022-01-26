@@ -16,12 +16,8 @@ export class AuthComponent implements OnInit {
 	ngOnInit(): void {}
 
 	generateComponent(type: string) {
-		const a = this.componentFactory.generateComponent(
-			AlertComponent,
-			this.alertRef
-		);
+		const a = this.componentFactory.createAlert(this.alertRef);
 
-		a.instance.close = () => this.componentFactory.destroyComponent(a);
 		a.instance.onAfterViewInit = () => {
 			switch (type) {
 				case 'init':
