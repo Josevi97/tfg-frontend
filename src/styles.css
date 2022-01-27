@@ -158,6 +158,23 @@ input[type='password'] {
 	color: white;
 }
 
+.btn-outline-error {
+	background-color: transparent;
+	color: var(--error-color);
+	border: 1px solid var(--error-color);
+	padding: 15px;
+}
+
+.btn-outline-error:hover {
+	background-color: var(--error-color-hover);
+	color: white;
+}
+
+.btn-outline-error:active {
+	background-color: var(--error-color-active);
+	color: white;
+}
+
 .link-primary {
 	color: var(--primary-color);
 }

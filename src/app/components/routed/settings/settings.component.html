@@ -1,1 +1,146 @@
 <app-menu></app-menu>
+<div class="wrap content">
+	<ul class="menu">
+		<li *ngFor="let data of menuData">
+			<button (click)="changeState(data.key)" class="btn-normal menu__button">
+				<i
+					class="material-icons menu__icon {{
+						state === data.key ? 'active' : ''
+					}}"
+				>
+					{{ data.icon }}
+					<span class="menu__text"> {{ data.text }}</span>
+				</i>
+			</button>
+		</li>
+	</ul>
+	<div class="data">
+		<div *ngIf="state === 'account'" class="account">
+			<div class="separator">
+				<span class="separator__text">Ajustes de cuenta</span>
+				<hr class="separator__line" />
+			</div>
+
+			<form class="settings-form">
+				<div class="settings-form-component">
+					<p class="settings-form__title">Avatar</p>
+					<div class="settings-form-content">
+						<input class="settings-form__input" type="text" />
+						<p class="settings-form__explain">
+							Imagen por la que te podra identificar el resto de usuarios. Tenga
+							en cuenta que la imagen que suba sera publica para todos. Sin
+							embargo, si decide cambiar o eliminar la imagen, no sera
+							almacenada en nuestra base de datos.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title">Username*</p>
+					<div class="settings-form-content">
+						<input
+							class="settings-form__input"
+							type="text"
+							placeholder="jose peña"
+						/>
+						<p class="settings-form__explain">
+							Este campo solamente es visual, el resto de usuarios no podra
+							encontrarte por el username, sin embargo, sera el campo que
+							destacara cuando entren en tu perfil.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title">Correo electronico*</p>
+					<div class="settings-form-content">
+						<textarea rows="7"> </textarea>
+						<p class="settings-form__explain">
+							Tenga en cuenta que este campo sera accesible por todos los
+							usuarios. Nosotros utilizaremos tu correo electronico para poder
+							realizar diferentes operaciones y facilitar la comunicacion.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title">Login*</p>
+					<div class="settings-form-content">
+						<input
+							class="settings-form__input"
+							type="text"
+							placeholder="josevi97"
+						/>
+						<p class="settings-form__explain">
+							Este campo es visible por todos los usuarios y sera el campo por
+							el cual el resto podra encontrarte en la pagina. Ademas, sera el
+							campo que deberas utilizar para hacer login en nuestra pagina.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title">Contraseña</p>
+					<div class="settings-form-content">
+						<input
+							class="settings-form__input"
+							type="password"
+							placeholder="*********"
+						/>
+						<input
+							class="settings-form__input"
+							type="password"
+							placeholder="repetir contraseña"
+						/>
+						<p class="settings-form__explain">
+							Tenga en cuenta que este campo sera accesible por todos los
+							usuarios. Nosotros utilizaremos tu correo electronico para poder
+							realizar diferentes operaciones y facilitar la comunicacion.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title">Correo electronico*</p>
+					<div class="settings-form-content">
+						<input
+							class="settings-form__input"
+							type="email"
+							placeholder="ejemplo@hotmail.com"
+						/>
+						<p class="settings-form__explain">
+							Tenga en cuenta que este campo sera accesible por todos los
+							usuarios. Nosotros utilizaremos tu correo electronico para poder
+							realizar diferentes operaciones y facilitar la comunicacion.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title"></p>
+					<div class="settings-form-content">
+						<input
+							class="settings-form__input btn-primary"
+							type="submit"
+							value="Enviar"
+							placeholder="ejemplo@hotmail.com"
+						/>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<p class="settings-form__title"></p>
+					<div class="settings-form-content settings-form-delete">
+						<p class="settings-form-delete__text">
+							Si desea eliminar su cuenta, debe tener en cuenta que nuestra base
+							de datos no almacenara ningun tipo de informacion. Es decir, una
+							vez haya eliminado la cuenta, no podra volver a recuperar sus
+							datos. Lo mismo ocurrira con la imagen que tenga subida, la cual,
+							una vez eliminada la cuenta, se borrara de nuestra base de datos.
+						</p>
+						<div class="comodin">
+							<button class="settings-form-delete__button btn-outline-error">
+								Eliminar
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<app-list-end *ngIf="state !== 'account'"></app-list-end>
+	</div>
+</div>
+<app-copyright></app-copyright>
