@@ -1,8 +1,11 @@
 <div class="content">
-	<p>{{ header }}</p>
+	<div class="separator">
+		<span class="separator__text">{{ header }}</span>
+		<hr class="separator__line" />
+	</div>
 	<div *ngIf="entities?.length > 0">
 		<div *ngFor="let entity of entities">
-			<div class="card">
+			<div (click)="navigateToEntity(entity)" class="card">
 				<div class="head">
 					<img
 						width="50"
@@ -17,7 +20,10 @@
 				</div>
 				<button
 					*ngIf="sessionAccount.id !== entity.id"
-					(click)="onFollowClick ? onFollowClick(entity) : null"
+					(click)="
+						onFollowClick ? onFollowClick(entity) : null;
+						$event.stopPropagation()
+					"
 					class="btn-{{
 						entity?.sessionFollow | follow: true
 					}}primary card__button"

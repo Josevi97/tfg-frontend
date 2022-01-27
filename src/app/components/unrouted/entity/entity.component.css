@@ -28,7 +28,7 @@
 
 .head__avatar {
 	display: flex;
-	border: 2px solid var(--primary-color);
+	border: 3px solid var(--primary-color);
 	border-radius: 50%;
 	overflow: hidden;
 }
