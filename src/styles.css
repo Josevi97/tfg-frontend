@@ -51,15 +51,6 @@ i {
 	color: var(--light-color);
 }
 
-.active {
-	color: var(--primary-color);
-	cursor: default;
-}
-
-.pressed {
-	color: var(--primary-color);
-}
-
 a:hover > i:not(.active),
 button:hover > i:not(.active) {
 	color: var(--primary-color-hover);
@@ -207,8 +198,21 @@ input[type='password'] {
 	border: 1px solid var(--secondary-color-hover);
 }
 
+.input-error {
+	border: 1px solid var(--error-color);
+}
+
 .cursor-default {
 	cursor: default;
+}
+
+.active {
+	color: var(--primary-color);
+	cursor: default;
+}
+
+.pressed {
+	color: var(--primary-color);
 }
 
 .wrap {
@@ -223,6 +227,18 @@ input[type='password'] {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+	max-width: 300px;
+	margin: auto;
+}
+
+.form__label {
+	font-size: 1.2rem;
+}
+
+.form-component {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 @media screen and (max-width: 1750px) {

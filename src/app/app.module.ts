@@ -1,4 +1,4 @@
-import { ComponentFactory, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -40,6 +40,7 @@ import { EntitiesService } from './services/entities/entities.service';
 import { PinspectComponent } from './components/unrouted/pinspect/pinspect.component';
 import { InteractivityService } from './services/interactivity/interactivity.service';
 import { ElistComponent } from './components/unrouted/elist/elist.component';
+import { FormsService } from './services/forms/forms.service';
 
 @NgModule({
 	declarations: [
@@ -69,7 +70,7 @@ import { ElistComponent } from './components/unrouted/elist/elist.component';
 		FollowPipe,
 		CiteComponent,
 		PinspectComponent,
-  ElistComponent,
+		ElistComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -90,6 +91,7 @@ import { ElistComponent } from './components/unrouted/elist/elist.component';
 		LocationService,
 		EntitiesService,
 		InteractivityService,
+		FormsService,
 	],
 	bootstrap: [AppComponent],
 })

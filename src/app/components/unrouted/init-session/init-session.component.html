@@ -1,8 +1,13 @@
-<form class="form" (submit)="onSubmit()">
-	<p class="form__title">Iniciar sesion</p>
-	<input class="input-secondary" type="text" placeholder="login" />
-	<input class="input-secondary" type="password" placeholder="password" />
+<form class="form" (submit)="onSubmit()" [formGroup]="formGroup">
+	<div *ngFor="let data of formData" class="form-component">
+		<label class="form__label" for="{{ data.key }}">{{ data.label }}</label>
+		<input
+			formControlName="{{ data.key }}"
+			id="{{ data.key }}"
+			class="form__input {{ formsService.inputValid(data.key, formGroup) }}"
+			type="{{ data.type }}"
+			placeholder="{{ data.placeholder }}"
+		/>
+	</div>
 	<input class="form__input btn-outline-primary" type="submit" value="Entrar" />
-
-	<a>He olvidado la contraseña.</a>
 </form>

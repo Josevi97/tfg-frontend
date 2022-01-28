@@ -30,6 +30,7 @@ export interface IRegisterAccount {
 	username: string;
 	originalPassword: string;
 	repeatedPassword: string;
+	admin: boolean;
 }
 
 export interface IAccountFollow {
