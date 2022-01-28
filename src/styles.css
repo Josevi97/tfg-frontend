@@ -67,6 +67,7 @@ i,
 button,
 input,
 span,
+textarea,
 strong {
 	font-size: 1em;
 }
@@ -87,7 +88,8 @@ input[type='submit'] {
 
 input[type='text'],
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+textarea {
 	padding: 10px;
 	outline: none;
 }
