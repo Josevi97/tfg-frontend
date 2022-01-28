@@ -68,6 +68,15 @@
 	width: 100%;
 }
 
+.settings-form__image {
+	border: 3px solid white;
+	border-radius: 50%;
+}
+
+.settings-form__textarea {
+	resize: none;
+}
+
 .settings-form__input {
 	width: 300px;
 }
@@ -87,6 +96,9 @@
 }
 
 .settings-form-delete {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 	margin-top: 50px;
 }
 
@@ -99,12 +111,6 @@
 	width: fit-content;
 	padding-left: 50px;
 	padding-right: 50px;
-}
-
-@media screen and (max-width: 1400px) {
-}
-
-@media screen and (max-width: 1200px) {
 }
 
 @media screen and (max-width: 992px) {
@@ -121,7 +127,4 @@
 	.menu__text {
 		display: none;
 	}
-}
-
-@media screen and (max-width: 576px) {
 }
