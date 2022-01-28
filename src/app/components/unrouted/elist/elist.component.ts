@@ -14,6 +14,7 @@ export class ElistComponent implements OnInit {
 	@Input() public entities: IEntity[];
 	@Input() public header: string;
 	@Input() public sessionAccount: IAccount;
+	@Input() public hide: boolean;
 
 	constructor(
 		private router: Router,

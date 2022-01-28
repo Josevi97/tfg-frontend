@@ -8,7 +8,9 @@ export class FormsService {
 	constructor() {}
 
 	inputValid(key: string, formGroup: FormGroup): string {
-		return !formGroup.get(key)!.valid && formGroup.get(key)!.touched
+		return !formGroup.get(key)!.valid &&
+			formGroup.get(key)!.touched &&
+			formGroup.get(key)!.dirty
 			? 'input-error'
 			: 'input-secondary';
 	}

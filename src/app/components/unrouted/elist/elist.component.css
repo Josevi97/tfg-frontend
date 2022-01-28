@@ -37,7 +37,7 @@
 
 .card__button {
 	padding: 15px 8px;
-	width: 121px;
+	width: 90px;
 	font-size: 0.95rem;
 }
 
@@ -64,7 +64,7 @@
 }
 
 @media screen and (max-width: 1400px) {
-	.content {
+	.hide {
 		display: none;
 	}
 }

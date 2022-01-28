@@ -30,6 +30,7 @@
 		<app-entity
 			*ngIf="sessionAccount || account !== undefined"
 			[active]="account !== undefined || community !== undefined"
+			[show]="account !== undefined || community !== undefined"
 			[entity]="currentEntity"
 			[onLinksClick]="onLinksClick.bind(this)"
 			[showFollowButton]="
@@ -44,6 +45,7 @@
 				(sessionAccount.id !== currentEntity.id && account !== undefined) ||
 				community !== undefined
 			"
+			[hide]="true"
 			[header]="sessionAccount !== null ? 'Le siguen' : 'Cuentas'"
 		>
 		</app-elist>
@@ -54,6 +56,7 @@
 					account !== undefined &&
 					community === undefined)
 			"
+			[hide]="true"
 			[header]="
 				sessionAccount !== null ? 'Comunidades seguidas' : 'Comunidades'
 			"
