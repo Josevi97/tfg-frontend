@@ -52,7 +52,8 @@ export class PinspectComponent implements OnInit {
 
 	shouldShowActionButtons(post: IPost): boolean {
 		return (
-			post.account.id === this.sessionAccount.id || this.sessionAccount.admin
+			post?.account?.id === this.sessionAccount?.id ||
+			this.sessionAccount?.admin
 		);
 	}
 

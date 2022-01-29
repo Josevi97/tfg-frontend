@@ -31,6 +31,11 @@ export class SettingsComponent implements OnInit {
 		public formsService: FormsService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
+
+		if (this.sessionAccount === null) {
+			this.router.navigate(['']);
+		}
+
 		this.state = 'account';
 		this.menuData = [
 			{
