@@ -1,3 +1,5 @@
+<template #alert></template>
+
 <app-menu></app-menu>
 <div class="wrap content">
 	<ul class="menu">
@@ -15,15 +17,15 @@
 		</li>
 	</ul>
 	<div class="data">
-		<div *ngIf="state === 'account'" class="account">
+		<div *ngIf="state === 'account'" class="section-content">
 			<div class="separator">
 				<span class="separator__text">Ajustes de cuenta</span>
 				<hr class="separator__line" />
 			</div>
 
-			<form class="settings-form">
+			<form (submit)="onSubmit()" [formGroup]="formGroup" class="settings-form">
 				<div class="settings-form-component">
-					<p class="settings-form__title">Avatar</p>
+					<label class="settings-form__title">Avatar</label>
 					<div class="settings-form-content">
 						<img
 							width="80"
@@ -40,10 +42,14 @@
 					</div>
 				</div>
 				<div class="settings-form-component">
-					<p class="settings-form__title">Username*</p>
+					<label class="settings-form__title" for="username">Username*</label>
 					<div class="settings-form-content">
 						<input
-							class="settings-form__input"
+							formControlName="username"
+							id="username"
+							class="settings-form__input {{
+								formsService.inputValid('username', formGroup)
+							}}"
 							type="text"
 							placeholder="jose peña"
 						/>
@@ -55,9 +61,20 @@
 					</div>
 				</div>
 				<div class="settings-form-component">
-					<p class="settings-form__title">Correo electronico*</p>
+					<label class="settings-form__title" for="description"
+						>Descripcion</label
+					>
 					<div class="settings-form-content">
-						<textarea class="settings-form__textarea" rows="7"> </textarea>
+						<textarea
+							formControlName="description"
+							id="description"
+							class="settings-form__textarea {{
+								formsService.inputValid('description', formGroup)
+							}}"
+							class="settings-form__textarea"
+							rows="7"
+						>
+						</textarea>
 						<p class="settings-form__explain">
 							Tenga en cuenta que este campo sera accesible por todos los
 							usuarios. Nosotros utilizaremos tu correo electronico para poder
@@ -66,10 +83,14 @@
 					</div>
 				</div>
 				<div class="settings-form-component">
-					<p class="settings-form__title">Login*</p>
+					<label class="settings-form__title" for="login">Login*</label>
 					<div class="settings-form-content">
 						<input
-							class="settings-form__input"
+							formControlName="login"
+							id="login"
+							class="settings-form__input {{
+								formsService.inputValid('login', formGroup)
+							}}"
 							type="text"
 							placeholder="josevi97"
 						/>
@@ -80,6 +101,75 @@
 						</p>
 					</div>
 				</div>
+				<div class="settings-form-component">
+					<label class="settings-form__title" for="email"
+						>Correo electronico*</label
+					>
+					<div class="settings-form-content">
+						<input
+							formControlName="email"
+							id="email"
+							class="settings-form__input {{
+								formsService.inputValid('email', formGroup)
+							}}"
+							type="email"
+							placeholder="ejemplo@hotmail.com"
+						/>
+						<p class="settings-form__explain">
+							Tenga en cuenta que este campo sera accesible por todos los
+							usuarios. Nosotros utilizaremos tu correo electronico para poder
+							realizar diferentes operaciones y facilitar la comunicacion.
+						</p>
+					</div>
+				</div>
+				<div class="settings-form-component">
+					<label class="settings-form__title"></label>
+					<div class="settings-form-content">
+						<div class="settings-form-buttons">
+							<input
+								class="settings-form__input btn-primary"
+								type="submit"
+								value="Enviar"
+								placeholder="ejemplo@hotmail.com"
+							/>
+							<button (click)="onCancel()" class="btn-outline-primary">
+								Cancelar
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="settings-form-component">
+				<label class="settings-form__title"></label>
+				<div class="settings-form-content settings-form-delete">
+					<p class="settings-form-delete__text">
+						Si desea eliminar su cuenta, debe tener en cuenta que nuestra base
+						de datos no almacenara ningun tipo de informacion. Es decir, una vez
+						haya eliminado la cuenta, no podra volver a recuperar sus datos. Lo
+						mismo ocurrira con la imagen que tenga subida, la cual, una vez
+						eliminada la cuenta, se borrara de nuestra base de datos.
+					</p>
+					<div class="comodin">
+						<button
+							(click)="onDelete()"
+							class="settings-form-delete__button btn-outline-error"
+						>
+							Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="state === 'security'" class="section-content">
+			<div class="separator">
+				<span class="separator__text">Ajustes de seguridad</span>
+				<hr class="separator__line" />
+			</div>
+			<form
+				(submit)="onChangePassword()"
+				[formGroup]="formGroup"
+				class="settings-form"
+			>
 				<div class="settings-form-component">
 					<p class="settings-form__title">Contraseña</p>
 					<div class="settings-form-content">
@@ -94,58 +184,28 @@
 							placeholder="repetir contraseña"
 						/>
 						<p class="settings-form__explain">
-							Tenga en cuenta que este campo sera accesible por todos los
-							usuarios. Nosotros utilizaremos tu correo electronico para poder
-							realizar diferentes operaciones y facilitar la comunicacion.
+							Asegurese de introducir una contraseña lo suficientemente segura
+							antes de cambiarla. Por favor, no de este dato a otros usuarios,
+							el staff de Sheyras no se hara responsable.
 						</p>
 					</div>
 				</div>
 				<div class="settings-form-component">
-					<p class="settings-form__title">Correo electronico*</p>
-					<div class="settings-form-content">
-						<input
-							class="settings-form__input"
-							type="email"
-							placeholder="ejemplo@hotmail.com"
-						/>
-						<p class="settings-form__explain">
-							Tenga en cuenta que este campo sera accesible por todos los
-							usuarios. Nosotros utilizaremos tu correo electronico para poder
-							realizar diferentes operaciones y facilitar la comunicacion.
-						</p>
-					</div>
-				</div>
-				<div class="settings-form-component">
-					<p class="settings-form__title"></p>
+					<label class="settings-form__title"></label>
 					<div class="settings-form-content">
 						<input
 							class="settings-form__input btn-primary"
 							type="submit"
-							value="Enviar"
+							value="Cambiar contraseña"
 							placeholder="ejemplo@hotmail.com"
 						/>
 					</div>
 				</div>
-				<div class="settings-form-component">
-					<p class="settings-form__title"></p>
-					<div class="settings-form-content settings-form-delete">
-						<p class="settings-form-delete__text">
-							Si desea eliminar su cuenta, debe tener en cuenta que nuestra base
-							de datos no almacenara ningun tipo de informacion. Es decir, una
-							vez haya eliminado la cuenta, no podra volver a recuperar sus
-							datos. Lo mismo ocurrira con la imagen que tenga subida, la cual,
-							una vez eliminada la cuenta, se borrara de nuestra base de datos.
-						</p>
-						<div class="comodin">
-							<button class="settings-form-delete__button btn-outline-error">
-								Eliminar
-							</button>
-						</div>
-					</div>
-				</div>
 			</form>
 		</div>
-		<app-list-end *ngIf="state !== 'account'"></app-list-end>
+		<app-list-end
+			*ngIf="state !== 'account' && state !== 'security'"
+		></app-list-end>
 	</div>
 </div>
 <app-copyright></app-copyright>

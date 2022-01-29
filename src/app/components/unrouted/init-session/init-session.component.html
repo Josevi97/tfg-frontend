@@ -1,4 +1,4 @@
-<form class="form" (submit)="onSubmit()" [formGroup]="formGroup">
+<form class="form content" (submit)="onSubmit()" [formGroup]="formGroup">
 	<div *ngFor="let data of formData" class="form-component">
 		<label class="form__label" for="{{ data.key }}">{{ data.label }}</label>
 		<input

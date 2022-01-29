@@ -33,6 +33,14 @@ export interface IRegisterAccount {
 	admin: boolean;
 }
 
+export interface IUpdateAccount {
+	username: string;
+	description: string;
+	login: string;
+	email: string;
+	admin: boolean;
+}
+
 export interface IAccountFollow {
 	from: IAccount;
 	to: IAccount;

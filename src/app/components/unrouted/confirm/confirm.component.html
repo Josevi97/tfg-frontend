@@ -1,0 +1,11 @@
+<div class="confirm">
+	<p class="confirm__text">
+		{{ message }}
+	</p>
+	<button
+		(click)="onButtonClick ? onButtonClick() : null"
+		class="btn-{{ buttonType }} confirm__button"
+	>
+		{{ buttonContent }}
+	</button>
+</div>

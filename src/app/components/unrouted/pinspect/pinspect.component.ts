@@ -15,6 +15,7 @@ export class PinspectComponent implements OnInit {
 	public sessionAccount: IAccount;
 	public post: IPost;
 	public posts: IPost[];
+	public commenting: boolean;
 
 	constructor(
 		private entrancesService: EntrancesService,
@@ -44,9 +45,18 @@ export class PinspectComponent implements OnInit {
 		}
 	}
 
+	setCommenting(bshould: boolean): void {
+		this.commenting = bshould;
+		this.ref.detectChanges();
+	}
+
 	shouldShowActionButtons(post: IPost): boolean {
 		return (
 			post.account.id === this.sessionAccount.id || this.sessionAccount.admin
 		);
+	}
+
+	onCommentClick(): void {
+		this.commenting = true;
 	}
 }

@@ -1,8 +1,5 @@
 <div class="content {{ hide ? 'hide' : '' }}">
-	<div class="separator">
-		<span class="separator__text">{{ header }}</span>
-		<hr class="separator__line" />
-	</div>
+	<app-separator [header]="header"></app-separator>
 	<div *ngIf="entities?.length > 0">
 		<div *ngFor="let entity of entities">
 			<div (click)="navigateToEntity(entity)" class="card">

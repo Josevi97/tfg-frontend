@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import {
 	IAccount,
-	IAccountFollow,
 	IAccountFollowPage,
-	IAccountPage,
 	IRegisterAccount,
+	IUpdateAccount,
 } from 'src/app/models/accounts.interface';
 import { ICommentPage } from 'src/app/models/comments.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
@@ -24,6 +23,18 @@ export class AccountsService {
 	register(data: IRegisterAccount): Observable<String> {
 		return this.http
 			.post<String>(this.ACCOUNT_URI, data, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	update(id: number, data: IUpdateAccount): Observable<String> {
+		return this.http
+			.put<String>(`${this.ACCOUNT_URI}/${id}`, data, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	delete(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.ACCOUNT_URI}/${id}`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

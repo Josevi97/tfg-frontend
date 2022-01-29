@@ -1,0 +1,21 @@
+.separator {
+	position: relative;
+}
+
+.separator__text {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	color: var(--secondary-color);
+	padding: 0 10px;
+	font-size: 0.95rem;
+	width: fit-content;
+}
+
+.separator__line {
+	height: 1px;
+	background-color: var(--light-color);
+	border: none;
+}

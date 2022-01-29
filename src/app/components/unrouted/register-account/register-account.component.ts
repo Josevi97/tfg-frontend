@@ -13,6 +13,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 })
 export class RegisterAccountComponent implements OnInit {
 	public onSuccess: Function;
+	public onError: Function;
 	public formGroup: FormGroup;
 	public formData: IFormData[];
 
@@ -86,7 +87,10 @@ export class RegisterAccountComponent implements OnInit {
 
 		this.accountsService.register(data).subscribe(
 			() => (this.onSuccess ? this.onSuccess() : null),
-			() => this.formsService.checkInvalid(this.formGroup, this.ref)
+			() => {
+				this.formsService.checkInvalid(this.formGroup, this.ref);
+				this.onError ? this.onError(this.formGroup.valid) : null;
+			}
 		);
 	}
 }

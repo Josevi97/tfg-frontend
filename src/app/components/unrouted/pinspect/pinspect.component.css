@@ -2,30 +2,34 @@
 	display: flex;
 	flex-direction: column;
 	width: 650px;
-	max-height: 800px;
+	max-height: 750px;
 	gap: 50px;
 	overflow: auto;
 }
 
-.separator {
-	position: relative;
+.comment-content {
+	display: flex;
+	gap: 30px;
+	padding-top: 15px;
+	margin-top: 20px;
+	border-top: 1px solid var(--light-color);
 }
 
-.separator__text {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	color: var(--secondary-color);
-	padding: 10px;
-	font-size: 0.95rem;
+.comment-content__input {
+	width: 100%;
 }
 
-.separator__line {
-	height: 1px;
-	background-color: var(--light-color);
-	border: none;
+.comment-content__close {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.comment-form {
+	display: flex;
+	gap: 10px;
+	width: 100%;
 }
 
 .responses {

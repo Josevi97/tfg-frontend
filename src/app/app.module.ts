@@ -41,6 +41,8 @@ import { PinspectComponent } from './components/unrouted/pinspect/pinspect.compo
 import { InteractivityService } from './services/interactivity/interactivity.service';
 import { ElistComponent } from './components/unrouted/elist/elist.component';
 import { FormsService } from './services/forms/forms.service';
+import { ConfirmComponent } from './components/unrouted/confirm/confirm.component';
+import { SeparatorComponent } from './components/unrouted/separator/separator.component';
 
 @NgModule({
 	declarations: [
@@ -71,6 +73,8 @@ import { FormsService } from './services/forms/forms.service';
 		CiteComponent,
 		PinspectComponent,
 		ElistComponent,
+  ConfirmComponent,
+  SeparatorComponent,
 	],
 	imports: [
 		HttpClientModule,

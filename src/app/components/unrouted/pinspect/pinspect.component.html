@@ -4,12 +4,10 @@
 		[showCommunity]="true"
 		[post]="post"
 		[showActionButtons]="shouldShowActionButtons(post)"
+		[onCommentsClick]="onCommentClick.bind(this)"
 		[showCite]="true"
 	></app-post>
-	<div class="separator">
-		<span class="separator__text">Respuestas</span>
-		<hr class="separator__line" />
-	</div>
+	<app-separator [header]="'Respuestas'"></app-separator>
 
 	<div *ngIf="posts?.length > 0" class="responses">
 		<app-post
@@ -18,9 +16,27 @@
 			[showCommunity]="true"
 			[post]="p"
 			[showActionButtons]="shouldShowActionButtons(p)"
+			[onCommentsClick]="onCommentClick.bind(this)"
 			[showCite]="false"
 		></app-post>
 	</div>
 
 	<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
+</div>
+
+<div *ngIf="commenting" class="comment-content">
+	<div class="comment-form">
+		<input
+			class="comment-content__input"
+			type="text"
+			placeholder="Comentar algo.."
+		/>
+		<button class="btn-primary">Enviar</button>
+	</div>
+	<button
+		(click)="commenting = false"
+		class="btn-normal comment-content__close"
+	>
+		<i class="material-icons">close</i>
+	</button>
 </div>
