@@ -12,12 +12,27 @@
 					alt="not found"
 				/>
 			</div>
+			<button
+				*ngIf="
+					sessionAccount &&
+					((entity.type === 'account' && entity.id === sessionAccount.id) ||
+						sessionAccount.admin)
+				"
+				(click)="profileButtonClick(); $event.stopPropagation()"
+				class="head__button btn-primary"
+			>
+				<span class="material-icons head__icon">{{
+					shouldSettings() ? 'settings' : 'search'
+				}}</span>
+			</button>
 			<span *ngIf="entity?.tag" class="head__admin">{{
 				entity?.tag.toUpperCase()
 			}}</span>
 		</div>
 		<div class="subhead">
-			<p class="subhead__title">{{ entity?.title }}</p>
+			<p class="subhead__title {{ active ? 'pressed' : '' }}">
+				{{ entity?.title }}
+			</p>
 			<p *ngIf="entity?.subtitle" class="subhead__subtitle">
 				@{{ entity?.subtitle }}
 			</p>

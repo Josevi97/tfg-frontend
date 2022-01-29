@@ -30,9 +30,11 @@
 		<app-entity
 			*ngIf="sessionAccount || account !== undefined"
 			[active]="account !== undefined || community !== undefined"
+			[sessionAccount]="sessionAccount"
 			[show]="account !== undefined || community !== undefined"
 			[entity]="currentEntity"
 			[onLinksClick]="onLinksClick.bind(this)"
+			[onProfileButtonClick]="onProfileButtonClick.bind(this)"
 			[showFollowButton]="
 				community !== undefined ||
 				(account !== undefined && currentEntity?.id !== sessionAccount?.id)

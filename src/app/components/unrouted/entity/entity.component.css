@@ -14,6 +14,22 @@
 	position: relative;
 }
 
+.head__button {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: -5px;
+	right: 0;
+	border-radius: 50%;
+	padding: 5px;
+}
+
+.head__icon {
+	font-size: 1rem;
+	color: white;
+}
+
 .head__admin {
 	position: absolute;
 	left: 50%;
@@ -41,7 +57,10 @@
 .subhead__title {
 	font-size: 1.7rem;
 	font-weight: bold;
-	color: var(--primary-color);
+}
+
+.subhead:not(.pressed) {
+	color: var(--secondary-color);
 }
 
 .subhead__subtitle {

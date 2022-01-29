@@ -5,7 +5,7 @@ import {
 	ViewChild,
 	ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,
@@ -282,6 +282,10 @@ export class MainComponent implements OnInit {
 					break;
 			}
 		};
+	}
+
+	onProfileButtonClick(entity: IEntity): void {
+		this.componentFactoryService.createAlert(this.alertRef);
 	}
 
 	handleAccountFollow(
