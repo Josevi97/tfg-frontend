@@ -17,6 +17,7 @@ export class PostComponent implements OnInit {
 	@Input() public showAccount: boolean;
 	@Input() public showCommunity: boolean;
 	@Input() public showActionButtons: boolean;
+	@Input() public showCommentButton: boolean;
 	@Input() public showCite: boolean;
 
 	constructor(

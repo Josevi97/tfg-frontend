@@ -4,11 +4,31 @@
 <div class="wrap pageContent">
 	<div class="list">
 		<app-sort
+			*ngIf="post === undefined"
 			[extraState]="state"
 			[extraElements]="sortData"
 			[onExtraClick]="this.changeState.bind(this)"
 		>
 		</app-sort>
+
+		<app-post
+			*ngIf="post !== undefined"
+			[showAccount]="shouldShowSubtitle('account')"
+			[showCommunity]="shouldShowSubtitle('community')"
+			[post]="post"
+			[showActionButtons]="true"
+			[showCommentButton]="true"
+			[onCiteClick]="onCiteClick.bind(this)"
+			[onVotesClick]="onVotesClick.bind(this)"
+			[onCommentsClick]="onCommentsClick.bind(this, post)"
+			[showCite]="true"
+		></app-post>
+
+		<app-separator
+			*ngIf="post !== undefined"
+			[header]="'Respuestas'"
+		></app-separator>
+
 		<div class="posts">
 			<app-post
 				*ngFor="let post of posts"
@@ -16,6 +36,7 @@
 				[showCommunity]="shouldShowSubtitle('community')"
 				[post]="post"
 				[showActionButtons]="false"
+				[showCommentButton]="true"
 				[onPostClick]="onPostClick.bind(this, post)"
 				[onCiteClick]="onCiteClick.bind(this)"
 				[onVotesClick]="onVotesClick.bind(this)"
@@ -23,6 +44,7 @@
 				[showCite]="true"
 			></app-post>
 		</div>
+
 		<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
 		<div></div>
 	</div>

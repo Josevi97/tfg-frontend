@@ -18,4 +18,16 @@ export class LocationService {
 			.navigateByUrl('/', { skipLocationChange: true })
 			.then(() => this.router.navigate([`/account/${id}`]));
 	}
+
+	navigateToEntrance(id: number): void {
+		this.router
+			.navigateByUrl('/', { skipLocationChange: true })
+			.then(() => this.router.navigate([`/entrance/${id}`]));
+	}
+
+	navigateToComment(id: number): void {
+		this.router
+			.navigateByUrl('/', { skipLocationChange: true })
+			.then(() => this.router.navigate([`/comment/${id}`]));
+	}
 }

@@ -3,40 +3,19 @@
 		[showAccount]="true"
 		[showCommunity]="true"
 		[post]="post"
-		[showActionButtons]="shouldShowActionButtons(post)"
-		[onCommentsClick]="onCommentClick.bind(this)"
+		[showActionButtons]="false"
+		[showCommentButton]="false"
 		[showCite]="true"
 	></app-post>
-	<app-separator [header]="'Respuestas'"></app-separator>
-
-	<div *ngIf="posts?.length > 0" class="responses">
-		<app-post
-			*ngFor="let p of posts"
-			[showAccount]="true"
-			[showCommunity]="true"
-			[post]="p"
-			[showActionButtons]="shouldShowActionButtons(p)"
-			[onCommentsClick]="onCommentClick.bind(this)"
-			[showCite]="false"
-		></app-post>
-	</div>
-
-	<app-list-end [hasContent]="posts?.length > 0"></app-list-end>
 </div>
 
-<div *ngIf="commenting" class="comment-content">
-	<div class="comment-form">
+<div class="comment-content">
+	<form class="comment-form">
 		<input
 			class="comment-content__input"
 			type="text"
 			placeholder="Comentar algo.."
 		/>
-		<button class="btn-primary">Enviar</button>
-	</div>
-	<button
-		(click)="commenting = false"
-		class="btn-normal comment-content__close"
-	>
-		<i class="material-icons">close</i>
-	</button>
+		<input class="btn-primary" type="submit" value="Enviar" />
+	</form>
 </div>

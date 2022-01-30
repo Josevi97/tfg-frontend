@@ -39,6 +39,16 @@ const routes: Routes = [
 		resolve: { session: SessionResolver },
 	},
 	{
+		path: 'entrance/:entrance',
+		component: MainComponent,
+		resolve: { session: SessionResolver },
+	},
+	{
+		path: 'comment/:comment',
+		component: MainComponent,
+		resolve: { session: SessionResolver },
+	},
+	{
 		path: 'admin',
 		component: AdminComponent,
 		resolve: { session: SessionResolver },

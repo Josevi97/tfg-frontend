@@ -6,21 +6,23 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICommentPage } from 'src/app/models/comments.interface';
+import { IComment, ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,
 	ICommunityListPage,
 } from 'src/app/models/communities.interface';
 import { IEntity } from 'src/app/models/entities.interface';
-import { IEntrancePage } from 'src/app/models/entrances.interface';
+import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
 import { ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
+import { CommentsService } from 'src/app/services/comments/comments.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
+import { LocationService } from 'src/app/services/location/location.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import {
 	IAccount,
@@ -39,8 +41,11 @@ export class MainComponent implements OnInit {
 	public sessionAccount: IAccount;
 	public currentEntity: IEntity;
 	public posts: IPost[];
+	public post: IPost;
 	public account: number;
 	public community: number;
+	public entrance: number;
+	public comment: number;
 
 	public state: string;
 	public sortData: ISort[];
@@ -52,19 +57,32 @@ export class MainComponent implements OnInit {
 		private communitiesService: CommunitiesService,
 		private postsService: PostsService,
 		private entitiesService: EntitiesService,
+		private commentsService: CommentsService,
 		private componentFactoryService: ComponentFactoryService,
-		private interactivityService: InteractivityService
+		private interactivityService: InteractivityService,
+		private locationService: LocationService
 	) {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
 		this.community = this.activatedRoute.snapshot.params['community'];
+		this.entrance = this.activatedRoute.snapshot.params['entrance'];
+		this.comment = this.activatedRoute.snapshot.params['comment'];
 		this.currentEntity = this.entitiesService.fromAccount(this.sessionAccount);
-
-		this.initSortData();
 	}
 
 	ngOnInit(): void {
-		this.initPosts();
+		this.initialize();
+	}
+
+	initialize(): void {
+		if (this.entrance === undefined && this.comment === undefined) {
+			this.initSortData();
+			this.initPosts();
+		} else if (this.entrance !== undefined) {
+			this.showEntrance();
+		} else {
+			this.showComment();
+		}
 	}
 
 	initSortData(): void {
@@ -156,6 +174,22 @@ export class MainComponent implements OnInit {
 		this.state = key;
 	}
 
+	showEntrance(): void {
+		this.entrancesService
+			.getEntrance(this.entrance)
+			.subscribe(
+				(data: IEntrance) => (this.post = this.postsService.fromEntrance(data))
+			);
+	}
+
+	showComment(): void {
+		this.commentsService
+			.getComment(this.comment)
+			.subscribe(
+				(data: IComment) => (this.post = this.postsService.fromComment(data))
+			);
+	}
+
 	showAllEntrances(): void {
 		this.entrancesService
 			.getAllEntrances()
@@ -222,16 +256,14 @@ export class MainComponent implements OnInit {
 	}
 
 	onPostClick(post: IPost): void {
-		const a = this.componentFactoryService.createAlert(this.alertRef);
-
-		a.instance.onAfterViewInit = () => {
-			const component = this.componentFactoryService.generateComponent(
-				PinspectComponent,
-				a.instance.componentRef
-			);
-			component.instance.sessionAccount = this.sessionAccount;
-			component.instance.post = post;
-		};
+		switch (post.type) {
+			case 'entrance':
+				this.locationService.navigateToEntrance(post.id);
+				break;
+			case 'comment':
+				this.locationService.navigateToComment(post.id);
+				break;
+		}
 	}
 
 	onCiteClick(post: IPost): void {

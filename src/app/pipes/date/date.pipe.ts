@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DatePipe implements PipeTransform {
 	transform(value: string): string {
+		if (!value) {
+			return '';
+		}
+
 		const date = value.split(' ')[0];
 		const time = value.split(' ')[1];
 
