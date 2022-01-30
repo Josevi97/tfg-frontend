@@ -5,7 +5,7 @@ import {
 	ViewChild,
 	ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IComment, ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,
@@ -67,6 +67,7 @@ export class MainComponent implements OnInit {
 		this.community = this.activatedRoute.snapshot.params['community'];
 		this.entrance = this.activatedRoute.snapshot.params['entrance'];
 		this.comment = this.activatedRoute.snapshot.params['comment'];
+
 		this.currentEntity = this.entitiesService.fromAccount(this.sessionAccount);
 	}
 
@@ -80,8 +81,10 @@ export class MainComponent implements OnInit {
 			this.initPosts();
 		} else if (this.entrance !== undefined) {
 			this.showEntrance();
+			this.showCommentsByEntrance();
 		} else {
 			this.showComment();
+			this.showCommentsByComment();
 		}
 	}
 
@@ -138,12 +141,7 @@ export class MainComponent implements OnInit {
 				);
 			this.showEntrancesByCommunity();
 		} else {
-			this.accountsService
-				.findOne(this.account)
-				.subscribe(
-					(data: IAccount) =>
-						(this.currentEntity = this.entitiesService.fromAccount(data))
-				);
+			this.loadAccount(this.account);
 			this.showEntrancesByAccount();
 		}
 	}
@@ -174,20 +172,31 @@ export class MainComponent implements OnInit {
 		this.state = key;
 	}
 
+	loadAccount(id: number): void {
+		this.accountsService
+			.findOne(id)
+			.subscribe(
+				(data: IAccount) =>
+					(this.currentEntity = this.entitiesService.fromAccount(data))
+			);
+	}
+
 	showEntrance(): void {
 		this.entrancesService
 			.getEntrance(this.entrance)
-			.subscribe(
-				(data: IEntrance) => (this.post = this.postsService.fromEntrance(data))
-			);
+			.subscribe((data: IEntrance) => {
+				this.post = this.postsService.fromEntrance(data);
+				this.loadAccount(this.post.account.id);
+			});
 	}
 
 	showComment(): void {
 		this.commentsService
 			.getComment(this.comment)
-			.subscribe(
-				(data: IComment) => (this.post = this.postsService.fromComment(data))
-			);
+			.subscribe((data: IComment) => {
+				this.post = this.postsService.fromComment(data);
+				this.loadAccount(this.post.account.id);
+			});
 	}
 
 	showAllEntrances(): void {
@@ -244,15 +253,22 @@ export class MainComponent implements OnInit {
 			);
 	}
 
-	shouldShowSubtitle(key: string): boolean {
-		switch (key) {
-			case 'account':
-				return !this.account;
-			case 'community':
-				return !this.community;
-		}
+	showCommentsByEntrance(): void {
+		this.entrancesService
+			.getResponses(this.entrance)
+			.subscribe(
+				(data: ICommentPage) =>
+					(this.posts = this.postsService.fromComments(data.content))
+			);
+	}
 
-		return false;
+	showCommentsByComment(): void {
+		this.commentsService
+			.getResponses(this.comment)
+			.subscribe(
+				(data: ICommentPage) =>
+					(this.posts = this.postsService.fromComments(data.content))
+			);
 	}
 
 	onPostClick(post: IPost): void {
