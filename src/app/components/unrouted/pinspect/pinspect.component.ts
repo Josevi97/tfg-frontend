@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IPost } from 'src/app/models/posts.interface';
 
 @Component({
@@ -7,9 +8,21 @@ import { IPost } from 'src/app/models/posts.interface';
 	styleUrls: ['./pinspect.component.css'],
 })
 export class PinspectComponent implements OnInit {
-	@Input() public post: IPost;
+	public post: IPost;
+	public onSubmit: Function;
+	public formGroup: FormGroup;
 
-	constructor() {}
+	constructor(private formBuilder: FormBuilder) {
+		this.formGroup = this.formBuilder.group({
+			comment: ['', [Validators.required, Validators.minLength(2)]],
+		});
+	}
 
 	ngOnInit(): void {}
+
+	submit(): void {
+		if (this.onSubmit && this.formGroup.valid) {
+			this.onSubmit(this.formGroup.get('comment').value);
+		}
+	}
 }

@@ -16,7 +16,9 @@
 			[showAccount]="false"
 			[showCommunity]="true"
 			[post]="post"
-			[showActionButtons]="true"
+			[showActionButtons]="
+				sessionAccount.admin || sessionAccount.id === post.account.id
+			"
 			[showCommentButton]="true"
 			[onCiteClick]="onCiteClick.bind(this)"
 			[onVotesClick]="onVotesClick.bind(this)"
@@ -35,7 +37,10 @@
 				[showAccount]="!account"
 				[showCommunity]="!community"
 				[post]="p"
-				[showActionButtons]="false"
+				[showActionButtons]="
+					post !== undefined &&
+					(sessionAccount.admin || sessionAccount.id === p.account.id)
+				"
 				[showCommentButton]="true"
 				[onPostClick]="onPostClick.bind(this, p)"
 				[onCiteClick]="onCiteClick.bind(this)"

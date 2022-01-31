@@ -10,8 +10,9 @@
 </div>
 
 <div class="comment-content">
-	<form class="comment-form">
+	<form (submit)="submit()" [formGroup]="formGroup" class="comment-form">
 		<input
+			formControlName="comment"
 			class="comment-content__input"
 			type="text"
 			placeholder="Comentar algo.."

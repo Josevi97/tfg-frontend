@@ -32,6 +32,20 @@ export class EntrancesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	comment(id: number, comment: string): Observable<String> {
+		const data = {
+			body: comment,
+		};
+
+		return this.http
+			.post<String>(
+				`${this.ENTRANCE_URI}/${id}/comments`,
+				JSON.stringify(data),
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	voteEntrance(id: number, vote: boolean): Observable<String> {
 		return this.http
 			.post<String>(

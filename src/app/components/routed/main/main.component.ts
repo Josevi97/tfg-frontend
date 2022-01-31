@@ -300,6 +300,19 @@ export class MainComponent implements OnInit {
 			);
 			component.instance.sessionAccount = this.sessionAccount;
 			component.instance.post = post;
+			component.instance.onSubmit = (comment: string) => {
+				switch (post.type) {
+					case 'entrance':
+						this.entrancesService
+							.comment(post.id, comment)
+							.subscribe(() =>
+								this.componentFactoryService.destroyComponent(a)
+							);
+						break;
+					case 'comment':
+						break;
+				}
+			};
 		};
 	}
 
