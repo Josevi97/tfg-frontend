@@ -8,19 +8,28 @@
 			type="text"
 			placeholder="Buscar por aqui"
 		/>
-		<a
-			*ngIf="!sessionAccount"
-			routerLink="/auth"
-			class="link-secondary navbar__submenu"
-		>
-			Acceder
-		</a>
-		<a
-			*ngIf="sessionAccount"
-			(click)="logout()"
-			class="link-secondary navbar__submenu"
-		>
-			Logout
-		</a>
+		<div>
+			<a
+				*ngIf="!sessionAccount"
+				routerLink="/auth"
+				class="link-secondary navbar__submenu"
+			>
+				Acceder
+			</a>
+			<ul *ngIf="sessionAccount" class="subtitles">
+				<li>
+					<a routerLink="/admin" class="link-secondary navbar__submenu">
+						<i class="material-icons"
+							>admin_panel_settings <span>Administrar</span></i
+						>
+					</a>
+				</li>
+				<li>
+					<a (click)="logout()" class="link-secondary navbar__submenu">
+						<i class="material-icons">logout <span>logout</span></i>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </nav>

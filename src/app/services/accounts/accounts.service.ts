@@ -4,6 +4,7 @@ import { catchError, Observable } from 'rxjs';
 import {
 	IAccount,
 	IAccountFollowPage,
+	IAccountPage,
 	IRegisterAccount,
 	IUpdateAccount,
 } from 'src/app/models/accounts.interface';
@@ -41,6 +42,12 @@ export class AccountsService {
 	findOne(id: number): Observable<IAccount> {
 		return this.http
 			.get<IAccount>(`${this.ACCOUNT_URI}/${id}`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getAllAccounts(): Observable<IAccountPage> {
+		return this.http
+			.get<IAccountPage>(`${this.ACCOUNT_URI}`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

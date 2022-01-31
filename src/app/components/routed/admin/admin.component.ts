@@ -1,4 +1,8 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { IAccountPage } from 'src/app/models/accounts.interface';
+import { TableData } from 'src/app/models/table.interface';
+import { AccountsService } from 'src/app/services/accounts/accounts.service';
+import { TableService } from 'src/app/services/table/table.service';
 import { ComponentFactoryService } from '../../../services/componentFactory/component-factory.service';
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
 
@@ -9,9 +13,22 @@ import { RegisterAccountComponent } from '../../unrouted/register-account/regist
 export class AdminComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
-	constructor(private componentFactory: ComponentFactoryService) {}
+	public tableData: TableData;
 
-	ngOnInit(): void {}
+	constructor(
+		private tableService: TableService,
+		private accountsService: AccountsService,
+		private componentFactory: ComponentFactoryService
+	) {}
+
+	ngOnInit(): void {
+		this.accountsService
+			.getAllAccounts()
+			.subscribe(
+				(data: IAccountPage) =>
+					(this.tableData = this.tableService.fromAccounts(data.content))
+			);
+	}
 
 	createAdmin(): void {
 		const a = this.componentFactory.createAlert(this.alertRef);

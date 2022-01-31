@@ -43,6 +43,7 @@ import { ElistComponent } from './components/unrouted/elist/elist.component';
 import { FormsService } from './services/forms/forms.service';
 import { ConfirmComponent } from './components/unrouted/confirm/confirm.component';
 import { SeparatorComponent } from './components/unrouted/separator/separator.component';
+import { TableComponent } from './components/unrouted/table/table.component';
 
 @NgModule({
 	declarations: [
@@ -75,6 +76,7 @@ import { SeparatorComponent } from './components/unrouted/separator/separator.co
 		ElistComponent,
   ConfirmComponent,
   SeparatorComponent,
+  TableComponent,
 	],
 	imports: [
 		HttpClientModule,

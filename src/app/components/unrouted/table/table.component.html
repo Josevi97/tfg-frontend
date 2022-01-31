@@ -1,0 +1,8 @@
+<table class="table">
+	<tr>
+		<td *ngFor="let row of tableData.headers">{{ row.text }}</td>
+	</tr>
+	<tr *ngFor="let row of tableData.data">
+		<td *ngFor="let col of row.body">{{ col }}</td>
+	</tr>
+</table>
