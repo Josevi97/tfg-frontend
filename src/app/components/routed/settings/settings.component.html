@@ -18,10 +18,7 @@
 	</ul>
 	<div class="data">
 		<div *ngIf="state === 'account'" class="section-content">
-			<div class="separator">
-				<span class="separator__text">Ajustes de cuenta</span>
-				<hr class="separator__line" />
-			</div>
+			<app-separator [header]="'Ajustes de cuenta'"></app-separator>
 
 			<form (submit)="onSubmit()" [formGroup]="formGroup" class="settings-form">
 				<div class="settings-form-component">
@@ -161,10 +158,8 @@
 			</div>
 		</div>
 		<div *ngIf="state === 'security'" class="section-content">
-			<div class="separator">
-				<span class="separator__text">Ajustes de seguridad</span>
-				<hr class="separator__line" />
-			</div>
+			<app-separator [header]="'Ajustes de seguridad'"></app-separator>
+
 			<form
 				(submit)="onChangePassword()"
 				[formGroup]="formGroup"

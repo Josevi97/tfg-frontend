@@ -17,10 +17,10 @@
 			[showCommunity]="true"
 			[post]="post"
 			[showActionButtons]="
-				sessionAccount.admin || sessionAccount.id === post.account.id
+				sessionAccount?.admin || sessionAccount?.id === post?.account.id
 			"
 			[showCommentButton]="true"
-			[onCiteClick]="onCiteClick.bind(this)"
+			[onCiteClick]="onPostClick.bind(this, post.post)"
 			[onVotesClick]="onVotesClick.bind(this)"
 			[onCommentsClick]="onCommentsClick.bind(this, post)"
 			[showCite]="true"
@@ -39,11 +39,11 @@
 				[post]="p"
 				[showActionButtons]="
 					post !== undefined &&
-					(sessionAccount.admin || sessionAccount.id === p.account.id)
+					(sessionAccount?.admin || sessionAccount?.id === p?.account.id)
 				"
 				[showCommentButton]="true"
 				[onPostClick]="onPostClick.bind(this, p)"
-				[onCiteClick]="onCiteClick.bind(this)"
+				[onCiteClick]="onPostClick.bind(this, p.post)"
 				[onVotesClick]="onVotesClick.bind(this)"
 				[onCommentsClick]="onCommentsClick.bind(this, p)"
 				[showCite]="post === undefined"

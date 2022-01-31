@@ -24,4 +24,18 @@ export class CommentsService {
 			.get<ICommentPage>(`${this.COMMENT_URI}/${id}/responses`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
+
+	comment(id: number, comment: string): Observable<String> {
+		const data = {
+			body: comment,
+		};
+
+		return this.http
+			.post<String>(
+				`${this.COMMENT_URI}/${id}`,
+				JSON.stringify(data),
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
 }

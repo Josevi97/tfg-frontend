@@ -282,10 +282,6 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	onCiteClick(post: IPost): void {
-		console.log('cite clicked');
-	}
-
 	onVotesClick(): void {
 		console.log('votes clicked');
 	}
@@ -298,18 +294,22 @@ export class MainComponent implements OnInit {
 				PinspectComponent,
 				a.instance.componentRef
 			);
+
 			component.instance.sessionAccount = this.sessionAccount;
 			component.instance.post = post;
 			component.instance.onSubmit = (comment: string) => {
 				switch (post.type) {
 					case 'entrance':
-						this.entrancesService
-							.comment(post.id, comment)
-							.subscribe(() =>
-								this.componentFactoryService.destroyComponent(a)
-							);
+						this.entrancesService.comment(post.id, comment).subscribe(() => {
+							post.comments++;
+							this.componentFactoryService.destroyComponent(a);
+						});
 						break;
 					case 'comment':
+						this.commentsService.comment(post.id, comment).subscribe(() => {
+							post.comments++;
+							this.componentFactoryService.destroyComponent(a);
+						});
 						break;
 				}
 			};

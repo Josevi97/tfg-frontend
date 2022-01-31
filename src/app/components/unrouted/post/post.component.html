@@ -54,12 +54,16 @@
 			</a>
 
 			<div *ngIf="showActionButtons" class="buttons">
-				<button *ngIf="this.post?.type !== 'comment'" class="btn-normal">
+				<button
+					(click)="$event.stopPropagation()"
+					*ngIf="this.post?.type !== 'comment'"
+					class="btn-normal"
+				>
 					<i class="{{ iconsService.getIcon('edit') }}">
 						<span> Editar</span></i
 					>
 				</button>
-				<button class="btn-normal">
+				<button (click)="$event.stopPropagation()" class="btn-normal">
 					<i class="{{ iconsService.getIcon('delete') }}">
 						<span> Eliminar</span></i
 					>

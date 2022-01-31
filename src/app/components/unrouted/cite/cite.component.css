@@ -4,6 +4,7 @@
 	gap: 5px;
 	background-color: var(--white-color);
 	padding: 15px;
+	cursor: pointer;
 }
 
 .content__cite {
