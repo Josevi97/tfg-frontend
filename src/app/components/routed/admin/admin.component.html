@@ -14,10 +14,10 @@
 		<button class="btn-primary">Crear comunidad</button>
 	</div>
 
-	<div class="manage">
-		<div class="header">
-			<input type="text" placeholder="Buscar.." />
-		</div>
-		<app-table [tableData]="tableData"></app-table>
-	</div>
+	<app-table
+		[onRowClick]="onRowClick.bind(this)"
+		[onArrowsClick]="onArrowsClick.bind(this)"
+		[onInputChange]="onInputChange.bind(this)"
+		[tableData]="tableData"
+	></app-table>
 </div>

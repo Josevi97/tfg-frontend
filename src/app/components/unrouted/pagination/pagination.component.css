@@ -1,0 +1,24 @@
+.pagination {
+	display: flex;
+	align-items: center;
+}
+
+.pagination__button i {
+	font-size: 2rem;
+}
+
+.texts {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	margin: 0 15px 0 0;
+}
+
+.pagination__text {
+	font-size: 1.3rem;
+}
+
+.pagination__current {
+	text-align: right;
+	outline: none;
+}

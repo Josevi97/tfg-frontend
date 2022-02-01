@@ -44,6 +44,8 @@ import { FormsService } from './services/forms/forms.service';
 import { ConfirmComponent } from './components/unrouted/confirm/confirm.component';
 import { SeparatorComponent } from './components/unrouted/separator/separator.component';
 import { TableComponent } from './components/unrouted/table/table.component';
+import { PaginationComponent } from './components/unrouted/pagination/pagination.component';
+import { TableService } from './services/table/table.service';
 
 @NgModule({
 	declarations: [
@@ -74,9 +76,10 @@ import { TableComponent } from './components/unrouted/table/table.component';
 		CiteComponent,
 		PinspectComponent,
 		ElistComponent,
-  ConfirmComponent,
-  SeparatorComponent,
-  TableComponent,
+		ConfirmComponent,
+		SeparatorComponent,
+		TableComponent,
+		PaginationComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -98,6 +101,7 @@ import { TableComponent } from './components/unrouted/table/table.component';
 		EntitiesService,
 		InteractivityService,
 		FormsService,
+		TableService,
 	],
 	bootstrap: [AppComponent],
 })

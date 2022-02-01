@@ -1,9 +1,41 @@
+.manage {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .table {
 	border-collapse: collapse;
 }
 
-.table td {
+.table td,
+.table th {
 	padding: 10px;
 	text-align: left;
-	border: 1px solid red;
+}
+
+.table tr {
+	cursor: pointer;
+}
+
+.table th {
+	background-color: var(--primary-color);
+	color: white;
+	border: 1px solid var(--primary-color);
+}
+
+.table td {
+	border: 1px solid var(--light-color);
+	color: var(--secondary-color);
+}
+
+.table tr:hover td {
+	background-color: var(--white-color);
+	color: var(--secondary-color-hover);
 }

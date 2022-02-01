@@ -1,0 +1,37 @@
+<div class="pagination">
+	<button
+		(click)="onArrowsClick ? onArrowsClick('first') : null"
+		class="pagination__button btn-normal"
+	>
+		<i class="material-icons">first_page</i>
+	</button>
+	<button
+		(click)="onArrowsClick ? onArrowsClick('back') : null"
+		class="pagination__button btn-normal"
+	>
+		<i class="material-icons">chevron_left</i>
+	</button>
+	<form [formGroup]="formGroup" class="texts">
+		<input
+			(change)="change()"
+			formControlName="value"
+			class="pagination__text pagination__current"
+			value="1"
+			size="3"
+		/>
+		<span class="pagination__text">/</span>
+		<span class="pagination__text">100</span>
+	</form>
+	<button
+		(click)="onArrowsClick ? onArrowsClick('next') : null"
+		class="pagination__button btn-normal"
+	>
+		<i class="material-icons">chevron_right</i>
+	</button>
+	<button
+		(click)="onArrowsClick ? onArrowsClick('last') : null"
+		class="pagination__button btn-normal"
+	>
+		<i class="material-icons">last_page</i>
+	</button>
+</div>

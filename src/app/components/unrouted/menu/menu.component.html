@@ -17,9 +17,12 @@
 				Acceder
 			</a>
 			<ul *ngIf="sessionAccount" class="subtitles">
-				<li>
+				<li *ngIf="sessionAccount && sessionAccount.admin">
 					<a routerLink="/admin" class="link-secondary navbar__submenu">
-						<i class="material-icons"
+						<i
+							class="material-icons {{
+								router.url === '/admin' ? 'active' : ''
+							}}"
 							>admin_panel_settings <span>Administrar</span></i
 						>
 					</a>

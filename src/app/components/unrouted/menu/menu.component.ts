@@ -14,9 +14,9 @@ export class MenuComponent implements OnInit {
 	public sessionAccount: IAccount;
 
 	constructor(
-		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private sessionService: SessionService
+		private sessionService: SessionService,
+		public router: Router
 	) {}
 
 	ngOnInit(): void {

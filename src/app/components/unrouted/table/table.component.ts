@@ -7,6 +7,9 @@ import { TableData } from 'src/app/models/table.interface';
 	styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
+	@Input() public onRowClick: Function;
+	@Input() public onArrowsClick: Function;
+	@Input() public onInputChange: Function;
 	@Input() public tableData: TableData;
 
 	constructor() {}

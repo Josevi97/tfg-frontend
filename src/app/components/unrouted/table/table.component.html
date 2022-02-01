@@ -1,8 +1,20 @@
-<table class="table">
-	<tr>
-		<td *ngFor="let row of tableData.headers">{{ row.text }}</td>
-	</tr>
-	<tr *ngFor="let row of tableData.data">
-		<td *ngFor="let col of row.body">{{ col }}</td>
-	</tr>
-</table>
+<div class="manage">
+	<div class="header">
+		<input type="text" placeholder="Buscar.." />
+		<app-pagination
+			[onArrowsClick]="onArrowsClick ? onArrowsClick.bind(this) : null"
+			[onInputChange]="onInputChange ? onInputChange.bind(this) : null"
+		></app-pagination>
+	</div>
+	<table class="table">
+		<tr>
+			<th *ngFor="let row of tableData?.headers">{{ row.text }}</th>
+		</tr>
+		<tr
+			*ngFor="let row of tableData?.data"
+			(click)="onRowClick ? onRowClick(row?.body[0]) : null"
+		>
+			<td *ngFor="let col of row?.body">{{ col }}</td>
+		</tr>
+	</table>
+</div>
