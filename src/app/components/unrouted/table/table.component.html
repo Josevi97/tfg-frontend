@@ -1,6 +1,8 @@
 <div class="manage">
 	<div class="header">
-		<input type="text" placeholder="Buscar.." />
+		<form (submit)="onSubmit()" [formGroup]="formGroup">
+			<input formControlName="input" type="text" placeholder="Buscar.." />
+		</form>
 		<app-pagination
 			[onArrowsClick]="onArrowsClick ? onArrowsClick.bind(this) : null"
 			[onInputChange]="onInputChange ? onInputChange.bind(this) : null"

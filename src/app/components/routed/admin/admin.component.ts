@@ -66,4 +66,8 @@ export class AdminComponent implements OnInit {
 	onInputChange(value: number): void {
 		console.log(value);
 	}
+
+	onInputEnter(value: string): void {
+		console.log(value);
+	}
 }
