@@ -282,8 +282,8 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	onVotesClick(): void {
-		console.log('votes clicked');
+	onVotesClick(post: IPost, key: string): void {
+		this.interactivityService.calculateVotes(post, key);
 	}
 
 	onCommentsClick(post: IPost): void {

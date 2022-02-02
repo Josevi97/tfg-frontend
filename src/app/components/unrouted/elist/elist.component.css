@@ -5,6 +5,12 @@
 	min-width: 300px;
 }
 
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
 .card {
 	display: flex;
 	justify-content: space-between;

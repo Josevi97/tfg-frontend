@@ -1,6 +1,6 @@
 <div class="content {{ hide ? 'hide' : '' }}">
 	<app-separator [header]="header"></app-separator>
-	<div *ngIf="entities?.length > 0">
+	<div *ngIf="entities?.length > 0" class="container">
 		<div *ngFor="let entity of entities">
 			<div (click)="navigateToEntity(entity)" class="card">
 				<div class="head">

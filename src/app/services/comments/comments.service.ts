@@ -38,4 +38,20 @@ export class CommentsService {
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
+
+	vote(id: number, vote: boolean): Observable<String> {
+		return this.http
+			.post<String>(
+				`${this.COMMENT_URI}/${id}/vote`,
+				JSON.stringify({ vote: vote }),
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	unvote(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.COMMENT_URI}/${id}/vote`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
 }

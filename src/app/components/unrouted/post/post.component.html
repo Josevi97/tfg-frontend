@@ -1,9 +1,13 @@
 <div
 	(click)="onPostClick ? onPostClick() : null"
-	class="post content {{ onPostClick ? 'post-active' : '' }}"
+	class="post content 
+           {{ onPostClick ? 'post-active' : '' }} 
+           {{ !showExtra ? 'hide-extra' : '' }}
+           {{ arrowsAtStart ? 'not-align' : '' }}"
 >
 	<app-votes
-		[onClick]="onVotesClick ? onVotesClick.bind(this) : null"
+		*ngIf="showExtra"
+		[onClick]="onVotesClick ? onVotesClick.bind(this, post) : null"
 		[vote]="post?.sessionVoted"
 		[votes]="post?.votes"
 	></app-votes>

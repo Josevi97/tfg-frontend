@@ -19,11 +19,16 @@ export class PostComponent implements OnInit {
 	@Input() public showActionButtons: boolean;
 	@Input() public showCommentButton: boolean;
 	@Input() public showCite: boolean;
+	@Input() public arrowsAtStart: boolean;
+	@Input() public showExtra: boolean;
 
 	constructor(
 		public iconsService: IconsService,
 		private location: LocationService
-	) {}
+	) {
+		this.showExtra = false;
+		this.arrowsAtStart = false;
+	}
 
 	ngOnInit(): void {}
 

@@ -16,6 +16,8 @@
 			[showAccount]="false"
 			[showCommunity]="true"
 			[post]="post"
+			[arrowsAtStart]="false"
+			[showExtra]="true"
 			[showActionButtons]="
 				sessionAccount?.admin || sessionAccount?.id === post?.account.id
 			"
@@ -37,6 +39,8 @@
 				[showAccount]="!account"
 				[showCommunity]="!community"
 				[post]="p"
+				[arrowsAtStart]="false"
+				[showExtra]="true"
 				[showActionButtons]="
 					post !== undefined &&
 					(sessionAccount?.admin || sessionAccount?.id === p?.account.id)

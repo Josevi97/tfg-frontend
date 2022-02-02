@@ -1,5 +1,8 @@
 .post {
 	display: flex;
+}
+
+.post:not(.not-align) {
 	align-items: center;
 }
 
@@ -67,4 +70,14 @@
 
 .post-active {
 	cursor: pointer;
+}
+
+.hide-extra {
+	border-left: none;
+	padding-left: 0;
+}
+
+.hide-extra:hover {
+	border-left: none;
+	padding-left: 0;
 }
