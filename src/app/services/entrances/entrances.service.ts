@@ -46,6 +46,12 @@ export class EntrancesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	delete(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.ENTRANCE_URI}/${id}`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	vote(id: number, vote: boolean): Observable<String> {
 		return this.http
 			.post<String>(

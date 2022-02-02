@@ -17,7 +17,7 @@
 				Acceder
 			</a>
 			<ul *ngIf="sessionAccount" class="subtitles">
-				<li *ngIf="sessionAccount && sessionAccount.admin">
+				<li *ngIf="sessionAccount.admin">
 					<a routerLink="/admin" class="link-secondary navbar__submenu">
 						<i
 							class="material-icons {{
