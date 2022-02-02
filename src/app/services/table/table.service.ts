@@ -24,10 +24,6 @@ export class TableService {
 					key: 'email',
 				},
 				{
-					text: 'fecha de creacion',
-					key: 'created_at',
-				},
-				{
 					text: 'entradas',
 					key: 'entrances',
 				},
@@ -47,6 +43,10 @@ export class TableService {
 					text: 'votos a comentarios',
 					key: 'commentVotes',
 				},
+				{
+					text: 'fecha de creacion',
+					key: 'created_at',
+				},
 			],
 			data: accounts.map((account: IAccount) => {
 				return {
@@ -54,12 +54,12 @@ export class TableService {
 						`${account.id}`,
 						account.login,
 						account.email,
-						account.createdAt,
 						`${account.entrances}`,
 						`${account.comments}`,
 						`${account.communityList}`,
 						`${account.entranceVotes}`,
 						`${account.commentVotes}`,
+						account.createdAt,
 					],
 				};
 			}),
