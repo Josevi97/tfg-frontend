@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<button
-					*ngIf="sessionAccount.id !== entity.id"
+					*ngIf="sessionAccount?.id !== entity.id"
 					(click)="
 						onFollowClick ? onFollowClick(entity) : null;
 						$event.stopPropagation()

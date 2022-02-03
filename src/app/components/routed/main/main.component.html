@@ -59,7 +59,7 @@
 	</div>
 	<app-aside-details>
 		<app-entity
-			*ngIf="sessionAccount || account !== undefined"
+			*ngIf="sessionAccount || account !== undefined || community !== undefined"
 			[active]="account !== undefined || community !== undefined"
 			[sessionAccount]="sessionAccount"
 			[show]="account !== undefined || community !== undefined"
@@ -84,8 +84,9 @@
 		</app-elist>
 		<app-elist
 			*ngIf="
-				sessionAccount === null ||
-				(sessionAccount.id !== currentEntity.id &&
+				(sessionAccount === null && community === undefined) ||
+				(sessionAccount !== null &&
+					sessionAccount.id !== currentEntity.id &&
 					account !== undefined &&
 					community === undefined)
 			"

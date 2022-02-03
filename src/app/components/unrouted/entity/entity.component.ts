@@ -30,6 +30,10 @@ export class EntityComponent implements OnInit {
 	}
 
 	onFollowClick() {
+		if (this.sessionAccount === null) {
+			this.router.navigate(['/auth']);
+		}
+
 		this.interactivityService.calculateFollow(
 			this.entity,
 			(e: IEntity) => (this.entity = e)

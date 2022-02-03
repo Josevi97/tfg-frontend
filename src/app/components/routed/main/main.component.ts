@@ -5,7 +5,7 @@ import {
 	ViewChild,
 	ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IComment, ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,
@@ -51,6 +51,7 @@ export class MainComponent implements OnInit {
 	public sortData: ISort[];
 
 	constructor(
+		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private accountsService: AccountsService,
 		private entrancesService: EntrancesService,
@@ -287,6 +288,10 @@ export class MainComponent implements OnInit {
 	}
 
 	onCommentsClick(post: IPost): void {
+		if (this.sessionAccount === null) {
+			this.router.navigate(['/auth']);
+		}
+
 		const a = this.componentFactoryService.createAlert(this.alertRef);
 
 		a.instance.onAfterViewInit = () => {
@@ -328,11 +333,16 @@ export class MainComponent implements OnInit {
 			component.instance.header =
 				key === 'following' ? 'Siguiendo' : 'Seguidores';
 
-			component.instance.onFollowClick = (e: IEntity) =>
+			component.instance.onFollowClick = (e: IEntity) => {
+				if (this.sessionAccount === null) {
+					this.router.navigate(['/auth']);
+				}
+
 				this.interactivityService.calculateFollow(e, (_e: IEntity) => {
 					component.instance.updateEntity(_e);
 					this.currentEntity.following += _e.sessionFollow === -1 ? -1 : 1;
 				});
+			};
 
 			switch (type) {
 				case 'account':
