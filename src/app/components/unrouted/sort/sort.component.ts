@@ -23,11 +23,6 @@ export class SortComponent implements OnInit {
 				key: 'new',
 			},
 			{
-				icon: 'whatshot',
-				text: 'Activos',
-				key: 'hot',
-			},
-			{
 				icon: 'comment',
 				text: 'Comentarios',
 				key: 'comments',
