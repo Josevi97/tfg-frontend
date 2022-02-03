@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IAccount } from 'src/app/models/accounts.interface';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
-import { AlertComponent } from '../../unrouted/alert/alert.component';
 import { InitSessionComponent } from '../../unrouted/init-session/init-session.component';
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
 
@@ -11,9 +12,21 @@ import { RegisterAccountComponent } from '../../unrouted/register-account/regist
 export class AuthComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
-	constructor(private componentFactory: ComponentFactoryService) {}
+	private sessionAccount: IAccount;
 
-	ngOnInit(): void {}
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private router: Router,
+		private componentFactory: ComponentFactoryService
+	) {}
+
+	ngOnInit(): void {
+		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
+
+		if (this.sessionAccount !== null) {
+			this.router.navigate(['']);
+		}
+	}
 
 	generateComponent(type: string) {
 		const a = this.componentFactory.createAlert(this.alertRef);
