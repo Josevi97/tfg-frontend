@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
 	ngOnInit(): void {
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 
-		if (this.sessionAccount === undefined || !this.sessionAccount.admin) {
+		if (this.sessionAccount === null || !this.sessionAccount.admin) {
 			this.router.navigate(['/home']);
 		}
 
