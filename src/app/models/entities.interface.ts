@@ -5,6 +5,7 @@ export interface IEntity {
 	image: string;
 	following: number;
 	followers: number;
+	communities: number;
 	body: string;
 	tag: string;
 	type: string;

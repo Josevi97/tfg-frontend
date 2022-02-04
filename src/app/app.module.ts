@@ -46,6 +46,8 @@ import { SeparatorComponent } from './components/unrouted/separator/separator.co
 import { TableComponent } from './components/unrouted/table/table.component';
 import { PaginationComponent } from './components/unrouted/pagination/pagination.component';
 import { TableService } from './services/table/table.service';
+import { RegisterCommunityComponent } from './components/unrouted/register-community/register-community.component';
+import { EntranceFormComponent } from './components/unrouted/entrance-form/entrance-form.component';
 
 @NgModule({
 	declarations: [
@@ -80,6 +82,8 @@ import { TableService } from './services/table/table.service';
 		SeparatorComponent,
 		TableComponent,
 		PaginationComponent,
+  RegisterCommunityComponent,
+  EntranceFormComponent,
 	],
 	imports: [
 		HttpClientModule,

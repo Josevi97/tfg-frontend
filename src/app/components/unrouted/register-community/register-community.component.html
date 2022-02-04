@@ -1,0 +1,22 @@
+<form class="form content" (submit)="onSubmit()" [formGroup]="formGroup">
+	<div *ngFor="let data of formData" class="form-component">
+		<label class="form__label" for="{{ data.key }}">{{ data.label }}</label>
+		<input
+			formControlName="{{ data.key }}"
+			id="{{ data.key }}"
+			class="form__input {{ formsService.inputValid(data.key, formGroup) }}"
+			type="{{ data.type }}"
+			placeholder="{{ data.placeholder }}"
+		/>
+	</div>
+	<div class="form-component">
+		<label class="form__label" for="description">Descripcion</label>
+		<textarea
+			formControlName="description"
+			id="description"
+			class="register-community-form__textarea form__input"
+			placeholder="algun ejemplo sabes"
+		></textarea>
+	</div>
+	<input class="form__input btn-outline-primary" type="submit" value="Crear" />
+</form>

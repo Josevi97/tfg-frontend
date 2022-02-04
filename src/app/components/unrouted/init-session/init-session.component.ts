@@ -48,14 +48,17 @@ export class InitSessionComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onSubmit(): void {
+		this.formsService.checkInvalid(this.formGroup, this.ref);
+
+		if (!this.formGroup.valid) {
+			return;
+		}
+
 		const data: ILogin = {
 			login: this.formGroup.get('login')!.value,
 			password: this.formGroup.get('password')!.value,
 		};
 
-		this.sessionService.login(data).subscribe(
-			() => this.router.navigate(['']),
-			() => this.formsService.checkInvalid(this.formGroup, this.ref)
-		);
+		this.sessionService.login(data).subscribe(() => this.router.navigate(['']));
 	}
 }

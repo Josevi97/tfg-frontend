@@ -76,6 +76,12 @@ export class RegisterAccountComponent implements OnInit {
 	}
 
 	createAccount(admin: boolean) {
+		this.formsService.checkInvalid(this.formGroup, this.ref);
+
+		if (!this.formGroup.valid) {
+			return;
+		}
+
 		const data: IRegisterAccount = {
 			login: this.formGroup.get('login')!.value,
 			email: this.formGroup.get('email')!.value,
@@ -87,10 +93,7 @@ export class RegisterAccountComponent implements OnInit {
 
 		this.accountsService.register(data).subscribe(
 			() => (this.onSuccess ? this.onSuccess() : null),
-			() => {
-				this.formsService.checkInvalid(this.formGroup, this.ref);
-				this.onError ? this.onError(this.formGroup.valid) : null;
-			}
+			() => (this.onError ? this.onError(this.formGroup.valid) : null)
 		);
 	}
 }

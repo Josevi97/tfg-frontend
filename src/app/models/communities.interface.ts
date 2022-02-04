@@ -11,6 +11,11 @@ export interface ICommunity {
 	sessionFollow: number;
 }
 
+export interface IRegisterCommunity {
+	name: string;
+	description: string;
+}
+
 export interface ICommunityPage {
 	content: ICommunity[];
 	totalElements: number;

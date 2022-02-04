@@ -29,6 +29,7 @@ import {
 	IAccountFollowPage,
 } from '../../../models/accounts.interface';
 import { ElistComponent } from '../../unrouted/elist/elist.component';
+import { EntranceFormComponent } from '../../unrouted/entrance-form/entrance-form.component';
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 
 @Component({
@@ -331,7 +332,11 @@ export class MainComponent implements OnInit {
 
 			component.instance.sessionAccount = this.sessionAccount;
 			component.instance.header =
-				key === 'following' ? 'Siguiendo' : 'Seguidores';
+				key === 'following'
+					? 'Siguiendo'
+					: key === 'followers'
+					? 'Seguidores'
+					: 'Comunidades';
 
 			component.instance.onFollowClick = (e: IEntity) => {
 				if (this.sessionAccount === null) {
@@ -357,6 +362,16 @@ export class MainComponent implements OnInit {
 
 	onProfileButtonClick(entity: IEntity): void {
 		this.componentFactoryService.createAlert(this.alertRef);
+	}
+
+	onAddClick(entity: IEntity): void {
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const componentRef = this.componentFactoryService.generateComponent(
+				EntranceFormComponent,
+				a.instance.componentRef
+			);
+		};
 	}
 
 	handleAccountFollow(

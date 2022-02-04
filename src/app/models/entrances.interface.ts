@@ -14,6 +14,11 @@ export interface IEntrance {
 	calculatedVotes: number;
 }
 
+export interface IEntranceForm {
+	title: string;
+	body: string;
+}
+
 export interface IEntrancePage {
 	content: IEntrance[];
 	totalElements: number;

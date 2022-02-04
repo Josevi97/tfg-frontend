@@ -229,7 +229,8 @@ textarea {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
-	max-width: 300px;
+	min-width: 300px;
+	max-width: 350px;
 	margin: auto;
 }
 

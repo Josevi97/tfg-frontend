@@ -16,6 +16,7 @@ export class EntityComponent implements OnInit {
 	@Input() public active: boolean;
 	@Input() public onLinksClick: Function;
 	@Input() public onProfileButtonClick: Function;
+	@Input() public onAddClick: Function;
 	@Input() public showFollowButton: boolean;
 
 	constructor(
@@ -29,7 +30,7 @@ export class EntityComponent implements OnInit {
 		this.router.navigate([`/${this.entity.type}/${this.entity.id}`]);
 	}
 
-	onFollowClick() {
+	onFollowClick(): void {
 		if (this.sessionAccount === null) {
 			this.router.navigate(['/auth']);
 		}

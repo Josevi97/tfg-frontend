@@ -7,6 +7,7 @@ import { LocationService } from 'src/app/services/location/location.service';
 import { TableService } from 'src/app/services/table/table.service';
 import { ComponentFactoryService } from '../../../services/componentFactory/component-factory.service';
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
+import { RegisterCommunityComponent } from '../../unrouted/register-community/register-community.component';
 
 @Component({
 	templateUrl: './admin.component.html',
@@ -47,6 +48,19 @@ export class AdminComponent implements OnInit {
 		a.instance.onAfterViewInit = () => {
 			const componentRef = this.componentFactory.generateComponent(
 				RegisterAccountComponent,
+				a.instance.componentRef
+			);
+
+			componentRef.instance.onSuccess = () =>
+				this.componentFactory.destroyComponent(a);
+		};
+	}
+
+	createCommunity(): void {
+		const a = this.componentFactory.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const componentRef = this.componentFactory.generateComponent(
+				RegisterCommunityComponent,
 				a.instance.componentRef
 			);
 

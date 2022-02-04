@@ -66,6 +66,7 @@
 			[entity]="currentEntity"
 			[onLinksClick]="onLinksClick.bind(this)"
 			[onProfileButtonClick]="onProfileButtonClick.bind(this)"
+			[onAddClick]="onAddClick.bind(this)"
 			[showFollowButton]="
 				community !== undefined ||
 				(account !== undefined && currentEntity?.id !== sessionAccount?.id)

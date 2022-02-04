@@ -65,18 +65,41 @@
 			>
 				<span class="info__variable">{{ entity?.followers }} </span>seguidores
 			</a>
+			<a
+				*ngIf="entity.communities !== null"
+				(click)="
+					entity?.communities > 0 && onLinksClick
+						? onLinksClick('communities', entity.type)
+						: null
+				"
+				class="{{
+					entity?.communities > 0 ? 'link-secondary' : 'cursor-default'
+				}}"
+			>
+				<span class="info__variable">{{ entity?.communities }} </span
+				>comunidades
+			</a>
 		</div>
 		<p>
 			{{ entity?.body }}
 		</p>
 	</div>
-	<button
-		*ngIf="showFollowButton"
-		(click)="onFollowClick ? onFollowClick() : null"
-		class="btn-{{
-			entity?.sessionFollow | follow: true
-		}}primary content__button"
-	>
-		{{ entity?.sessionFollow | follow: false }}
-	</button>
+	<div class="entity-buttons">
+		<button
+			*ngIf="entity?.type === 'community'"
+			(click)="onAddClick ? onAddClick(entity) : null"
+			class="entity-buttons__add btn-outline-primary content__button"
+		>
+			<span class="material-icons">add</span>
+		</button>
+		<button
+			*ngIf="showFollowButton"
+			(click)="onFollowClick ? onFollowClick() : null"
+			class="entity-buttons__follow btn-{{
+				entity?.sessionFollow | follow: true
+			}}primary content__button"
+		>
+			{{ entity?.sessionFollow | follow: false }}
+		</button>
+	</div>
 </div>

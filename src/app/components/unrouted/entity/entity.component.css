@@ -97,10 +97,13 @@
 	cursor: default;
 }
 
-@media screen and (max-width: 1400px) {
-	.content__button {
-		width: 200px;
-	}
+.entity-buttons {
+	display: flex;
+	gap: 5px;
+}
+
+.entity-buttons__follow {
+	width: 200px;
 }
 
 @media screen and (max-width: 576px) {

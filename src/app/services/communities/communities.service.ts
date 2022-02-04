@@ -6,8 +6,12 @@ import {
 	ICommunity,
 	ICommunityList,
 	ICommunityListPage,
+	IRegisterCommunity,
 } from 'src/app/models/communities.interface';
-import { IEntrancePage } from 'src/app/models/entrances.interface';
+import {
+	IEntranceForm,
+	IEntrancePage,
+} from 'src/app/models/entrances.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
 
@@ -22,6 +26,18 @@ export class CommunitiesService {
 	findOne(id: number): Observable<ICommunity> {
 		return this.http
 			.get<ICommunity>(`${this.COMMUNITY_URI}/${id}`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	register(data: IRegisterCommunity): Observable<String> {
+		return this.http
+			.post<String>(this.COMMUNITY_URI, data, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	createEntrance(id: number, data: IEntranceForm): Observable<String> {
+		return this.http
+			.post<String>(`${this.COMMUNITY_URI}/${id}/entrances`, data, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
