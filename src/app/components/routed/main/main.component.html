@@ -25,6 +25,7 @@
 			[onCiteClick]="onPostClick.bind(this, post.post)"
 			[onVotesClick]="onVotesClick.bind(this)"
 			[onCommentsClick]="onCommentsClick.bind(this, post)"
+			[onEditClick]="openEntranceForm.bind(this)"
 			[showCite]="true"
 		></app-post>
 
@@ -62,11 +63,11 @@
 			*ngIf="sessionAccount || account !== undefined || community !== undefined"
 			[active]="account !== undefined || community !== undefined"
 			[sessionAccount]="sessionAccount"
-			[show]="account !== undefined || community !== undefined"
+			[show]="true"
 			[entity]="currentEntity"
 			[onLinksClick]="onLinksClick.bind(this)"
 			[onProfileButtonClick]="onProfileButtonClick.bind(this)"
-			[onAddClick]="onAddClick.bind(this)"
+			[onAddClick]="openEntranceForm.bind(this)"
 			[showFollowButton]="
 				community !== undefined ||
 				(account !== undefined && currentEntity?.id !== sessionAccount?.id)

@@ -11,16 +11,22 @@ export class PaginationComponent implements OnInit {
 	@Input() public onInputChange: Function;
 
 	public formGroup: FormGroup;
-	private currentValue: string;
+	public lastValue: string;
+	public currentValue: string;
 
 	constructor(private formBuilder: FormBuilder) {}
 
 	ngOnInit(): void {
 		this.currentValue = '1';
+		this.lastValue = '100';
 		this.formGroup = this.formBuilder.group({
 			value: [
 				this.currentValue,
-				[Validators.required, Validators.pattern('^[1-9][0-9]*$')],
+				[
+					Validators.required,
+					Validators.pattern('^[1-9][0-9]*$'),
+					Validators.max(+this.lastValue),
+				],
 			],
 		});
 	}

@@ -13,6 +13,8 @@ export class PostComponent implements OnInit {
 	@Input() public onCiteClick: Function;
 	@Input() public onCommentsClick: Function;
 	@Input() public onVotesClick: Function;
+	@Input() public onEditClick: Function;
+	@Input() public onDeleteClick: Function;
 	@Input() public post: IPost;
 	@Input() public showAccount: boolean;
 	@Input() public showCommunity: boolean;

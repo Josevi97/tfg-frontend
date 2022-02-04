@@ -59,7 +59,9 @@
 
 			<div *ngIf="showActionButtons" class="buttons">
 				<button
-					(click)="$event.stopPropagation()"
+					(click)="
+						onEditClick ? onEditClick(post) : null; $event.stopPropagation()
+					"
 					*ngIf="this.post?.type !== 'comment'"
 					class="btn-normal"
 				>
@@ -67,7 +69,12 @@
 						<span> Editar</span></i
 					>
 				</button>
-				<button (click)="$event.stopPropagation()" class="btn-normal">
+				<button
+					(click)="
+						onDeleteClick ? onDeleteClick(post) : null; $event.stopPropagation()
+					"
+					class="btn-normal"
+				>
 					<i class="{{ iconsService.getIcon('delete') }}">
 						<span> Eliminar</span></i
 					>

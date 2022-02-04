@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Form, FormGroup } from '@angular/forms';
+import { IEntranceForm } from 'src/app/models/entrances.interface';
+import { IPost } from 'src/app/models/posts.interface';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,5 +18,30 @@ export class FormsService {
 	checkInvalid(formGroup: FormGroup, ref: ChangeDetectorRef): void {
 		formGroup.markAllAsTouched();
 		ref.detectChanges();
+	}
+
+	updatePost(post: IPost, form: FormGroup): IPost {
+		post.title = form.get('title')!.value;
+		post.body = form.get('body')!.value;
+
+		return post;
+	}
+
+	toEntranceForm(form: FormGroup): IEntranceForm {
+		return {
+			title: form.get('title')!.value,
+			body: form.get('body')!.value,
+		};
+	}
+
+	fromPost(post: IPost): IEntranceForm {
+		if (post === undefined) {
+			return null;
+		}
+
+		return {
+			title: post?.title,
+			body: post?.body,
+		};
 	}
 }

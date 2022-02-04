@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IEntranceForm } from 'src/app/models/entrances.interface';
 import { IFormData } from 'src/app/models/forms.interface';
 import { FormsService } from 'src/app/services/forms/forms.service';
 
@@ -13,11 +14,14 @@ export class EntranceFormComponent implements OnInit {
 	public formGroup: FormGroup;
 	public formData: IFormData[];
 
+	public state: string;
+
 	constructor(
 		private ref: ChangeDetectorRef,
 		private formBuilder: FormBuilder,
 		public formsService: FormsService
 	) {
+		this.state = 'post';
 		this.formData = [
 			{
 				label: 'Titulo',
@@ -34,6 +38,16 @@ export class EntranceFormComponent implements OnInit {
 	}
 
 	ngOnInit(): void {}
+
+	setEntranceData(entranceData: IEntranceForm): void {
+		if (entranceData === null) {
+			return;
+		}
+
+		this.formGroup.get('title').setValue(entranceData.title);
+		this.formGroup.get('body').setValue(entranceData.body);
+		this.state = 'put';
+	}
 
 	onSubmit(): void {
 		this.formsService.checkInvalid(this.formGroup, this.ref);

@@ -21,6 +21,7 @@ import { CommunitiesService } from 'src/app/services/communities/communities.ser
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
+import { FormsService } from 'src/app/services/forms/forms.service';
 import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
 import { LocationService } from 'src/app/services/location/location.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
@@ -52,6 +53,7 @@ export class MainComponent implements OnInit {
 	public sortData: ISort[];
 
 	constructor(
+		private formsService: FormsService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private accountsService: AccountsService,
@@ -307,14 +309,22 @@ export class MainComponent implements OnInit {
 				switch (post.type) {
 					case 'entrance':
 						this.entrancesService.comment(post.id, comment).subscribe(() => {
-							post.comments++;
-							this.componentFactoryService.destroyComponent(a);
+							if (this.entrance === undefined && this.comment === undefined) {
+								this.locationService.navigateToEntrance(post.id);
+							} else {
+								post.comments++;
+								this.componentFactoryService.destroyComponent(a);
+							}
 						});
 						break;
 					case 'comment':
 						this.commentsService.comment(post.id, comment).subscribe(() => {
-							post.comments++;
-							this.componentFactoryService.destroyComponent(a);
+							if (this.entrance === undefined && this.comment === undefined) {
+								this.locationService.navigateToComment(post.id);
+							} else {
+								post.comments++;
+								this.componentFactoryService.destroyComponent(a);
+							}
 						});
 						break;
 				}
@@ -364,13 +374,50 @@ export class MainComponent implements OnInit {
 		this.componentFactoryService.createAlert(this.alertRef);
 	}
 
-	onAddClick(entity: IEntity): void {
+	openEntranceForm(entity: IEntity): void {
+		if (this.sessionAccount === null) {
+			this.router.navigate(['/auth']);
+		}
+
 		const a = this.componentFactoryService.createAlert(this.alertRef);
 		a.instance.onAfterViewInit = () => {
 			const componentRef = this.componentFactoryService.generateComponent(
 				EntranceFormComponent,
 				a.instance.componentRef
 			);
+
+			componentRef.instance.setEntranceData(
+				this.formsService.fromPost(this.post)
+			);
+			componentRef.instance.onSuccess = () => {
+				switch (componentRef.instance.state) {
+					case 'post':
+						this.communitiesService
+							.createEntrance(
+								entity.id,
+								this.formsService.toEntranceForm(
+									componentRef.instance.formGroup
+								)
+							)
+							.subscribe(() => {
+								this.componentFactoryService.destroyComponent(a);
+								this.initialize();
+							});
+						break;
+					case 'put':
+						this.entrancesService
+							.update(
+								this.post.id,
+								this.formsService.updatePost(
+									this.post,
+									componentRef.instance.formGroup
+								)
+							)
+							.subscribe(() =>
+								this.componentFactoryService.destroyComponent(a)
+							);
+				}
+			};
 		};
 	}
 

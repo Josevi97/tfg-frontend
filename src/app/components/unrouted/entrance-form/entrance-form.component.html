@@ -22,11 +22,12 @@
 				formsService.inputValid('body', formGroup)
 			}}"
 			placeholder="algun ejemplo sabes"
+			rows="10"
 		></textarea>
 	</div>
 	<input
 		class="form__input btn-outline-primary"
 		type="submit"
-		value="Publicar"
+		value="{{ state === 'post' ? 'Publicar' : 'Actualizar' }}"
 	/>
 </form>
