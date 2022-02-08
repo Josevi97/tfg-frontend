@@ -21,7 +21,6 @@ export class TableComponent implements OnInit {
 	public currentValue: string;
 	public state: string;
 	public direction: boolean;
-	public sortKeys: string[];
 
 	constructor(private formBuilder: FormBuilder) {}
 
@@ -47,10 +46,6 @@ export class TableComponent implements OnInit {
 	}
 
 	onHeaderClick(key: string): void {
-		if (!this.sortKeys.includes(key)) {
-			return;
-		}
-
 		this.direction = key === this.state ? !this.direction : true;
 		this.state = key;
 

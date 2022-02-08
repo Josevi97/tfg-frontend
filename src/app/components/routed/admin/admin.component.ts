@@ -66,7 +66,6 @@ export class AdminComponent implements OnInit {
 					.subscribe((data: IAccountPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromAccounts(data.content);
-						this.tableRef.sortKeys = this.tableService.ACCOUNT_SORT_KEYS;
 
 						if (callback) {
 							callback(data.totalPages);
@@ -79,7 +78,6 @@ export class AdminComponent implements OnInit {
 					.subscribe((data: ICommunityPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromCommunities(data.content);
-						this.tableRef.sortKeys = this.tableService.COMMUNITY_SORT_KEYS;
 
 						if (callback) {
 							callback(data.totalPages);
@@ -97,8 +95,10 @@ export class AdminComponent implements OnInit {
 				a.instance.componentRef
 			);
 
-			componentRef.instance.onSuccess = () =>
+			componentRef.instance.onSuccess = () => {
 				this.componentFactory.destroyComponent(a);
+				this.initData(this.sortData.page);
+			};
 		};
 	}
 
@@ -110,8 +110,10 @@ export class AdminComponent implements OnInit {
 				a.instance.componentRef
 			);
 
-			componentRef.instance.onSuccess = () =>
+			componentRef.instance.onSuccess = () => {
 				this.componentFactory.destroyComponent(a);
+				this.initData(this.sortData.page);
+			};
 		};
 	}
 

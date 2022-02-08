@@ -7,9 +7,6 @@ import { TableData } from 'src/app/models/table.interface';
 	providedIn: 'root',
 })
 export class TableService {
-	public ACCOUNT_SORT_KEYS: string[] = ['id', 'login', 'email'];
-	public COMMUNITY_SORT_KEYS: string[] = ['id', 'name'];
-
 	constructor() {}
 
 	fromAccounts(accounts: IAccount[]): TableData {
@@ -17,53 +14,108 @@ export class TableService {
 			headers: [
 				{
 					text: 'id',
-					key: this.ACCOUNT_SORT_KEYS[0],
+					key: 'id',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'login',
-					key: this.ACCOUNT_SORT_KEYS[1],
+					key: 'login',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'email',
-					key: this.ACCOUNT_SORT_KEYS[2],
+					key: 'email',
+					sort: true,
+					relevant: true,
+				},
+				{
+					text: 'admin',
+					key: 'isAdmin',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'entradas',
 					key: 'entrances',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'comentarios',
 					key: 'comments',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'lista de comunidades',
 					key: 'communities',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'votos a entradas',
 					key: 'entranceVotes',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'votos a comentarios',
 					key: 'commentVotes',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'fecha de creacion',
-					key: 'created_at',
+					key: 'createdAt',
+					sort: true,
+					relevant: true,
 				},
 			],
 			data: accounts.map((account: IAccount) => {
 				return {
 					body: [
-						`${account.id}`,
-						account.login,
-						account.email,
-						`${account.entrances}`,
-						`${account.comments}`,
-						`${account.communityList}`,
-						`${account.entranceVotes}`,
-						`${account.commentVotes}`,
-						account.createdAt,
+						{
+							text: `${account.id}`,
+							relevant: true,
+						},
+						{
+							text: account.login,
+							relevant: true,
+						},
+						{
+							text: account.email,
+							relevant: true,
+						},
+						{
+							text: `${account.admin ? 'SI' : 'NO'}`,
+							relevant: true,
+						},
+						{
+							text: `${account.entrances}`,
+							relevant: false,
+						},
+						{
+							text: `${account.comments}`,
+							relevant: false,
+						},
+						{
+							text: `${account.communityList}`,
+							relevant: false,
+						},
+						{
+							text: `${account.entranceVotes}`,
+							relevant: false,
+						},
+						{
+							text: `${account.commentVotes}`,
+							relevant: false,
+						},
+						{
+							text: account.createdAt,
+							relevant: true,
+						},
 					],
 				};
 			}),
@@ -76,32 +128,57 @@ export class TableService {
 				{
 					text: 'id',
 					key: 'id',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'name',
 					key: 'name',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'entradas',
 					key: 'entrances',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'Numero de seguidores',
 					key: 'accounts',
+					sort: false,
+					relevant: false,
 				},
 				{
 					text: 'fecha de creacion',
-					key: 'created_at',
+					key: 'createdAt',
+					sort: true,
+					relevant: true,
 				},
 			],
 			data: communities.map((community: ICommunity) => {
 				return {
 					body: [
-						`${community.id}`,
-						community.name,
-						`${community.entrances}`,
-						`${community.communityList}`,
-						community.createdAt,
+						{
+							text: `${community.id}`,
+							relevant: true,
+						},
+						{
+							text: community.name,
+							relevant: true,
+						},
+						{
+							text: `${community.entrances}`,
+							relevant: false,
+						},
+						{
+							text: `${community.communityList}`,
+							relevant: false,
+						},
+						{
+							text: community.createdAt,
+							relevant: true,
+						},
 					],
 				};
 			}),

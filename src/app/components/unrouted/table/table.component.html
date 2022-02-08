@@ -11,16 +11,24 @@
 		<tr>
 			<th
 				*ngFor="let row of tableData?.headers"
-				(click)="onHeaderClick(row.key)"
+				(click)="row.sort ? onHeaderClick(row.key) : null"
+				class="{{ !row.relevant ? 'hide' : '' }} {{
+					!row.sort ? 'cursor-default' : ''
+				}}"
 			>
 				{{ row.text }}
 			</th>
 		</tr>
 		<tr
 			*ngFor="let row of tableData?.data"
-			(click)="onRowClick ? onRowClick(row?.body[0]) : null"
+			(click)="onRowClick ? onRowClick(row?.body[0].text) : null"
 		>
-			<td *ngFor="let col of row?.body">{{ col }}</td>
+			<td
+				*ngFor="let col of row?.body"
+				class="{{ !col.relevant ? 'hide' : '' }}"
+			>
+				{{ col.text }}
+			</td>
 		</tr>
 	</table>
 </div>

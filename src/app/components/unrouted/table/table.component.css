@@ -40,3 +40,18 @@
 	background-color: var(--white-color);
 	color: var(--secondary-color-hover);
 }
+
+@media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 992px) {
+	.hide {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 576px) {
+}
