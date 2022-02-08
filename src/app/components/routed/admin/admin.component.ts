@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
 			size: 8,
 			direction: true,
 		};
-		this.state = 'communities';
+		this.state = 'accounts';
 		this.initData(1, (totalPages: number) => {
 			this.tableRef.pagiantionRef.initValues(1, totalPages);
 		});
