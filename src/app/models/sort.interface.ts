@@ -3,3 +3,10 @@ export interface ISort {
 	text: string;
 	key: string;
 }
+
+export interface IDataSort {
+	page: number;
+	sort: string;
+	size: number;
+	direction: boolean;
+}

@@ -1,55 +1,55 @@
 <div class="pagination">
 	<button
-		(click)="onArrowsClick ? onArrowsClick('first') : null"
+		(click)="onButtonsClick('first')"
 		class="pagination__button btn-normal"
 	>
 		<i
 			class="material-icons
-                      {{ currentValue === '1' ? 'active' : '' }}
+                      {{ currentValue === 1 ? 'active' : '' }}
             "
 			>first_page</i
 		>
 	</button>
 	<button
-		(click)="onArrowsClick ? onArrowsClick('back') : null"
+		(click)="onButtonsClick('back')"
 		class="pagination__button btn-normal"
 	>
 		<i
 			class="material-icons
-                      {{ currentValue === '1' ? 'active' : '' }}
+                      {{ currentValue === 1 ? 'active' : '' }}
             "
 			>chevron_left</i
 		>
 	</button>
 	<form [formGroup]="formGroup" class="texts">
 		<input
+			[readonly]="maxValue === 1"
 			(change)="change()"
 			formControlName="value"
 			class="pagination__text pagination__current"
-			value="1"
 			size="1"
 		/>
 		<span class="pagination__text">/</span>
-		<span class="pagination__text">{{ lastValue }}</span>
+		<span class="pagination__text">{{ maxValue }}</span>
 	</form>
 	<button
-		(click)="onArrowsClick ? onArrowsClick('next') : null"
+		(click)="onButtonsClick('next')"
 		class="pagination__button btn-normal"
 	>
 		<i
 			class="material-icons
-                      {{ currentValue === lastValue ? 'active' : '' }}
+                      {{ currentValue === maxValue ? 'active' : '' }}
             "
 			>chevron_right</i
 		>
 	</button>
 	<button
-		(click)="onArrowsClick ? onArrowsClick('last') : null"
+		(click)="onButtonsClick('last')"
 		class="pagination__button btn-normal"
 	>
 		<i
 			class="material-icons
-                      {{ currentValue === lastValue ? 'active' : '' }}
+                      {{ currentValue === maxValue ? 'active' : '' }}
             "
 			>last_page</i
 		>

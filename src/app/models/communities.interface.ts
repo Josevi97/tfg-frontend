@@ -19,6 +19,7 @@ export interface IRegisterCommunity {
 export interface ICommunityPage {
 	content: ICommunity[];
 	totalElements: number;
+	totalPages: number;
 }
 
 export interface ICommunityList {

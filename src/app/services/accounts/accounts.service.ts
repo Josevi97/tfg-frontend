@@ -10,8 +10,10 @@ import {
 } from 'src/app/models/accounts.interface';
 import { ICommentPage } from 'src/app/models/comments.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
+import { IDataSort } from 'src/app/models/sort.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
+import { SortService } from '../sort/sort.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,7 +21,11 @@ import { ErrorService } from '../error/error.service';
 export class AccountsService {
 	private ACCOUNT_URI = `${API_URI}/accounts`;
 
-	constructor(private http: HttpClient, private errorService: ErrorService) {}
+	constructor(
+		private http: HttpClient,
+		private errorService: ErrorService,
+		private sortService: SortService
+	) {}
 
 	register(data: IRegisterAccount): Observable<String> {
 		return this.http
@@ -45,9 +51,12 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getAllAccounts(): Observable<IAccountPage> {
+	getAllAccounts(sortData: IDataSort): Observable<IAccountPage> {
 		return this.http
-			.get<IAccountPage>(`${this.ACCOUNT_URI}`, httpOptions)
+			.get<IAccountPage>(
+				`${this.ACCOUNT_URI}?${this.sortService.handleSort(sortData)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

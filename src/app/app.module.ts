@@ -48,6 +48,7 @@ import { PaginationComponent } from './components/unrouted/pagination/pagination
 import { TableService } from './services/table/table.service';
 import { RegisterCommunityComponent } from './components/unrouted/register-community/register-community.component';
 import { EntranceFormComponent } from './components/unrouted/entrance-form/entrance-form.component';
+import { SortService } from './services/sort/sort.service';
 
 @NgModule({
 	declarations: [
@@ -82,8 +83,8 @@ import { EntranceFormComponent } from './components/unrouted/entrance-form/entra
 		SeparatorComponent,
 		TableComponent,
 		PaginationComponent,
-  RegisterCommunityComponent,
-  EntranceFormComponent,
+		RegisterCommunityComponent,
+		EntranceFormComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -106,6 +107,7 @@ import { EntranceFormComponent } from './components/unrouted/entrance-form/entra
 		InteractivityService,
 		FormsService,
 		TableService,
+		SortService,
 	],
 	bootstrap: [AppComponent],
 })

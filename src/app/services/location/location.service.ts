@@ -30,4 +30,16 @@ export class LocationService {
 			.navigateByUrl('/', { skipLocationChange: true })
 			.then(() => this.router.navigate([`/comment/${id}`]));
 	}
+
+	navigateToHome(): void {
+		this.router
+			.navigateByUrl('/', { skipLocationChange: true })
+			.then(() => this.router.navigate(['/home']));
+	}
+
+	navigateToAuth(): void {
+		this.router
+			.navigateByUrl('/', { skipLocationChange: true })
+			.then(() => this.router.navigate(['/auth']));
+	}
 }

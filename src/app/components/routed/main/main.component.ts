@@ -29,6 +29,7 @@ import {
 	IAccount,
 	IAccountFollowPage,
 } from '../../../models/accounts.interface';
+import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
 import { ElistComponent } from '../../unrouted/elist/elist.component';
 import { EntranceFormComponent } from '../../unrouted/entrance-form/entrance-form.component';
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
@@ -54,7 +55,6 @@ export class MainComponent implements OnInit {
 
 	constructor(
 		private formsService: FormsService,
-		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private accountsService: AccountsService,
 		private entrancesService: EntrancesService,
@@ -292,7 +292,7 @@ export class MainComponent implements OnInit {
 
 	onCommentsClick(post: IPost): void {
 		if (this.sessionAccount === null) {
-			this.router.navigate(['/auth']);
+			this.locationService.navigateToAuth();
 		}
 
 		const a = this.componentFactoryService.createAlert(this.alertRef);
@@ -350,7 +350,7 @@ export class MainComponent implements OnInit {
 
 			component.instance.onFollowClick = (e: IEntity) => {
 				if (this.sessionAccount === null) {
-					this.router.navigate(['/auth']);
+					this.locationService.navigateToAuth();
 				}
 
 				this.interactivityService.calculateFollow(e, (_e: IEntity) => {
@@ -376,7 +376,7 @@ export class MainComponent implements OnInit {
 
 	openEntranceForm(entity: IEntity): void {
 		if (this.sessionAccount === null) {
-			this.router.navigate(['/auth']);
+			this.locationService.navigateToAuth();
 		}
 
 		const a = this.componentFactoryService.createAlert(this.alertRef);
@@ -416,6 +416,43 @@ export class MainComponent implements OnInit {
 							.subscribe(() =>
 								this.componentFactoryService.destroyComponent(a)
 							);
+				}
+			};
+		};
+	}
+
+	onDeleteClick(post: IPost): void {
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+
+		a.instance.onAfterViewInit = () => {
+			const componentRef = this.componentFactoryService.generateComponent(
+				ConfirmComponent,
+				a.instance.componentRef
+			);
+
+			componentRef.instance.message =
+				'¿Estas seguro de que quieres eliminar el post?';
+			componentRef.instance.buttonContent = 'Continuar';
+			componentRef.instance.buttonType = 'error';
+			componentRef.instance.onButtonClick = () => {
+				if (this.post !== undefined && post.id === this.post.id) {
+					switch (post.type) {
+						case 'entrance':
+							this.entrancesService
+								.delete(post.id)
+								.subscribe(() => this.locationService.navigateToHome());
+							break;
+						case 'comment':
+							this.commentsService
+								.delete(post.id)
+								.subscribe(() => this.locationService.navigateToHome());
+							break;
+					}
+				} else {
+					this.commentsService.delete(post.id).subscribe(() => {
+						this.initialize();
+						this.componentFactoryService.destroyComponent(a);
+					});
 				}
 			};
 		};

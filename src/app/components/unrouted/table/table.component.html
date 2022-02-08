@@ -4,13 +4,17 @@
 			<input formControlName="input" type="text" placeholder="Buscar.." />
 		</form>
 		<app-pagination
-			[onArrowsClick]="onArrowsClick ? onArrowsClick.bind(this) : null"
 			[onInputChange]="onInputChange ? onInputChange.bind(this) : null"
 		></app-pagination>
 	</div>
 	<table class="table">
 		<tr>
-			<th *ngFor="let row of tableData?.headers">{{ row.text }}</th>
+			<th
+				*ngFor="let row of tableData?.headers"
+				(click)="onHeaderClick(row.key)"
+			>
+				{{ row.text }}
+			</th>
 		</tr>
 		<tr
 			*ngFor="let row of tableData?.data"

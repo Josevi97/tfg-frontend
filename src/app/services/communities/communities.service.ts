@@ -6,14 +6,17 @@ import {
 	ICommunity,
 	ICommunityList,
 	ICommunityListPage,
+	ICommunityPage,
 	IRegisterCommunity,
 } from 'src/app/models/communities.interface';
 import {
 	IEntranceForm,
 	IEntrancePage,
 } from 'src/app/models/entrances.interface';
+import { IDataSort } from 'src/app/models/sort.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
+import { SortService } from '../sort/sort.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,11 +24,24 @@ import { ErrorService } from '../error/error.service';
 export class CommunitiesService {
 	private COMMUNITY_URI = `${API_URI}/communities`;
 
-	constructor(private http: HttpClient, private errorService: ErrorService) {}
+	constructor(
+		private http: HttpClient,
+		private errorService: ErrorService,
+		private sortService: SortService
+	) {}
 
 	findOne(id: number): Observable<ICommunity> {
 		return this.http
 			.get<ICommunity>(`${this.COMMUNITY_URI}/${id}`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	getAllCommunities(sortData: IDataSort): Observable<ICommunityPage> {
+		return this.http
+			.get<ICommunityPage>(
+				`${this.COMMUNITY_URI}?${this.sortService.handleSort(sortData)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

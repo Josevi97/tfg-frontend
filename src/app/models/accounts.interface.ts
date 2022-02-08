@@ -22,6 +22,7 @@ export interface IAccount {
 export interface IAccountPage {
 	content: IAccount[];
 	totalElements: number;
+	totalPages: number;
 }
 
 export interface IRegisterAccount {

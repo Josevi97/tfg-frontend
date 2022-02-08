@@ -26,6 +26,7 @@
 			[onVotesClick]="onVotesClick.bind(this)"
 			[onCommentsClick]="onCommentsClick.bind(this, post)"
 			[onEditClick]="openEntranceForm.bind(this)"
+			[onDeleteClick]="onDeleteClick.bind(this, post)"
 			[showCite]="true"
 		></app-post>
 
@@ -51,6 +52,7 @@
 				[onCiteClick]="onPostClick.bind(this, p.post)"
 				[onVotesClick]="onVotesClick.bind(this)"
 				[onCommentsClick]="onCommentsClick.bind(this, p)"
+				[onDeleteClick]="onDeleteClick.bind(this, p)"
 				[showCite]="post === undefined"
 			></app-post>
 		</div>
