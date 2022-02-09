@@ -7,8 +7,10 @@ import {
 	IEntranceForm,
 	IEntrancePage,
 } from 'src/app/models/entrances.interface';
+import { IDataSort } from 'src/app/models/sort.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
+import { SortService } from '../sort/sort.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,7 +18,11 @@ import { ErrorService } from '../error/error.service';
 export class EntrancesService {
 	private ENTRANCE_URI = `${API_URI}/entrances`;
 
-	constructor(private http: HttpClient, private errorService: ErrorService) {}
+	constructor(
+		private http: HttpClient,
+		private errorService: ErrorService,
+		private sortService: SortService
+	) {}
 
 	update(id: number, data: IEntranceForm): Observable<String> {
 		return this.http
@@ -30,15 +36,23 @@ export class EntrancesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getAllEntrances(): Observable<IEntrancePage> {
+	getAllEntrances(sortData: IDataSort): Observable<IEntrancePage> {
 		return this.http
-			.get<IEntrancePage>(this.ENTRANCE_URI, httpOptions)
+			.get<IEntrancePage>(
+				`${this.ENTRANCE_URI}?${this.sortService.handleSort(sortData)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getResponses(id: number): Observable<ICommentPage> {
+	getResponses(id: number, sortData: IDataSort): Observable<ICommentPage> {
 		return this.http
-			.get<ICommentPage>(`${this.ENTRANCE_URI}/${id}/comments`, httpOptions)
+			.get<ICommentPage>(
+				`${this.ENTRANCE_URI}/${id}/comments?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

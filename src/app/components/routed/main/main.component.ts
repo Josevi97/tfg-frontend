@@ -1,6 +1,7 @@
 import {
 	Component,
 	ComponentRef,
+	HostListener,
 	OnInit,
 	ViewChild,
 	ViewContainerRef,
@@ -14,7 +15,7 @@ import {
 import { IEntity } from 'src/app/models/entities.interface';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
 import { IPost } from 'src/app/models/posts.interface';
-import { ISort } from 'src/app/models/sort.interface';
+import { IDataSort, ISort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommentsService } from 'src/app/services/comments/comments.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
@@ -22,6 +23,7 @@ import { ComponentFactoryService } from 'src/app/services/componentFactory/compo
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { EntrancesService } from 'src/app/services/entrances/entrances.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { InfiniteService } from 'src/app/services/infinite/infinite.service';
 import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
 import { LocationService } from 'src/app/services/location/location.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
@@ -52,6 +54,24 @@ export class MainComponent implements OnInit {
 
 	public state: string;
 	public sortData: ISort[];
+	public dataSort: IDataSort;
+
+	@HostListener('window:scroll', ['$event'])
+	onScroll(): void {
+		this.infiniteService.onScroll(window, () => {
+			this.dataSort.page++;
+
+			if (this.community !== undefined) {
+				this.showEntrancesByCommunity();
+			} else if (this.entrance !== undefined) {
+				this.showCommentsByEntrance();
+			} else if (this.comment !== undefined) {
+				this.showCommentsByComment();
+			} else {
+				this.initPostsByKey();
+			}
+		});
+	}
 
 	constructor(
 		private formsService: FormsService,
@@ -64,8 +84,11 @@ export class MainComponent implements OnInit {
 		private commentsService: CommentsService,
 		private componentFactoryService: ComponentFactoryService,
 		private interactivityService: InteractivityService,
-		private locationService: LocationService
+		private locationService: LocationService,
+		private infiniteService: InfiniteService
 	) {
+		this.posts = [];
+
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
 		this.community = this.activatedRoute.snapshot.params['community'];
@@ -80,9 +103,16 @@ export class MainComponent implements OnInit {
 	}
 
 	initialize(): void {
+		this.dataSort = {
+			page: 1,
+			sort: 'id',
+			size: 10,
+			direction: false,
+		};
+
 		if (this.entrance === undefined && this.comment === undefined) {
 			this.initSortData();
-			this.initPosts();
+			this.initPosts(() => this.loadAccount(this.account));
 		} else if (this.entrance !== undefined) {
 			this.showEntrance();
 			this.showCommentsByEntrance();
@@ -133,7 +163,7 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	initPosts(): void {
+	initPosts(callback: Function = null): void {
 		if (this.account === undefined && this.community === undefined) {
 			this.showAllEntrances();
 		} else if (this.community !== undefined) {
@@ -145,8 +175,10 @@ export class MainComponent implements OnInit {
 				);
 			this.showEntrancesByCommunity();
 		} else {
-			this.loadAccount(this.account);
 			this.showEntrancesByAccount();
+			if (callback) {
+				callback();
+			}
 		}
 	}
 
@@ -155,7 +187,14 @@ export class MainComponent implements OnInit {
 			return;
 		}
 
-		switch (key) {
+		this.dataSort.page = 1;
+		this.posts = [];
+		this.state = key;
+		this.initPostsByKey();
+	}
+
+	initPostsByKey(): void {
+		switch (this.state) {
 			case 'entrances':
 				this.showEntrancesByAccount();
 				break;
@@ -172,8 +211,6 @@ export class MainComponent implements OnInit {
 				this.showEntrancesBySesssionFollowing();
 				break;
 		}
-
-		this.state = key;
 	}
 
 	loadAccount(id: number): void {
@@ -205,74 +242,90 @@ export class MainComponent implements OnInit {
 
 	showAllEntrances(): void {
 		this.entrancesService
-			.getAllEntrances()
-			.subscribe(
-				(data: IEntrancePage) =>
-					(this.posts = this.postsService.fromEntrances(data.content))
-			);
+			.getAllEntrances(this.dataSort)
+			.subscribe((data: IEntrancePage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromEntrances(data.content)
+				);
+			});
 	}
 
 	showEntrancesBySessionCommunities(): void {
 		this.accountsService
-			.getEntrancesBySessionCommunities()
-			.subscribe(
-				(data: IEntrancePage) =>
-					(this.posts = this.postsService.fromEntrances(data.content))
-			);
+			.getEntrancesBySessionCommunities(this.dataSort)
+			.subscribe((data: IEntrancePage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromEntrances(data.content)
+				);
+			});
 	}
 
 	showEntrancesBySesssionFollowing(): void {
 		this.accountsService
-			.getEntrancesBySessionFollowing()
-			.subscribe(
-				(data: IEntrancePage) =>
-					(this.posts = this.postsService.fromEntrances(data.content))
-			);
+			.getEntrancesBySessionFollowing(this.dataSort)
+			.subscribe((data: IEntrancePage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromEntrances(data.content)
+				);
+			});
 	}
 
 	showEntrancesByAccount(): void {
 		this.accountsService
-			.getEntrancesByAccount(this.account)
-			.subscribe(
-				(data: IEntrancePage) =>
-					(this.posts = this.postsService.fromEntrances(data.content))
-			);
+			.getEntrancesByAccount(this.account, this.dataSort)
+			.subscribe((data: IEntrancePage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromEntrances(data.content)
+				);
+			});
 	}
 
 	showEntrancesByCommunity(): void {
 		this.communitiesService
-			.getEntrancesByCommunity(this.community)
-			.subscribe(
-				(data: IEntrancePage) =>
-					(this.posts = this.postsService.fromEntrances(data.content))
-			);
+			.getEntrancesByCommunity(this.community, this.dataSort)
+			.subscribe((data: IEntrancePage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromEntrances(data.content)
+				);
+			});
 	}
 
 	showCommentsByAccount(): void {
 		this.accountsService
-			.getCommentsByAccount(this.currentEntity.id)
-			.subscribe(
-				(data: ICommentPage) =>
-					(this.posts = this.postsService.fromComments(data.content))
-			);
+			.getCommentsByAccount(this.currentEntity.id, this.dataSort)
+			.subscribe((data: ICommentPage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromComments(data.content)
+				);
+			});
 	}
 
 	showCommentsByEntrance(): void {
 		this.entrancesService
-			.getResponses(this.entrance)
-			.subscribe(
-				(data: ICommentPage) =>
-					(this.posts = this.postsService.fromComments(data.content))
-			);
+			.getResponses(this.entrance, this.dataSort)
+			.subscribe((data: ICommentPage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromComments(data.content)
+				);
+			});
 	}
 
 	showCommentsByComment(): void {
 		this.commentsService
-			.getResponses(this.comment)
-			.subscribe(
-				(data: ICommentPage) =>
-					(this.posts = this.postsService.fromComments(data.content))
-			);
+			.getResponses(this.comment, this.dataSort)
+			.subscribe((data: ICommentPage) => {
+				Array.prototype.push.apply(
+					this.posts,
+					this.postsService.fromComments(data.content)
+				);
+			});
 	}
 
 	onPostClick(post: IPost): void {

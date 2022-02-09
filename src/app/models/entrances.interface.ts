@@ -21,5 +21,5 @@ export interface IEntranceForm {
 
 export interface IEntrancePage {
 	content: IEntrance[];
-	totalElements: number;
+	totalPages: number;
 }

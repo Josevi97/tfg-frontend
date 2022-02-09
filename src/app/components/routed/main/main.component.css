@@ -1,4 +1,5 @@
 .pageContent {
+	position: relative;
 	display: flex;
 	gap: 50px;
 }

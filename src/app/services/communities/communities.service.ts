@@ -57,9 +57,17 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getEntrancesByCommunity(id: number): Observable<IEntrancePage> {
+	getEntrancesByCommunity(
+		id: number,
+		sortData: IDataSort
+	): Observable<IEntrancePage> {
 		return this.http
-			.get<IEntrancePage>(`${this.COMMUNITY_URI}/${id}/entrances`, httpOptions)
+			.get<IEntrancePage>(
+				`${this.COMMUNITY_URI}/${id}/entrances?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

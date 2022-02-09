@@ -1,4 +1,6 @@
 .asideDetails {
+	position: sticky;
+	top: calc(var(--navbar-height) + var(--navbar-margin));
 	display: flex;
 	gap: 20px;
 	flex-direction: column;

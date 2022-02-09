@@ -1,8 +1,11 @@
 .navbar {
-	height: 70px;
+	position: sticky;
+	top: 0;
+	height: var(--navbar-height);
 	box-shadow: 0 0 2px var(--light-color);
-	z-index: var(--hard-middle-priority);
-	margin-bottom: 20px;
+	z-index: 10;
+	margin-bottom: var(--navbar-margin);
+	background-color: white;
 }
 
 .navbar .wrap {

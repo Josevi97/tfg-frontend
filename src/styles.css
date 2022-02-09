@@ -36,6 +36,8 @@
 	--hard-front-priority: calc(var(--hard-back-priority) + 2);
 
 	--content-gap: 30px;
+	--navbar-height: 70px;
+	--navbar-margin: 20px;
 }
 
 @font-face {

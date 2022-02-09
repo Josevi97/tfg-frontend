@@ -60,33 +60,57 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getEntrancesBySessionCommunities(): Observable<IEntrancePage> {
+	getEntrancesBySessionCommunities(
+		sortData: IDataSort
+	): Observable<IEntrancePage> {
 		return this.http
 			.get<IEntrancePage>(
-				`${this.ACCOUNT_URI}/communities/entrances`,
+				`${
+					this.ACCOUNT_URI
+				}/communities/entrances?${this.sortService.handleSort(sortData)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getEntrancesBySessionFollowing(): Observable<IEntrancePage> {
+	getEntrancesBySessionFollowing(
+		sortData: IDataSort
+	): Observable<IEntrancePage> {
 		return this.http
 			.get<IEntrancePage>(
-				`${this.ACCOUNT_URI}/following/entrances`,
+				`${this.ACCOUNT_URI}/following/entrances?${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getEntrancesByAccount(id: number): Observable<IEntrancePage> {
+	getEntrancesByAccount(
+		id: number,
+		sortData: IDataSort
+	): Observable<IEntrancePage> {
 		return this.http
-			.get<IEntrancePage>(`${this.ACCOUNT_URI}/${id}/entrances`, httpOptions)
+			.get<IEntrancePage>(
+				`${this.ACCOUNT_URI}/${id}/entrances?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getCommentsByAccount(id: number): Observable<ICommentPage> {
+	getCommentsByAccount(
+		id: number,
+		sortData: IDataSort
+	): Observable<ICommentPage> {
 		return this.http
-			.get<ICommentPage>(`${this.ACCOUNT_URI}/${id}/comments`, httpOptions)
+			.get<ICommentPage>(
+				`${this.ACCOUNT_URI}/${id}/comments?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

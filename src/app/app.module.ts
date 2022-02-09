@@ -49,6 +49,7 @@ import { TableService } from './services/table/table.service';
 import { RegisterCommunityComponent } from './components/unrouted/register-community/register-community.component';
 import { EntranceFormComponent } from './components/unrouted/entrance-form/entrance-form.component';
 import { SortService } from './services/sort/sort.service';
+import { InfiniteService } from './services/infinite/infinite.service';
 
 @NgModule({
 	declarations: [
@@ -108,6 +109,7 @@ import { SortService } from './services/sort/sort.service';
 		FormsService,
 		TableService,
 		SortService,
+		InfiniteService,
 	],
 	bootstrap: [AppComponent],
 })
