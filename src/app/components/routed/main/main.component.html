@@ -73,7 +73,9 @@
 			[onAddClick]="openEntranceForm.bind(this)"
 			[showFollowButton]="
 				community !== undefined ||
-				(account !== undefined && currentEntity?.id !== sessionAccount?.id)
+				(account !== undefined && currentEntity?.id !== sessionAccount?.id) ||
+				((entrance !== undefined || comment !== undefined) &&
+					currentEntity.id !== sessionAccount.id)
 			"
 		>
 		</app-entity>

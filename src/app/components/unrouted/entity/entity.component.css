@@ -108,7 +108,7 @@
 
 @media screen and (max-width: 576px) {
 	.content,
-	.content__button {
+	.content__button:not(.add) {
 		width: 100%;
 	}
 
