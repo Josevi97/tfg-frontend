@@ -31,7 +31,7 @@ export class PostComponent implements OnInit {
 	) {
 		this.showExtra = false;
 		this.arrowsAtStart = false;
-		this.trimBody = true;
+		this.trimBody = false;
 	}
 
 	ngOnInit(): void {}

@@ -11,6 +11,7 @@ export class PinspectComponent implements OnInit {
 	public post: IPost;
 	public onSubmit: Function;
 	public formGroup: FormGroup;
+	public onCiteClick: Function;
 
 	constructor(private formBuilder: FormBuilder) {
 		this.formGroup = this.formBuilder.group({

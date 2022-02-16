@@ -28,7 +28,6 @@
 			[onEditClick]="openEntranceForm.bind(this)"
 			[onDeleteClick]="onDeleteClick.bind(this, post)"
 			[showCite]="true"
-			[trimBody]="false"
 		></app-post>
 
 		<app-separator
@@ -55,6 +54,7 @@
 				[onCommentsClick]="onCommentsClick.bind(this, p)"
 				[onDeleteClick]="onDeleteClick.bind(this, p)"
 				[showCite]="post === undefined"
+				[trimBody]="entrance === undefined && comment === undefined"
 			></app-post>
 		</div>
 
@@ -78,23 +78,12 @@
 		>
 		</app-entity>
 		<app-elist
-			*ngIf="
-				sessionAccount === null ||
-				(sessionAccount.id !== currentEntity.id && account !== undefined) ||
-				community !== undefined
-			"
 			[hide]="true"
 			[header]="sessionAccount !== null ? 'Le siguen' : 'Cuentas'"
 		>
 		</app-elist>
 		<app-elist
-			*ngIf="
-				(sessionAccount === null && community === undefined) ||
-				(sessionAccount !== null &&
-					sessionAccount.id !== currentEntity.id &&
-					account !== undefined &&
-					community === undefined)
-			"
+			*ngIf="community === undefined"
 			[hide]="true"
 			[header]="
 				sessionAccount !== null ? 'Comunidades seguidas' : 'Comunidades'

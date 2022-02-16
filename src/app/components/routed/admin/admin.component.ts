@@ -50,12 +50,10 @@ export class AdminComponent implements OnInit {
 			direction: true,
 		};
 		this.state = 'accounts';
-		this.initData(1, (totalPages: number) => {
-			this.tableRef.pagiantionRef.initValues(1, totalPages);
-		});
+		this.initData(1);
 	}
 
-	initData(page: number, callback: Function = null): void {
+	initData(page: number): void {
 		const auxData: IDataSort = this.sortData;
 		auxData.page = page;
 
@@ -66,10 +64,7 @@ export class AdminComponent implements OnInit {
 					.subscribe((data: IAccountPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromAccounts(data.content);
-
-						if (callback) {
-							callback(data.totalPages);
-						}
+						this.tableRef.pagiantionRef.initValues(page, data.totalPages);
 					});
 				break;
 			case 'communities':
@@ -78,10 +73,7 @@ export class AdminComponent implements OnInit {
 					.subscribe((data: ICommunityPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromCommunities(data.content);
-
-						if (callback) {
-							callback(data.totalPages);
-						}
+						this.tableRef.pagiantionRef.initValues(page, data.totalPages);
 					});
 				break;
 		}
@@ -97,7 +89,10 @@ export class AdminComponent implements OnInit {
 
 			componentRef.instance.onSuccess = () => {
 				this.componentFactory.destroyComponent(a);
-				this.initData(this.sortData.page);
+
+				if (this.state === 'accounts') {
+					this.initData(this.sortData.page);
+				}
 			};
 		};
 	}
@@ -112,7 +107,10 @@ export class AdminComponent implements OnInit {
 
 			componentRef.instance.onSuccess = () => {
 				this.componentFactory.destroyComponent(a);
-				this.initData(this.sortData.page);
+
+				if (this.state === 'communities') {
+					this.initData(this.sortData.page);
+				}
 			};
 		};
 	}
@@ -152,8 +150,6 @@ export class AdminComponent implements OnInit {
 			direction: true,
 		};
 		this.state = key;
-		this.initData(1, (totalPages: number) => {
-			this.tableRef.pagiantionRef.initValues(1, totalPages);
-		});
+		this.initData(1);
 	}
 }
