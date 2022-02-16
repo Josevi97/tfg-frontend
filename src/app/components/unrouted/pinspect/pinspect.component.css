@@ -18,13 +18,6 @@
 	width: 100%;
 }
 
-.comment-content__close {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
 .comment-form {
 	display: flex;
 	gap: 10px;

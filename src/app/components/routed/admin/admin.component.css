@@ -25,3 +25,17 @@
 .buttons button {
 	width: 300px;
 }
+
+.table-filter,
+.table-filter i {
+	display: flex;
+}
+
+.table-filter {
+	list-style: none;
+	gap: 15px;
+}
+
+.table-filter i {
+	gap: 5px;
+}

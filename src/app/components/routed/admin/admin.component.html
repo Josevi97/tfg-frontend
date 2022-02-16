@@ -16,6 +16,23 @@
 		</button>
 	</div>
 
+	<ul class="table-filter">
+		<li>
+			<a (click)="changeState('accounts')">
+				<i class="material-icons {{ state === 'accounts' ? 'active' : '' }}"
+					>account_box <span>Cuentas</span></i
+				>
+			</a>
+		</li>
+		<li>
+			<a (click)="changeState('communities')">
+				<i class="material-icons {{ state === 'communities' ? 'active' : '' }}"
+					>forum <span>Comunidades</span></i
+				>
+			</a>
+		</li>
+	</ul>
+
 	<app-table
 		[onRowClick]="onRowClick.bind(this)"
 		[onInputChange]="onInputChange.bind(this)"

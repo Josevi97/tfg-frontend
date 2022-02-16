@@ -23,6 +23,7 @@ export class PostComponent implements OnInit {
 	@Input() public showCite: boolean;
 	@Input() public arrowsAtStart: boolean;
 	@Input() public showExtra: boolean;
+	@Input() public trimBody: boolean;
 
 	constructor(
 		public iconsService: IconsService,
@@ -30,6 +31,7 @@ export class PostComponent implements OnInit {
 	) {
 		this.showExtra = false;
 		this.arrowsAtStart = false;
+		this.trimBody = true;
 	}
 
 	ngOnInit(): void {}

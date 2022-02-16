@@ -82,7 +82,12 @@ export class SettingsComponent implements OnInit {
 			],
 			email: [
 				this.sessionAccount.email,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-zA-Z0-9\\-_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{2,}$'
+					),
+				],
 			],
 		});
 	}
@@ -156,7 +161,7 @@ export class SettingsComponent implements OnInit {
 			);
 
 			component.instance.setMessage(
-				'Usted esta apunto de eliminar su cuenta, ¿esta seguro de seguir con esta operacion? no podra recuperar sus datos.'
+				'Usted esta apunto de eliminar su cuenta. ¿Esta seguro de seguir con esta operacion? no podra recuperar sus datos.'
 			);
 			component.instance.setButtonContent('Eliminar cuenta');
 			component.instance.setButtonType('error');

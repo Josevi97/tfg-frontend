@@ -341,6 +341,10 @@ export class MainComponent implements OnInit {
 	}
 
 	onVotesClick(post: IPost, key: string): void {
+		if (this.sessionAccount === null) {
+			this.locationService.navigateToAuth();
+		}
+
 		this.interactivityService.calculateVotes(post, key);
 	}
 

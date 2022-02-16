@@ -59,7 +59,15 @@ export class RegisterAccountComponent implements OnInit {
 
 		this.formGroup = this.formBuilder.group({
 			login: ['', [Validators.required, Validators.minLength(4)]],
-			email: ['', [Validators.required, Validators.minLength(4)]],
+			email: [
+				'',
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-zA-Z0-9\\-_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{2,}$'
+					),
+				],
+			],
 			username: ['', [Validators.required, Validators.minLength(4)]],
 			password: ['', [Validators.required, Validators.minLength(4)]],
 			repeat_password: ['', [Validators.required, Validators.minLength(4)]],

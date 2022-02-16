@@ -143,4 +143,17 @@ export class AdminComponent implements OnInit {
 	onInputEnter(value: string): void {
 		console.log(value);
 	}
+
+	changeState(key: string): void {
+		this.sortData = {
+			page: 1,
+			sort: 'id',
+			size: 8,
+			direction: true,
+		};
+		this.state = key;
+		this.initData(1, (totalPages: number) => {
+			this.tableRef.pagiantionRef.initValues(1, totalPages);
+		});
+	}
 }

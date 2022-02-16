@@ -12,6 +12,6 @@
 		</a>
 	</p>
 	<q class="content__body">
-		{{ post.post.body }}
+		{{ post.post.body | trim: 150:true }}
 	</q>
 </div>

@@ -50,6 +50,7 @@ import { RegisterCommunityComponent } from './components/unrouted/register-commu
 import { EntranceFormComponent } from './components/unrouted/entrance-form/entrance-form.component';
 import { SortService } from './services/sort/sort.service';
 import { InfiniteService } from './services/infinite/infinite.service';
+import { TrimPipe } from './pipes/trim/trim.pipe';
 
 @NgModule({
 	declarations: [
@@ -86,6 +87,7 @@ import { InfiniteService } from './services/infinite/infinite.service';
 		PaginationComponent,
 		RegisterCommunityComponent,
 		EntranceFormComponent,
+  TrimPipe,
 	],
 	imports: [
 		HttpClientModule,

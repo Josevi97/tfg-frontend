@@ -43,7 +43,7 @@
 			[onClick]="onCiteClick ? onCiteClick.bind(this) : null"
 			[post]="post"
 		></app-cite>
-		<p class="post__body">{{ post?.body }}</p>
+		<p class="post__body">{{ post?.body | trim: 200:trimBody }}</p>
 		<div class="icons">
 			<a
 				*ngIf="showCommentButton"
