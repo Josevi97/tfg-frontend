@@ -103,6 +103,7 @@ export class MainComponent implements OnInit {
 	}
 
 	initialize(): void {
+		this.posts = [];
 		this.dataSort = {
 			page: 1,
 			sort: 'id',
@@ -367,16 +368,18 @@ export class MainComponent implements OnInit {
 							} else {
 								post.comments++;
 								this.componentFactoryService.destroyComponent(a);
+								this.initialize();
 							}
 						});
 						break;
 					case 'comment':
 						this.commentsService.comment(post.id, comment).subscribe(() => {
-							if (this.entrance === undefined && this.comment === undefined) {
+							if (this.entrance !== undefined && this.comment !== undefined) {
 								this.locationService.navigateToComment(post.id);
 							} else {
 								post.comments++;
 								this.componentFactoryService.destroyComponent(a);
+								this.initialize();
 							}
 						});
 						break;
