@@ -60,84 +60,54 @@ export class InteractivityService {
 		}
 	}
 
-	calculateVotes(post: IPost, key: string, callback: Function = null): void {
+	calculateVotes(post: IPost, key: string): void {
+		switch (post.type) {
+			case 'entrance':
+				this.entrancesService
+					.vote(post.id, key === 'up')
+					.subscribe(() => this.updatePost(post, key));
+				break;
+			case 'comment':
+				this.commentsService
+					.vote(post.id, key === 'up')
+					.subscribe(() => this.updatePost(post, key));
+				break;
+		}
+	}
+
+	updatePost(post: IPost, key: string): void {
 		if (post.sessionVoted === -1) {
-			if (key === 'up') {
-				this.positiveVote(post);
-			} else {
-				this.negativeVote(post);
-			}
-		} else if (post.sessionVoted === 1) {
-			if (key === 'up') {
-				this.unvote(post);
-			} else {
-				this.unvote(post, () => this.negativeVote(post));
+			switch (key) {
+				case 'up':
+					post.sessionVoted = 1;
+					post.votes++;
+					break;
+				case 'down':
+					post.sessionVoted = 0;
+					post.votes--;
+					break;
 			}
 		} else {
-			if (key === 'up') {
-				this.unvote(post, () => this.positiveVote(post));
-			} else {
-				this.unvote(post);
+			switch (key) {
+				case 'up':
+					if (post.sessionVoted === 1) {
+						post.votes--;
+						post.sessionVoted = -1;
+					} else {
+						post.votes += post.sessionVoted === 0 ? 2 : 1;
+						post.sessionVoted = 1;
+					}
+					break;
+				case 'down':
+					if (post.sessionVoted === 0) {
+						post.votes++;
+						post.sessionVoted = -1;
+					} else {
+						post.votes += post.sessionVoted === 1 ? -2 : -1;
+						post.sessionVoted = 0;
+					}
+					break;
 			}
-		}
-	}
-
-	positiveVote(post: IPost): void {
-		switch (post.type) {
-			case 'entrance':
-				this.entrancesService.vote(post.id, true).subscribe(() => {
-					post.sessionVoted = 1;
-					post.votes++;
-				});
-				break;
-			case 'comment':
-				this.commentsService.vote(post.id, true).subscribe(() => {
-					post.sessionVoted = 1;
-					post.votes++;
-				});
-				break;
-		}
-	}
-
-	negativeVote(post: IPost): void {
-		switch (post.type) {
-			case 'entrance':
-				this.entrancesService.vote(post.id, false).subscribe(() => {
-					post.sessionVoted = 0;
-					post.votes--;
-				});
-				break;
-			case 'comment':
-				this.commentsService.vote(post.id, false).subscribe(() => {
-					post.sessionVoted = 0;
-					post.votes--;
-				});
-				break;
-		}
-	}
-
-	unvote(post: IPost, callback: Function = null): void {
-		switch (post.type) {
-			case 'entrance':
-				this.entrancesService.unvote(post.id).subscribe(() => {
-					post.votes += post.sessionVoted === 1 ? -1 : 1;
-					post.sessionVoted = -1;
-
-					if (callback) {
-						callback();
-					}
-				});
-				break;
-			case 'comment':
-				this.commentsService.unvote(post.id).subscribe(() => {
-					post.votes += post.sessionVoted === 1 ? -1 : 1;
-					post.sessionVoted = -1;
-
-					if (callback) {
-						callback();
-					}
-				});
-				break;
 		}
 	}
 }

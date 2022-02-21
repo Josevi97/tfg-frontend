@@ -6,7 +6,7 @@ import {
 	ViewChild,
 	ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IComment, ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,

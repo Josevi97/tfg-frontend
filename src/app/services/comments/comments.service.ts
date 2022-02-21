@@ -65,10 +65,4 @@ export class CommentsService {
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
-
-	unvote(id: number): Observable<String> {
-		return this.http
-			.delete<String>(`${this.COMMENT_URI}/${id}/vote`, httpOptions)
-			.pipe(catchError(this.errorService.handleError));
-	}
 }

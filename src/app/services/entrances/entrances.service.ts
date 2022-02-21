@@ -85,10 +85,4 @@ export class EntrancesService {
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
-
-	unvote(id: number): Observable<String> {
-		return this.http
-			.delete<String>(`${this.ENTRANCE_URI}/${id}/vote`, httpOptions)
-			.pipe(catchError(this.errorService.handleError));
-	}
 }
