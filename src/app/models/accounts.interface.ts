@@ -42,6 +42,11 @@ export interface IUpdateAccount {
 	admin: boolean;
 }
 
+export interface IResetPassword {
+	originalPassword: string;
+	repeatedPassword: string;
+}
+
 export interface IAccountFollow {
 	from: IAccount;
 	to: IAccount;

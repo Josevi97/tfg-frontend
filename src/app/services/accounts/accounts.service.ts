@@ -6,6 +6,7 @@ import {
 	IAccountFollowPage,
 	IAccountPage,
 	IRegisterAccount,
+	IResetPassword,
 	IUpdateAccount,
 } from 'src/app/models/accounts.interface';
 import { ICommentPage } from 'src/app/models/comments.interface';
@@ -36,6 +37,12 @@ export class AccountsService {
 	update(id: number, data: IUpdateAccount): Observable<String> {
 		return this.http
 			.put<String>(`${this.ACCOUNT_URI}/${id}`, data, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	updatePassword(id: number, data: IResetPassword): Observable<String> {
+		return this.http
+			.put<String>(`${this.ACCOUNT_URI}/${id}/password`, data, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

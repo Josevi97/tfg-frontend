@@ -36,7 +36,6 @@ export class SettingsComponent implements OnInit {
 			this.router.navigate(['']);
 		}
 
-		this.state = 'account';
 		this.menuData = [
 			{
 				text: 'Cuenta',
@@ -70,6 +69,12 @@ export class SettingsComponent implements OnInit {
 			},
 		];
 
+		this.changeState('account');
+	}
+
+	ngOnInit(): void {}
+
+	setFormForAccount(): void {
 		this.formGroup = this.formBuilder.group({
 			username: [
 				this.sessionAccount.username,
@@ -92,10 +97,24 @@ export class SettingsComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {}
+	setFormForSecurity(): void {
+		this.formGroup = this.formBuilder.group({
+			originalPassword: ['', [Validators.required, Validators.minLength(4)]],
+			repeatedPassword: ['', [Validators.required, Validators.minLength(4)]],
+		});
+	}
 
 	changeState(key: string): void {
 		this.state = key;
+
+		switch (key) {
+			case 'account':
+				this.setFormForAccount();
+				break;
+			case 'security':
+				this.setFormForSecurity();
+				break;
+		}
 	}
 
 	detectChanges(): boolean {
@@ -176,5 +195,31 @@ export class SettingsComponent implements OnInit {
 		};
 	}
 
-	onChangePassword(): void {}
+	onChangePassword(): void {
+		const data = {
+			originalPassword: this.formGroup.get('originalPassword')!.value,
+			repeatedPassword: this.formGroup.get('repeatedPassword')!.value,
+		};
+
+		this.accountsService
+			.updatePassword(this.sessionAccount.id, data)
+			.subscribe(() => {
+				const a = this.componentFactoryService.createAlert(this.alertRef);
+				a.instance.onAfterViewInit = () => {
+					const component = this.componentFactoryService.generateComponent(
+						ConfirmComponent,
+						a.instance.componentRef
+					);
+
+					component.instance.setMessage(
+						'La contraseña se ha cambiado correctamente.'
+					);
+					component.instance.setButtonContent('Continuar');
+					component.instance.setButtonOnClick(() => {
+						this.formGroup.reset();
+						this.componentFactoryService.destroyComponent(a);
+					});
+				};
+			});
+	}
 }
