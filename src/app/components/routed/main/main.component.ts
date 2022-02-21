@@ -417,7 +417,21 @@ export class MainComponent implements OnInit {
 
 				this.interactivityService.calculateFollow(e, (_e: IEntity) => {
 					component.instance.updateEntity(_e);
-					this.currentEntity.following += _e.sessionFollow === -1 ? -1 : 1;
+					if (
+						this.sessionAccount.id === this.currentEntity.id &&
+						this.currentEntity.type === 'account'
+					) {
+						const value = _e.sessionFollow === -1 ? -1 : 1;
+
+						switch (key) {
+							case 'communities':
+								this.currentEntity.communities += value;
+								break;
+							default:
+								this.currentEntity.following += value;
+								break;
+						}
+					}
 				});
 			};
 
@@ -547,12 +561,23 @@ export class MainComponent implements OnInit {
 						);
 					});
 				break;
+			case 'communities':
+				this.accountsService
+					.getCommunitiesByAccount(this.currentEntity.id)
+					.subscribe((data: ICommunityListPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromCommunities(
+								this.accountsService.getCommunities(data)
+							)
+						);
+					});
+				break;
 		}
 	}
 
 	handleCommunityFollow(component: ComponentRef<ElistComponent>): void {
 		this.communitiesService
-			.getFollowersByAccount(this.currentEntity.id)
+			.getFollowersByCommunity(this.currentEntity.id)
 			.subscribe((data: ICommunityListPage) => {
 				component.instance.setEntities(
 					this.entitiesService.fromAccounts(

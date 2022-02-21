@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IAccount } from 'src/app/models/accounts.interface';
 import { IEntity } from 'src/app/models/entities.interface';
 import { LocationService } from 'src/app/services/location/location.service';
@@ -17,7 +16,6 @@ export class ElistComponent implements OnInit {
 	@Input() public hide: boolean;
 
 	constructor(
-		private router: Router,
 		private location: LocationService,
 		private ref: ChangeDetectorRef
 	) {}
@@ -33,7 +31,6 @@ export class ElistComponent implements OnInit {
 	setEntities(entities: IEntity[]): void {
 		this.entities = entities;
 		this.ref.detectChanges();
-		console.log(this.entities);
 	}
 
 	updateEntity(entity: IEntity) {

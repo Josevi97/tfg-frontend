@@ -12,11 +12,15 @@
 					/>
 					<div>
 						<p class="card__title">{{ entity?.title }}</p>
-						<p class="card__subtitle">@{{ entity?.subtitle }}</p>
+						<p *ngIf="entity?.subtitle" class="card__subtitle">
+							@{{ entity?.subtitle }}
+						</p>
 					</div>
 				</div>
 				<button
-					*ngIf="sessionAccount?.id !== entity.id"
+					*ngIf="
+						entity.type === 'community' || sessionAccount?.id !== entity.id
+					"
 					(click)="
 						onFollowClick ? onFollowClick(entity) : null;
 						$event.stopPropagation()

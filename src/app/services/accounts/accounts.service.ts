@@ -10,6 +10,10 @@ import {
 	IUpdateAccount,
 } from 'src/app/models/accounts.interface';
 import { ICommentPage } from 'src/app/models/comments.interface';
+import {
+	ICommunity,
+	ICommunityListPage,
+} from 'src/app/models/communities.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { IDataSort } from 'src/app/models/sort.interface';
 import { API_URI, httpOptions } from 'src/environments/environment';
@@ -139,6 +143,15 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	getCommunitiesByAccount(id: number): Observable<ICommunityListPage> {
+		return this.http
+			.get<ICommunityListPage>(
+				`${this.ACCOUNT_URI}/${id}/communities`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	followAccount(id: number): Observable<String> {
 		return this.http
 			.post<String>(`${this.ACCOUNT_URI}/${id}/follow`, null, httpOptions)
@@ -156,11 +169,10 @@ export class AccountsService {
 	}
 
 	getFollowers(data: IAccountFollowPage): IAccount[] {
-		console.log(
-			data.content
-				.map((accountFollow) => accountFollow.from)
-				.forEach((entity) => console.log(entity.sessionFollow))
-		);
 		return data.content.map((accountFollow) => accountFollow.from);
+	}
+
+	getCommunities(data: ICommunityListPage): ICommunity[] {
+		return data.content.map((communityList) => communityList.community);
 	}
 }

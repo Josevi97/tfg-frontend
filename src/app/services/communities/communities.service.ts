@@ -71,7 +71,7 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getFollowersByAccount(id: number): Observable<ICommunityListPage> {
+	getFollowersByCommunity(id: number): Observable<ICommunityListPage> {
 		return this.http
 			.get<ICommunityListPage>(
 				`${this.COMMUNITY_URI}/${id}/followers`,

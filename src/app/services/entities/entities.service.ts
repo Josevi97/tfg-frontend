@@ -44,4 +44,8 @@ export class EntitiesService {
 			sessionFollow: community?.sessionFollow,
 		};
 	}
+
+	fromCommunities(communities: ICommunity[]): IEntity[] {
+		return communities.map((community) => this.fromCommunity(community));
+	}
 }
