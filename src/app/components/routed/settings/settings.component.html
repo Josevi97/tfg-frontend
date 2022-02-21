@@ -170,13 +170,17 @@
 					<div class="settings-form-content">
 						<input
 							formControlName="originalPassword"
-							class="settings-form__input"
+							class="settings-form__input {{
+								formsService.inputValid('originalPassword', formGroup)
+							}}"
 							type="password"
 							placeholder="*********"
 						/>
 						<input
 							formControlName="repeatedPassword"
-							class="settings-form__input"
+							class="settings-form__input {{
+								formsService.inputValid('repeatedPassword', formGroup)
+							}}"
 							type="password"
 							placeholder="repetir contraseña"
 						/>

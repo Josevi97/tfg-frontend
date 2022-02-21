@@ -15,9 +15,12 @@ export class FormsService {
 			: 'input-secondary';
 	}
 
-	checkInvalid(formGroup: FormGroup, ref: ChangeDetectorRef): void {
+	checkInvalid(formGroup: FormGroup, ref: ChangeDetectorRef = null): void {
 		formGroup.markAllAsTouched();
-		ref.detectChanges();
+
+		if (ref) {
+			ref.detectChanges();
+		}
 	}
 
 	updatePost(post: IPost, form: FormGroup): IPost {

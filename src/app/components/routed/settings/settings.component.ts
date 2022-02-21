@@ -43,29 +43,9 @@ export class SettingsComponent implements OnInit {
 				key: 'account',
 			},
 			{
-				text: 'Redes sociales',
-				icon: 'share',
-				key: 'social',
-			},
-			{
-				text: 'Notificaciones',
-				icon: 'notifications',
-				key: 'notifications',
-			},
-			{
-				text: 'Apariencia',
-				icon: 'brush',
-				key: 'apparence',
-			},
-			{
 				text: 'Seguridad',
 				icon: 'lock',
 				key: 'security',
-			},
-			{
-				text: 'Metodos de pago',
-				icon: 'credit_card',
-				key: 'payment',
 			},
 		];
 
@@ -196,6 +176,12 @@ export class SettingsComponent implements OnInit {
 	}
 
 	onChangePassword(): void {
+		this.formsService.checkInvalid(this.formGroup);
+
+		if (!this.formGroup.valid) {
+			return;
+		}
+
 		const data = {
 			originalPassword: this.formGroup.get('originalPassword')!.value,
 			repeatedPassword: this.formGroup.get('repeatedPassword')!.value,
