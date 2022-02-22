@@ -14,11 +14,14 @@ export class ElistComponent implements OnInit {
 	@Input() public header: string;
 	@Input() public sessionAccount: IAccount;
 	@Input() public hide: boolean;
+	@Input() public show: boolean;
 
 	constructor(
 		private location: LocationService,
 		private ref: ChangeDetectorRef
-	) {}
+	) {
+		this.show = true;
+	}
 
 	ngOnInit(): void {}
 

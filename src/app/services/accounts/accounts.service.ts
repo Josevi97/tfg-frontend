@@ -172,6 +172,15 @@ export class AccountsService {
 		return data.content.map((accountFollow) => accountFollow.from);
 	}
 
+	getRandom(sortData: IDataSort): Observable<IAccountPage> {
+		return this.http
+			.get<IAccountPage>(
+				`${this.ACCOUNT_URI}/random?${this.sortService.handleSort(sortData)}`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	getCommunities(data: ICommunityListPage): ICommunity[] {
 		return data.content.map((communityList) => communityList.community);
 	}

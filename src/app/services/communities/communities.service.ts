@@ -97,4 +97,13 @@ export class CommunitiesService {
 			(communityList: ICommunityList) => communityList.account
 		);
 	}
+
+	getRandom(sortData: IDataSort): Observable<ICommunityPage> {
+		return this.http
+			.get<ICommunityPage>(
+				`${this.COMMUNITY_URI}/random?${this.sortService.handleSort(sortData)}`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
 }

@@ -17,7 +17,7 @@ export class InteractivityService {
 		private commentsService: CommentsService
 	) {}
 
-	calculateFollow(entity: IEntity, callback: Function): void {
+	calculateFollow(entity: IEntity, callback: Function = null): void {
 		switch (entity.type) {
 			case 'account':
 				switch (entity.sessionFollow) {
@@ -26,14 +26,20 @@ export class InteractivityService {
 						this.accountsService.followAccount(entity.id).subscribe(() => {
 							entity.sessionFollow = 0;
 							entity.followers++;
-							callback(entity);
+
+							if (callback) {
+								callback(entity);
+							}
 						});
 						break;
 					case 0:
 						this.accountsService.unfollowAccount(entity.id).subscribe(() => {
 							entity.sessionFollow--;
 							entity.followers--;
-							callback(entity);
+
+							if (callback) {
+								callback(entity);
+							}
 						});
 						break;
 				}
@@ -45,14 +51,20 @@ export class InteractivityService {
 						this.communitiesService.followAccount(entity.id).subscribe(() => {
 							entity.sessionFollow = 0;
 							entity.followers++;
-							callback(entity);
+
+							if (callback) {
+								callback(entity);
+							}
 						});
 						break;
 					case 0:
 						this.communitiesService.unfollowAccount(entity.id).subscribe(() => {
 							entity.sessionFollow--;
 							entity.followers--;
-							callback(entity);
+
+							if (callback) {
+								callback(entity);
+							}
 						});
 						break;
 				}

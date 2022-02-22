@@ -80,13 +80,22 @@
 		>
 		</app-entity>
 		<app-elist
+			*ngIf="
+				!sessionAccount && community === undefined && account === undefined
+			"
 			[hide]="true"
+			[entities]="recommendedAccounts"
+			[show]="false"
 			[header]="sessionAccount !== null ? 'Le siguen' : 'Cuentas'"
 		>
 		</app-elist>
 		<app-elist
-			*ngIf="community === undefined"
+			*ngIf="
+				!sessionAccount && community === undefined && account === undefined
+			"
 			[hide]="true"
+			[entities]="recommendedCommunities"
+			[show]="false"
 			[header]="
 				sessionAccount !== null ? 'Comunidades seguidas' : 'Comunidades'
 			"

@@ -11,6 +11,7 @@ import { IComment, ICommentPage } from 'src/app/models/comments.interface';
 import {
 	ICommunity,
 	ICommunityListPage,
+	ICommunityPage,
 } from 'src/app/models/communities.interface';
 import { IEntity } from 'src/app/models/entities.interface';
 import { IEntrance, IEntrancePage } from 'src/app/models/entrances.interface';
@@ -30,6 +31,7 @@ import { PostsService } from 'src/app/services/posts/posts.service';
 import {
 	IAccount,
 	IAccountFollowPage,
+	IAccountPage,
 } from '../../../models/accounts.interface';
 import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
 import { ElistComponent } from '../../unrouted/elist/elist.component';
@@ -51,6 +53,8 @@ export class MainComponent implements OnInit {
 	public community: number;
 	public entrance: number;
 	public comment: number;
+	public recommendedCommunities: IEntity[];
+	public recommendedAccounts: IEntity[];
 
 	public state: string;
 	public sortData: ISort[];
@@ -99,7 +103,38 @@ export class MainComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		if (!this.sessionAccount) {
+			this.loadRecommendations();
+		}
+
 		this.initialize();
+	}
+
+	loadRecommendations(): void {
+		this.accountsService
+			.getRandom({
+				page: 1,
+				sort: '',
+				size: 5,
+				direction: true,
+			})
+			.subscribe((data: IAccountPage) => {
+				this.recommendedAccounts = this.entitiesService.fromAccounts(
+					data.content
+				);
+			});
+		this.communitiesService
+			.getRandom({
+				page: 1,
+				sort: '',
+				size: 5,
+				direction: true,
+			})
+			.subscribe((data: ICommunityPage) => {
+				this.recommendedCommunities = this.entitiesService.fromCommunities(
+					data.content
+				);
+			});
 	}
 
 	initialize(): void {
