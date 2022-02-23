@@ -172,10 +172,17 @@ export class AccountsService {
 		return data.content.map((accountFollow) => accountFollow.from);
 	}
 
-	getRandom(sortData: IDataSort): Observable<IAccountPage> {
+	getRandom(
+		blackList: number[],
+		sortData: IDataSort
+	): Observable<IAccountPage> {
 		return this.http
 			.get<IAccountPage>(
-				`${this.ACCOUNT_URI}/random?${this.sortService.handleSort(sortData)}`,
+				`${
+					this.ACCOUNT_URI
+				}/random?blackList=${blackList}&${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));

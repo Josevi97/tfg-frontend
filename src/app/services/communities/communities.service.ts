@@ -98,10 +98,17 @@ export class CommunitiesService {
 		);
 	}
 
-	getRandom(sortData: IDataSort): Observable<ICommunityPage> {
+	getRandom(
+		blackList: number[],
+		sortData: IDataSort
+	): Observable<ICommunityPage> {
 		return this.http
 			.get<ICommunityPage>(
-				`${this.COMMUNITY_URI}/random?${this.sortService.handleSort(sortData)}`,
+				`${
+					this.COMMUNITY_URI
+				}/random?blackList=${blackList}&${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));

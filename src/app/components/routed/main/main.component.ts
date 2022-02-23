@@ -103,33 +103,50 @@ export class MainComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (!this.sessionAccount) {
-			this.loadRecommendations();
-		}
-
+		this.loadRecommendations();
 		this.initialize();
 	}
 
 	loadRecommendations(): void {
+		const registers =
+			this.currentEntity === undefined || !this.sessionAccount ? 5 : 3;
+		const accountBlackList = this.sessionAccount
+			? [
+					this.sessionAccount.id,
+					this.currentEntity &&
+					this.currentEntity.type === 'account' &&
+					this.currentEntity.id !== this.sessionAccount.id
+						? this.currentEntity.id
+						: 0,
+			  ]
+			: [0];
+		const accountSortData = {
+			page: 1,
+			sort: '',
+			size: registers,
+			direction: true,
+		};
+		const communityBlackList = [
+			this.currentEntity && this.currentEntity.type === 'community'
+				? this.currentEntity.id
+				: 0,
+		];
+		const communitySortData = {
+			page: 1,
+			sort: '',
+			size: registers,
+			direction: true,
+		};
+
 		this.accountsService
-			.getRandom({
-				page: 1,
-				sort: '',
-				size: 5,
-				direction: true,
-			})
+			.getRandom(accountBlackList, accountSortData)
 			.subscribe((data: IAccountPage) => {
 				this.recommendedAccounts = this.entitiesService.fromAccounts(
 					data.content
 				);
 			});
 		this.communitiesService
-			.getRandom({
-				page: 1,
-				sort: '',
-				size: 5,
-				direction: true,
-			})
+			.getRandom(communityBlackList, communitySortData)
 			.subscribe((data: ICommunityPage) => {
 				this.recommendedCommunities = this.entitiesService.fromCommunities(
 					data.content
@@ -461,9 +478,19 @@ export class MainComponent implements OnInit {
 						switch (key) {
 							case 'communities':
 								this.currentEntity.communities += value;
+								this.recommendedCommunities.forEach((community: IEntity) =>
+									community.id === _e.id
+										? (community.sessionFollow = value === -1 ? -1 : 0)
+										: null
+								);
 								break;
 							default:
 								this.currentEntity.following += value;
+								this.recommendedAccounts.forEach((account: IEntity) =>
+									account.id === _e.id
+										? (account.sessionFollow = value === -1 ? -1 : 0)
+										: null
+								);
 								break;
 						}
 					}
@@ -483,6 +510,30 @@ export class MainComponent implements OnInit {
 
 	onProfileButtonClick(entity: IEntity): void {
 		this.componentFactoryService.createAlert(this.alertRef);
+	}
+
+	onFollowClick(entity: IEntity): void {
+		if (this.sessionAccount === null) {
+			this.locationService.navigateToAuth();
+		}
+
+		this.interactivityService.calculateFollow(entity, (_e: IEntity) => {
+			if (
+				this.sessionAccount.id === this.currentEntity.id &&
+				this.currentEntity.type === 'account'
+			) {
+				const value = _e.sessionFollow === -1 ? -1 : 1;
+
+				switch (entity.type) {
+					case 'community':
+						this.currentEntity.communities += value;
+						break;
+					default:
+						this.currentEntity.following += value;
+						break;
+				}
+			}
+		});
 	}
 
 	openEntranceForm(entity: IEntity): void {
