@@ -65,11 +65,11 @@ export class MainComponent implements OnInit {
 		this.infiniteService.onScroll(window, () => {
 			this.dataSort.page++;
 
-			if (this.community !== undefined) {
+			if (this.community) {
 				this.showEntrancesByCommunity();
-			} else if (this.entrance !== undefined) {
+			} else if (this.entrance) {
 				this.showCommentsByEntrance();
-			} else if (this.comment !== undefined) {
+			} else if (this.comment) {
 				this.showCommentsByComment();
 			} else {
 				this.initPostsByKey();
@@ -108,8 +108,7 @@ export class MainComponent implements OnInit {
 	}
 
 	loadRecommendations(): void {
-		const registers =
-			this.currentEntity === undefined || !this.sessionAccount ? 5 : 3;
+		const registers = !this.currentEntity || !this.sessionAccount ? 5 : 3;
 		const accountBlackList = this.sessionAccount
 			? [
 					this.sessionAccount.id,
@@ -163,10 +162,10 @@ export class MainComponent implements OnInit {
 			direction: false,
 		};
 
-		if (this.entrance === undefined && this.comment === undefined) {
+		if (!this.entrance && !this.comment) {
 			this.initSortData();
 			this.initPosts(() => this.loadAccount(this.account));
-		} else if (this.entrance !== undefined) {
+		} else if (this.entrance) {
 			this.showEntrance();
 			this.showCommentsByEntrance();
 		} else {
@@ -176,11 +175,7 @@ export class MainComponent implements OnInit {
 	}
 
 	initSortData(): void {
-		if (
-			this.sessionAccount &&
-			this.account === undefined &&
-			this.community === undefined
-		) {
+		if (this.sessionAccount && !this.account && !this.community) {
 			this.state = 'all';
 			this.sortData = [
 				{
@@ -199,7 +194,7 @@ export class MainComponent implements OnInit {
 					key: 'accounts',
 				},
 			];
-		} else if (this.account !== undefined) {
+		} else if (this.account) {
 			this.state = 'entrances';
 			this.sortData = [
 				{
@@ -217,9 +212,9 @@ export class MainComponent implements OnInit {
 	}
 
 	initPosts(callback: Function = null): void {
-		if (this.account === undefined && this.community === undefined) {
+		if (!this.account && !this.community) {
 			this.showAllEntrances();
-		} else if (this.community !== undefined) {
+		} else if (this.community) {
 			this.communitiesService
 				.findOne(this.community)
 				.subscribe(
@@ -393,7 +388,7 @@ export class MainComponent implements OnInit {
 	}
 
 	onVotesClick(post: IPost, key: string): void {
-		if (this.sessionAccount === null) {
+		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
@@ -401,7 +396,7 @@ export class MainComponent implements OnInit {
 	}
 
 	onCommentsClick(post: IPost): void {
-		if (this.sessionAccount === null) {
+		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
@@ -421,24 +416,12 @@ export class MainComponent implements OnInit {
 				switch (post.type) {
 					case 'entrance':
 						this.entrancesService.comment(post.id, comment).subscribe(() => {
-							if (this.entrance === undefined && this.comment === undefined) {
-								this.locationService.navigateToEntrance(post.id);
-							} else {
-								post.comments++;
-								this.componentFactoryService.destroyComponent(a);
-								this.initialize();
-							}
+							this.locationService.navigateToEntrance(post.id);
 						});
 						break;
 					case 'comment':
 						this.commentsService.comment(post.id, comment).subscribe(() => {
-							if (this.entrance !== undefined && this.comment !== undefined) {
-								this.locationService.navigateToComment(post.id);
-							} else {
-								post.comments++;
-								this.componentFactoryService.destroyComponent(a);
-								this.initialize();
-							}
+							this.locationService.navigateToComment(post.id);
 						});
 						break;
 				}
@@ -463,7 +446,7 @@ export class MainComponent implements OnInit {
 					: 'Comunidades';
 
 			component.instance.onFollowClick = (e: IEntity) => {
-				if (this.sessionAccount === null) {
+				if (!this.sessionAccount) {
 					this.locationService.navigateToAuth();
 				}
 
@@ -513,7 +496,7 @@ export class MainComponent implements OnInit {
 	}
 
 	onFollowClick(entity: IEntity): void {
-		if (this.sessionAccount === null) {
+		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
@@ -537,7 +520,7 @@ export class MainComponent implements OnInit {
 	}
 
 	openEntranceForm(entity: IEntity): void {
-		if (this.sessionAccount === null) {
+		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
@@ -597,7 +580,7 @@ export class MainComponent implements OnInit {
 			componentRef.instance.buttonContent = 'Continuar';
 			componentRef.instance.buttonType = 'error';
 			componentRef.instance.onButtonClick = () => {
-				if (this.post !== undefined && post.id === this.post.id) {
+				if (this.post && post.id === this.post.id) {
 					switch (post.type) {
 						case 'entrance':
 							this.entrancesService
