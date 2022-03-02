@@ -19,6 +19,7 @@
 				</div>
 				<button
 					*ngIf="
+						isNotInBlackList(entity) &&
 						onFollowClick &&
 						(entity.type === 'community' || sessionAccount?.id !== entity.id)
 					"

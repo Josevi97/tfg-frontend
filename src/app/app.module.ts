@@ -51,6 +51,7 @@ import { EntranceFormComponent } from './components/unrouted/entrance-form/entra
 import { SortService } from './services/sort/sort.service';
 import { InfiniteService } from './services/infinite/infinite.service';
 import { TrimPipe } from './pipes/trim/trim.pipe';
+import { DeployComponent } from './components/unrouted/deploy/deploy.component';
 
 @NgModule({
 	declarations: [
@@ -88,6 +89,7 @@ import { TrimPipe } from './pipes/trim/trim.pipe';
 		RegisterCommunityComponent,
 		EntranceFormComponent,
   TrimPipe,
+  DeployComponent,
 	],
 	imports: [
 		HttpClientModule,

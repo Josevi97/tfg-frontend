@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAccount } from 'src/app/models/accounts.interface';
 import { IEntity } from 'src/app/models/entities.interface';
-import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
 
 @Component({
 	selector: 'app-entity',
@@ -18,27 +17,14 @@ export class EntityComponent implements OnInit {
 	@Input() public onProfileButtonClick: Function;
 	@Input() public onAddClick: Function;
 	@Input() public showFollowButton: boolean;
+	@Input() public onFollowClick: Function;
 
-	constructor(
-		private router: Router,
-		private interactivityService: InteractivityService
-	) {}
+	constructor(private router: Router) {}
 
 	ngOnInit(): void {}
 
 	navigateToAccount(): void {
 		this.router.navigate([`/${this.entity.type}/${this.entity.id}`]);
-	}
-
-	onFollowClick(): void {
-		if (this.sessionAccount === null) {
-			this.router.navigate(['/auth']);
-		}
-
-		this.interactivityService.calculateFollow(
-			this.entity,
-			(e: IEntity) => (this.entity = e)
-		);
 	}
 
 	profileButtonClick(): void {

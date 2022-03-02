@@ -62,6 +62,20 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	getAccountsByLogin(
+		login: string,
+		sortData: IDataSort
+	): Observable<IAccountPage> {
+		return this.http
+			.get<IAccountPage>(
+				`${this.ACCOUNT_URI}/search/${login}?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	getAllAccounts(sortData: IDataSort): Observable<IAccountPage> {
 		return this.http
 			.get<IAccountPage>(

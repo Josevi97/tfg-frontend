@@ -38,6 +38,9 @@
 	--content-gap: 30px;
 	--navbar-height: 70px;
 	--navbar-margin: 20px;
+	--component-content-padding: 25px;
+	--component-box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+	--component-border: 5px;
 }
 
 @font-face {

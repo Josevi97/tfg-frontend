@@ -261,6 +261,286 @@ export class MainComponent implements OnInit {
 		}
 	}
 
+	onPostClick(post: IPost): void {
+		switch (post.type) {
+			case 'entrance':
+				this.locationService.navigateToEntrance(post.id);
+				break;
+			case 'comment':
+				this.locationService.navigateToComment(post.id);
+				break;
+		}
+	}
+
+	onVotesClick(post: IPost, key: string): void {
+		if (!this.sessionAccount) {
+			this.locationService.navigateToAuth();
+		}
+
+		this.interactivityService.calculateVotes(post, key);
+	}
+
+	onCommentsClick(post: IPost): void {
+		if (!this.sessionAccount) {
+			this.locationService.navigateToAuth();
+		}
+
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				PinspectComponent,
+				a.instance.componentRef
+			);
+
+			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.post = post;
+			component.instance.onCiteClick = (p: IPost) =>
+				this.locationService.navigateToComment(p.id);
+			component.instance.onSubmit = (comment: string) => {
+				switch (post.type) {
+					case 'entrance':
+						this.entrancesService.comment(post.id, comment).subscribe(() => {
+							this.locationService.navigateToEntrance(post.id);
+						});
+						break;
+					case 'comment':
+						this.commentsService.comment(post.id, comment).subscribe(() => {
+							this.locationService.navigateToComment(post.id);
+						});
+						break;
+				}
+			};
+		};
+	}
+
+	onLinksClick(key: string, type: string): void {
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				ElistComponent,
+				a.instance.componentRef
+			);
+
+			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.header =
+				key === 'following'
+					? 'Siguiendo'
+					: key === 'followers'
+					? 'Seguidores'
+					: 'Comunidades';
+
+			component.instance.onFollowClick = (e: IEntity) => {
+				this.onFollowClick(true, () => component.instance.updateEntity(e), e);
+			};
+
+			switch (type) {
+				case 'account':
+					this.handleAccountFollowList(key, component);
+					break;
+				case 'community':
+					this.handleCommunityFollowList(component);
+					break;
+			}
+		};
+	}
+
+	handleAccountFollowList(
+		key: string,
+		component: ComponentRef<ElistComponent>
+	): void {
+		switch (key) {
+			case 'following':
+				this.accountsService
+					.getFollowingByAccount(this.currentEntity.id)
+					.subscribe((data: IAccountFollowPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromAccounts(
+								this.accountsService.getFollowing(data)
+							)
+						);
+					});
+				break;
+			case 'followers':
+				this.accountsService
+					.getFollowersByAccount(this.currentEntity.id)
+					.subscribe((data: IAccountFollowPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromAccounts(
+								this.accountsService.getFollowers(data)
+							)
+						);
+					});
+				break;
+			case 'communities':
+				this.accountsService
+					.getCommunitiesByAccount(this.currentEntity.id)
+					.subscribe((data: ICommunityListPage) => {
+						component.instance.setEntities(
+							this.entitiesService.fromCommunities(
+								this.accountsService.getCommunities(data)
+							)
+						);
+					});
+				break;
+		}
+	}
+
+	handleCommunityFollowList(component: ComponentRef<ElistComponent>): void {
+		this.communitiesService
+			.getFollowersByCommunity(this.currentEntity.id)
+			.subscribe((data: ICommunityListPage) => {
+				component.instance.setEntities(
+					this.entitiesService.fromAccounts(
+						this.communitiesService.getFollowers(data)
+					)
+				);
+			});
+	}
+
+	onProfileButtonClick(entity: IEntity): void {
+		this.componentFactoryService.createAlert(this.alertRef);
+	}
+
+	onFollowClick(
+		findIntoRandoms: boolean = false,
+		callback: Function = null,
+		entity: IEntity
+	): void {
+		if (!this.sessionAccount) {
+			this.locationService.navigateToAuth();
+		}
+
+		this.interactivityService.calculateFollow(entity, () => {
+			if (
+				this.sessionAccount.id === this.currentEntity.id &&
+				this.currentEntity.type === 'account'
+			) {
+				const value = entity.sessionFollow === -1 ? -1 : 1;
+
+				if (findIntoRandoms) {
+					this.fixIntoRandoms(entity);
+				}
+
+				switch (entity.type) {
+					case 'community':
+						this.currentEntity.communities += value;
+						break;
+					default:
+						this.currentEntity.following += value;
+						break;
+				}
+
+				if (callback) {
+					callback();
+				}
+			}
+		});
+	}
+
+	fixIntoRandoms(_e: IEntity) {
+		let array: IEntity[];
+
+		switch (_e.type) {
+			case 'community':
+				array = this.recommendedCommunities;
+				break;
+			case 'account':
+				array = this.recommendedAccounts;
+				break;
+		}
+
+		const index = array.findIndex((entity: IEntity) => entity.id === _e.id);
+
+		if (array[index]) {
+			array[index].sessionFollow = _e.sessionFollow;
+		}
+	}
+
+	openEntranceForm(entity: IEntity): void {
+		if (!this.sessionAccount) {
+			this.locationService.navigateToAuth();
+		}
+
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const componentRef = this.componentFactoryService.generateComponent(
+				EntranceFormComponent,
+				a.instance.componentRef
+			);
+
+			componentRef.instance.setEntranceData(
+				this.formsService.fromPost(this.post)
+			);
+			componentRef.instance.onSuccess = () => {
+				switch (componentRef.instance.state) {
+					case 'post':
+						this.communitiesService
+							.createEntrance(
+								entity.id,
+								this.formsService.toEntranceForm(
+									componentRef.instance.formGroup
+								)
+							)
+							.subscribe(() => {
+								this.componentFactoryService.destroyComponent(a);
+								this.initialize();
+							});
+						break;
+					case 'put':
+						this.entrancesService
+							.update(
+								this.post.id,
+								this.formsService.updatePost(
+									this.post,
+									componentRef.instance.formGroup
+								)
+							)
+							.subscribe(() =>
+								this.componentFactoryService.destroyComponent(a)
+							);
+				}
+			};
+		};
+	}
+
+	onDeleteClick(post: IPost): void {
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+
+		a.instance.onAfterViewInit = () => {
+			const componentRef = this.componentFactoryService.generateComponent(
+				ConfirmComponent,
+				a.instance.componentRef
+			);
+
+			componentRef.instance.message =
+				'¿Estas seguro de que quieres eliminar el post?';
+			componentRef.instance.buttonContent = 'Continuar';
+			componentRef.instance.buttonType = 'error';
+			componentRef.instance.onButtonClick = () => {
+				if (this.post && post.id === this.post.id) {
+					switch (post.type) {
+						case 'entrance':
+							this.entrancesService
+								.delete(post.id)
+								.subscribe(() => this.locationService.navigateToHome());
+							break;
+						case 'comment':
+							this.commentsService
+								.delete(post.id)
+								.subscribe(() => this.locationService.navigateToHome());
+							break;
+					}
+				} else {
+					this.commentsService.delete(post.id).subscribe(() => {
+						this.initialize();
+						this.componentFactoryService.destroyComponent(a);
+					});
+				}
+			};
+		};
+	}
+
 	loadAccount(id: number): void {
 		this.accountsService
 			.findOne(id)
@@ -372,286 +652,6 @@ export class MainComponent implements OnInit {
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromComments(data.content)
-				);
-			});
-	}
-
-	onPostClick(post: IPost): void {
-		switch (post.type) {
-			case 'entrance':
-				this.locationService.navigateToEntrance(post.id);
-				break;
-			case 'comment':
-				this.locationService.navigateToComment(post.id);
-				break;
-		}
-	}
-
-	onVotesClick(post: IPost, key: string): void {
-		if (!this.sessionAccount) {
-			this.locationService.navigateToAuth();
-		}
-
-		this.interactivityService.calculateVotes(post, key);
-	}
-
-	onCommentsClick(post: IPost): void {
-		if (!this.sessionAccount) {
-			this.locationService.navigateToAuth();
-		}
-
-		const a = this.componentFactoryService.createAlert(this.alertRef);
-
-		a.instance.onAfterViewInit = () => {
-			const component = this.componentFactoryService.generateComponent(
-				PinspectComponent,
-				a.instance.componentRef
-			);
-
-			component.instance.sessionAccount = this.sessionAccount;
-			component.instance.post = post;
-			component.instance.onCiteClick = (p: IPost) =>
-				this.locationService.navigateToComment(p.id);
-			component.instance.onSubmit = (comment: string) => {
-				switch (post.type) {
-					case 'entrance':
-						this.entrancesService.comment(post.id, comment).subscribe(() => {
-							this.locationService.navigateToEntrance(post.id);
-						});
-						break;
-					case 'comment':
-						this.commentsService.comment(post.id, comment).subscribe(() => {
-							this.locationService.navigateToComment(post.id);
-						});
-						break;
-				}
-			};
-		};
-	}
-
-	onLinksClick(key: string, type: string): void {
-		const a = this.componentFactoryService.createAlert(this.alertRef);
-		a.instance.onAfterViewInit = () => {
-			const component = this.componentFactoryService.generateComponent(
-				ElistComponent,
-				a.instance.componentRef
-			);
-
-			component.instance.sessionAccount = this.sessionAccount;
-			component.instance.header =
-				key === 'following'
-					? 'Siguiendo'
-					: key === 'followers'
-					? 'Seguidores'
-					: 'Comunidades';
-
-			component.instance.onFollowClick = (e: IEntity) => {
-				if (!this.sessionAccount) {
-					this.locationService.navigateToAuth();
-				}
-
-				this.interactivityService.calculateFollow(e, (_e: IEntity) => {
-					component.instance.updateEntity(_e);
-					if (
-						this.sessionAccount.id === this.currentEntity.id &&
-						this.currentEntity.type === 'account'
-					) {
-						const value = _e.sessionFollow === -1 ? -1 : 1;
-
-						switch (key) {
-							case 'communities':
-								this.currentEntity.communities += value;
-								this.recommendedCommunities.forEach((community: IEntity) =>
-									community.id === _e.id
-										? (community.sessionFollow = value === -1 ? -1 : 0)
-										: null
-								);
-								break;
-							default:
-								this.currentEntity.following += value;
-								this.recommendedAccounts.forEach((account: IEntity) =>
-									account.id === _e.id
-										? (account.sessionFollow = value === -1 ? -1 : 0)
-										: null
-								);
-								break;
-						}
-					}
-				});
-			};
-
-			switch (type) {
-				case 'account':
-					this.handleAccountFollow(key, component);
-					break;
-				case 'community':
-					this.handleCommunityFollow(component);
-					break;
-			}
-		};
-	}
-
-	onProfileButtonClick(entity: IEntity): void {
-		this.componentFactoryService.createAlert(this.alertRef);
-	}
-
-	onFollowClick(entity: IEntity): void {
-		if (!this.sessionAccount) {
-			this.locationService.navigateToAuth();
-		}
-
-		this.interactivityService.calculateFollow(entity, (_e: IEntity) => {
-			if (
-				this.sessionAccount.id === this.currentEntity.id &&
-				this.currentEntity.type === 'account'
-			) {
-				const value = _e.sessionFollow === -1 ? -1 : 1;
-
-				switch (entity.type) {
-					case 'community':
-						this.currentEntity.communities += value;
-						break;
-					default:
-						this.currentEntity.following += value;
-						break;
-				}
-			}
-		});
-	}
-
-	openEntranceForm(entity: IEntity): void {
-		if (!this.sessionAccount) {
-			this.locationService.navigateToAuth();
-		}
-
-		const a = this.componentFactoryService.createAlert(this.alertRef);
-		a.instance.onAfterViewInit = () => {
-			const componentRef = this.componentFactoryService.generateComponent(
-				EntranceFormComponent,
-				a.instance.componentRef
-			);
-
-			componentRef.instance.setEntranceData(
-				this.formsService.fromPost(this.post)
-			);
-			componentRef.instance.onSuccess = () => {
-				switch (componentRef.instance.state) {
-					case 'post':
-						this.communitiesService
-							.createEntrance(
-								entity.id,
-								this.formsService.toEntranceForm(
-									componentRef.instance.formGroup
-								)
-							)
-							.subscribe(() => {
-								this.componentFactoryService.destroyComponent(a);
-								this.initialize();
-							});
-						break;
-					case 'put':
-						this.entrancesService
-							.update(
-								this.post.id,
-								this.formsService.updatePost(
-									this.post,
-									componentRef.instance.formGroup
-								)
-							)
-							.subscribe(() =>
-								this.componentFactoryService.destroyComponent(a)
-							);
-				}
-			};
-		};
-	}
-
-	onDeleteClick(post: IPost): void {
-		const a = this.componentFactoryService.createAlert(this.alertRef);
-
-		a.instance.onAfterViewInit = () => {
-			const componentRef = this.componentFactoryService.generateComponent(
-				ConfirmComponent,
-				a.instance.componentRef
-			);
-
-			componentRef.instance.message =
-				'¿Estas seguro de que quieres eliminar el post?';
-			componentRef.instance.buttonContent = 'Continuar';
-			componentRef.instance.buttonType = 'error';
-			componentRef.instance.onButtonClick = () => {
-				if (this.post && post.id === this.post.id) {
-					switch (post.type) {
-						case 'entrance':
-							this.entrancesService
-								.delete(post.id)
-								.subscribe(() => this.locationService.navigateToHome());
-							break;
-						case 'comment':
-							this.commentsService
-								.delete(post.id)
-								.subscribe(() => this.locationService.navigateToHome());
-							break;
-					}
-				} else {
-					this.commentsService.delete(post.id).subscribe(() => {
-						this.initialize();
-						this.componentFactoryService.destroyComponent(a);
-					});
-				}
-			};
-		};
-	}
-
-	handleAccountFollow(
-		key: string,
-		component: ComponentRef<ElistComponent>
-	): void {
-		switch (key) {
-			case 'following':
-				this.accountsService
-					.getFollowingByAccount(this.currentEntity.id)
-					.subscribe((data: IAccountFollowPage) => {
-						component.instance.setEntities(
-							this.entitiesService.fromAccounts(
-								this.accountsService.getFollowing(data)
-							)
-						);
-					});
-				break;
-			case 'followers':
-				this.accountsService
-					.getFollowersByAccount(this.currentEntity.id)
-					.subscribe((data: IAccountFollowPage) => {
-						component.instance.setEntities(
-							this.entitiesService.fromAccounts(
-								this.accountsService.getFollowers(data)
-							)
-						);
-					});
-				break;
-			case 'communities':
-				this.accountsService
-					.getCommunitiesByAccount(this.currentEntity.id)
-					.subscribe((data: ICommunityListPage) => {
-						component.instance.setEntities(
-							this.entitiesService.fromCommunities(
-								this.accountsService.getCommunities(data)
-							)
-						);
-					});
-				break;
-		}
-	}
-
-	handleCommunityFollow(component: ComponentRef<ElistComponent>): void {
-		this.communitiesService
-			.getFollowersByCommunity(this.currentEntity.id)
-			.subscribe((data: ICommunityListPage) => {
-				component.instance.setEntities(
-					this.entitiesService.fromAccounts(
-						this.communitiesService.getFollowers(data)
-					)
 				);
 			});
 	}

@@ -36,6 +36,20 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	getCommunitiesByName(
+		name: string,
+		sortData: IDataSort
+	): Observable<ICommunityPage> {
+		return this.http
+			.get<ICommunityPage>(
+				`${this.COMMUNITY_URI}/search/${name}?${this.sortService.handleSort(
+					sortData
+				)}`,
+				httpOptions
+			)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	getAllCommunities(sortData: IDataSort): Observable<ICommunityPage> {
 		return this.http
 			.get<ICommunityPage>(

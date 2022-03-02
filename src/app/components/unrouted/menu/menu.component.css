@@ -26,10 +26,11 @@
 	font-family: dancing_script;
 }
 
+.input {
+	position: relative;
+}
+
 .navbar__input {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 	font-size: 1rem;
 	padding: 8px;
 }

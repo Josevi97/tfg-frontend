@@ -3,11 +3,52 @@
 <nav class="navbar">
 	<div class="wrap">
 		<a routerLink="/home" class="navbar__logo btn-normal">Sheyras</a>
-		<input
-			class="navbar__input input-secondary"
-			type="text"
-			placeholder="Buscar por aqui"
-		/>
+		<div class="input">
+			<form (submit)="onSubmit()" [formGroup]="formGroup">
+				<input
+					formControlName="search"
+					(focus)="inputFocus = true"
+					(focusout)="inputFocus = false"
+					class="navbar__input input-secondary"
+					type="text"
+					placeholder="Buscar por aqui"
+				/>
+			</form>
+			<app-deploy *ngIf="showDeploy" [onClickOut]="onDeployClickOut.bind(this)">
+				<app-elist
+					[header]="'Cuentas'"
+					[entities]="accounts"
+					[show]="!accounts || accounts?.length === 0"
+					[blackList]="[sessionAccount.id]"
+					[onFollowClick]="
+						onFollowClick ? onFollowClick.bind(this) : followClick.bind(this)
+					"
+				></app-elist>
+				<button
+					*ngIf="showAccountsButton"
+					(click)="onViewMoreClick ? onViewMoreClick.bind(this) : null"
+					class="btn-primary"
+				>
+					Ver mas
+				</button>
+				<br />
+				<app-elist
+					[header]="'Comunidades'"
+					[entities]="communities"
+					[show]="!communities || communities?.length === 0"
+					[onFollowClick]="
+						onFollowClick ? onFollowClick.bind(this) : followClick.bind(this)
+					"
+				></app-elist>
+				<button
+					*ngIf="showCommunitiesButton"
+					(click)="onViewMoreClick ? onViewMoreClick.bind(this) : null"
+					class="btn-primary"
+				>
+					Ver mas
+				</button>
+			</app-deploy>
+		</div>
 		<div>
 			<a
 				*ngIf="!sessionAccount"

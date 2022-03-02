@@ -1,0 +1,45 @@
+.component {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px;
+	width: fit-content;
+}
+
+.arrow {
+	position: absolute;
+	top: 0;
+	width: 20px;
+	height: 20px;
+	transform: rotate(45deg);
+	background-color: white;
+	border: 1px solid var(--light-color);
+	border-radius: var(--component-border);
+}
+
+.arrow-fix {
+	position: absolute;
+	top: 3px;
+	left: -1.5px;
+	width: 30px;
+	height: 20px;
+	transform: rotate(-45deg);
+	background-color: white;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: var(--component-content-padding);
+	background-color: white;
+	box-shadow: var(--component-box-shadow);
+	border: 1px solid var(--light-color);
+	border-radius: var(--component-border);
+}
+
+.center {
+	left: 50%;
+	transform: translateX(-50%);
+}

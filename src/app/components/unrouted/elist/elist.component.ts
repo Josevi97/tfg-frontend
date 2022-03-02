@@ -15,12 +15,14 @@ export class ElistComponent implements OnInit {
 	@Input() public sessionAccount: IAccount;
 	@Input() public hide: boolean;
 	@Input() public show: boolean;
+	@Input() public blackList: number[];
 
 	constructor(
 		private location: LocationService,
 		private ref: ChangeDetectorRef
 	) {
 		this.show = true;
+		this.blackList = [];
 	}
 
 	ngOnInit(): void {}
@@ -39,5 +41,9 @@ export class ElistComponent implements OnInit {
 	updateEntity(entity: IEntity) {
 		this.entities.filter((_e) => _e.id === entity.id)[0] = entity;
 		this.ref.detectChanges();
+	}
+
+	isNotInBlackList(entity: IEntity): boolean {
+		return this.blackList.findIndex((id: number) => id === entity.id) === -1;
 	}
 }

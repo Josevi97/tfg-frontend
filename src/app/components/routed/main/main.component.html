@@ -1,6 +1,6 @@
 <template #alert></template>
 
-<app-menu></app-menu>
+<app-menu [onFollowClick]="onFollowClick.bind(this, true, null)"></app-menu>
 <div class="wrap pageContent">
 	<div class="list">
 		<app-sort
@@ -71,6 +71,7 @@
 			[onLinksClick]="onLinksClick.bind(this)"
 			[onProfileButtonClick]="onProfileButtonClick.bind(this)"
 			[onAddClick]="openEntranceForm.bind(this)"
+			[onFollowClick]="onFollowClick.bind(this, false, null)"
 			[showFollowButton]="
 				community !== undefined ||
 				(account !== undefined && currentEntity?.id !== sessionAccount?.id) ||
@@ -84,7 +85,7 @@
 			[entities]="recommendedAccounts"
 			[show]="false"
 			[header]="'Cuentas'"
-			[onFollowClick]="onFollowClick.bind(this)"
+			[onFollowClick]="onFollowClick.bind(this, false, null)"
 		>
 		</app-elist>
 		<app-elist
@@ -92,7 +93,7 @@
 			[entities]="recommendedCommunities"
 			[show]="false"
 			[header]="'Comunidades'"
-			[onFollowClick]="onFollowClick.bind(this)"
+			[onFollowClick]="onFollowClick.bind(this, false, null)"
 		>
 		</app-elist>
 	</app-aside-details>

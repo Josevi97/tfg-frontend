@@ -94,7 +94,7 @@
 		</button>
 		<button
 			*ngIf="showFollowButton"
-			(click)="onFollowClick ? onFollowClick() : null"
+			(click)="onFollowClick ? onFollowClick(entity) : null"
 			class="entity-buttons__follow btn-{{
 				entity?.sessionFollow | follow: true
 			}}primary content__button"
