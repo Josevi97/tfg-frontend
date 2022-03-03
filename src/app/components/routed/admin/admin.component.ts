@@ -46,7 +46,7 @@ export class AdminComponent implements OnInit {
 		this.sortData = {
 			page: 1,
 			sort: 'id',
-			size: 8,
+			size: 5,
 			direction: true,
 		};
 		this.state = 'accounts';
@@ -146,7 +146,7 @@ export class AdminComponent implements OnInit {
 		this.sortData = {
 			page: 1,
 			sort: 'id',
-			size: 8,
+			size: 5,
 			direction: true,
 		};
 		this.state = key;

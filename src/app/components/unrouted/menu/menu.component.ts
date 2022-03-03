@@ -13,10 +13,12 @@ import { IEntity } from 'src/app/models/entities.interface';
 import { IDataSort } from 'src/app/models/sort.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
+import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { EntitiesService } from 'src/app/services/entities/entities.service';
 import { InteractivityService } from 'src/app/services/interactivity/interactivity.service';
 import { LocationService } from 'src/app/services/location/location.service';
 import { SessionService } from 'src/app/services/session/session.service';
+import { ElistComponent } from '../elist/elist.component';
 
 @Component({
 	selector: 'app-menu',
@@ -24,10 +26,9 @@ import { SessionService } from 'src/app/services/session/session.service';
 	styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
+	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
-	@Input() onFollowClick: Function;
-	@Input() onViewMoreClick: Function;
+	@Input() public onFollowClick: Function;
 
 	public formGroup: FormGroup;
 	public sessionAccount: IAccount;
@@ -39,6 +40,7 @@ export class MenuComponent implements OnInit {
 	public inputFocus: boolean;
 
 	constructor(
+		private componentFactoryService: ComponentFactoryService,
 		private locationService: LocationService,
 		private interactivityService: InteractivityService,
 		private formBuilder: FormBuilder,
@@ -113,6 +115,50 @@ export class MenuComponent implements OnInit {
 		if (!this.inputFocus) {
 			this.showDeploy = false;
 		}
+	}
+
+	onViewMoreClick(key: string): void {
+		this.hideDeploy();
+
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				ElistComponent,
+				a.instance.componentRef
+			);
+
+			const value = this.formGroup.get('search')!.value;
+			const sortData: IDataSort = {
+				page: 1,
+				sort: 'id',
+				size: 10,
+				direction: true,
+			};
+
+			switch (key) {
+				case 'accounts':
+					component.instance.header = 'Cuentas';
+					this.accountsService
+						.getAccountsByLogin(value, sortData)
+						.subscribe((data: IAccountPage) =>
+							component.instance.setEntities(
+								this.entitiesService.fromAccounts(data.content)
+							)
+						);
+					break;
+				case 'communities':
+					component.instance.header = 'Comunidades';
+					this.communitiesService
+						.getCommunitiesByName(value, sortData)
+						.subscribe((data: ICommunityPage) =>
+							component.instance.setEntities(
+								this.entitiesService.fromCommunities(data.content)
+							)
+						);
+					break;
+			}
+		};
 	}
 
 	followClick(entity: IEntity): boolean {

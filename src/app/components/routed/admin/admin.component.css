@@ -39,3 +39,7 @@
 .table-filter i {
 	gap: 5px;
 }
+
+.tableContent {
+	width: 100%;
+}

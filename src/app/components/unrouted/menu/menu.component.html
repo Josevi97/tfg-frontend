@@ -1,4 +1,4 @@
-<template #popup></template>
+<template #alert></template>
 
 <nav class="navbar">
 	<div class="wrap">
@@ -19,14 +19,14 @@
 					[header]="'Cuentas'"
 					[entities]="accounts"
 					[show]="!accounts || accounts?.length === 0"
-					[blackList]="[sessionAccount.id]"
+					[blackList]="[sessionAccount?.id]"
 					[onFollowClick]="
 						onFollowClick ? onFollowClick.bind(this) : followClick.bind(this)
 					"
 				></app-elist>
 				<button
 					*ngIf="showAccountsButton"
-					(click)="onViewMoreClick ? onViewMoreClick.bind(this) : null"
+					(click)="onViewMoreClick('accounts')"
 					class="btn-primary"
 				>
 					Ver mas
@@ -42,7 +42,7 @@
 				></app-elist>
 				<button
 					*ngIf="showCommunitiesButton"
-					(click)="onViewMoreClick ? onViewMoreClick.bind(this) : null"
+					(click)="onViewMoreClick('communities')"
 					class="btn-primary"
 				>
 					Ver mas

@@ -28,7 +28,7 @@ export class TableService {
 					text: 'email',
 					key: 'email',
 					sort: true,
-					relevant: true,
+					relevant: false,
 				},
 				{
 					text: 'admin',
@@ -49,12 +49,6 @@ export class TableService {
 					relevant: false,
 				},
 				{
-					text: 'lista de comunidades',
-					key: 'communities',
-					sort: false,
-					relevant: false,
-				},
-				{
 					text: 'votos a entradas',
 					key: 'entranceVotes',
 					sort: false,
@@ -65,6 +59,12 @@ export class TableService {
 					key: 'commentVotes',
 					sort: false,
 					relevant: false,
+				},
+				{
+					text: 'ultima conexion',
+					key: 'lastSessionAt',
+					sort: true,
+					relevant: true,
 				},
 				{
 					text: 'fecha de creacion',
@@ -86,7 +86,7 @@ export class TableService {
 						},
 						{
 							text: account.email,
-							relevant: true,
+							relevant: false,
 						},
 						{
 							text: `${account.admin ? 'SI' : 'NO'}`,
@@ -101,16 +101,16 @@ export class TableService {
 							relevant: false,
 						},
 						{
-							text: `${account.communityList}`,
-							relevant: false,
-						},
-						{
 							text: `${account.entranceVotes}`,
 							relevant: false,
 						},
 						{
 							text: `${account.commentVotes}`,
 							relevant: false,
+						},
+						{
+							text: account.lastSessionAt,
+							relevant: true,
 						},
 						{
 							text: account.createdAt,

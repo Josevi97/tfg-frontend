@@ -14,7 +14,7 @@
 				(click)="row.sort ? onHeaderClick(row.key) : null"
 				class="{{ !row.relevant ? 'hide' : '' }} {{
 					!row.sort ? 'cursor-default' : ''
-				}}"
+				}} {{ row.sort ? 'sort' : '' }}"
 			>
 				{{ row.text }}
 			</th>

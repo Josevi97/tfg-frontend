@@ -8,7 +8,7 @@ export interface IAccount {
 	avatar: string;
 	admin: boolean;
 	createdAt: string;
-	lastUpdatedAt: string;
+	lastSessionAt: string;
 	followers: number;
 	following: number;
 	entrances: number;

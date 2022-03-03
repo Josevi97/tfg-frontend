@@ -16,6 +16,8 @@
 		</button>
 	</div>
 
+	<br />
+
 	<ul class="table-filter">
 		<li>
 			<a (click)="changeState('accounts')">
@@ -33,11 +35,13 @@
 		</li>
 	</ul>
 
-	<app-table
-		[onRowClick]="onRowClick.bind(this)"
-		[onInputChange]="onInputChange.bind(this)"
-		[onFilterEnter]="onInputEnter.bind(this)"
-		[onHeadClick]="onHeaderClick.bind(this)"
-		[tableData]="tableData"
-	></app-table>
+	<div class="tableContent">
+		<app-table
+			[onRowClick]="onRowClick.bind(this)"
+			[onInputChange]="onInputChange.bind(this)"
+			[onFilterEnter]="onInputEnter.bind(this)"
+			[onHeadClick]="onHeaderClick.bind(this)"
+			[tableData]="tableData"
+		></app-table>
+	</div>
 </div>
