@@ -1,13 +1,18 @@
 <template #alert></template>
 
-<app-menu [onFollowClick]="onFollowClick.bind(this, true, null)"></app-menu>
+<app-menu
+	#sort
+	[onFollowClick]="onFollowClick.bind(this, true, null)"
+	[onHomeReset]="reset.bind(this)"
+></app-menu>
 <div class="wrap pageContent">
 	<div class="list">
 		<app-sort
 			*ngIf="post === undefined"
 			[extraState]="state"
 			[extraElements]="sortData"
-			[onExtraClick]="this.changeState.bind(this)"
+			[onExtraClick]="changeState.bind(this)"
+			[onChangeState]="changeState.bind(this, state)"
 		>
 		</app-sort>
 

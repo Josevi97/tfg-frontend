@@ -29,6 +29,7 @@ export class MenuComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
 
 	@Input() public onFollowClick: Function;
+	@Input() public onHomeReset: Function;
 
 	public formGroup: FormGroup;
 	public sessionAccount: IAccount;
@@ -169,5 +170,13 @@ export class MenuComponent implements OnInit {
 		this.interactivityService.calculateFollow(entity, (_e: IEntity) => {});
 
 		return true;
+	}
+
+	goToHome(): void {
+		if (this.router.url === '/home') {
+			if (this.onHomeReset) {
+				this.onHomeReset();
+			}
+		} else this.router.navigate(['home']);
 	}
 }

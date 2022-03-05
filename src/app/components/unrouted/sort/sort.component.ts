@@ -10,17 +10,18 @@ export class SortComponent implements OnInit {
 	@Input() public extraState: string;
 	@Input() public extraElements: ISort[];
 	@Input() public onExtraClick: Function;
+	@Input() public onChangeState: Function;
 
 	public state: string;
 	public data: ISort[];
 
 	constructor() {
-		this.state = 'new';
+		this.state = 'id';
 		this.data = [
 			{
 				icon: 'calendar_today',
 				text: 'Nuevo',
-				key: 'new',
+				key: 'id',
 			},
 			{
 				icon: 'comment',
@@ -39,5 +40,13 @@ export class SortComponent implements OnInit {
 
 	onClick(identifier: string): void {
 		this.state = identifier;
+
+		if (this.onChangeState) {
+			this.onChangeState(identifier);
+		}
+	}
+
+	reset(): void {
+		this.state = 'id';
 	}
 }

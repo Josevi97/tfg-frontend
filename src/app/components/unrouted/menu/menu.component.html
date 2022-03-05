@@ -2,7 +2,7 @@
 
 <nav class="navbar">
 	<div class="wrap">
-		<a routerLink="/home" class="navbar__logo btn-normal">Sheyras</a>
+		<a (click)="goToHome()" class="navbar__logo btn-normal">Sheyras</a>
 		<div class="input">
 			<form (submit)="onSubmit()" [formGroup]="formGroup">
 				<input

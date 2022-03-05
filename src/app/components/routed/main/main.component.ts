@@ -37,6 +37,7 @@ import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
 import { ElistComponent } from '../../unrouted/elist/elist.component';
 import { EntranceFormComponent } from '../../unrouted/entrance-form/entrance-form.component';
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
+import { SortComponent } from '../../unrouted/sort/sort.component';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -44,6 +45,7 @@ import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 })
 export class MainComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
+	@ViewChild(SortComponent) public sortComponent: SortComponent;
 
 	public sessionAccount: IAccount;
 	public currentEntity: IEntity;
@@ -72,7 +74,7 @@ export class MainComponent implements OnInit {
 			} else if (this.comment) {
 				this.showCommentsByComment();
 			} else {
-				this.initPostsByKey();
+				this.initPostsByKey(null);
 			}
 		});
 	}
@@ -91,8 +93,6 @@ export class MainComponent implements OnInit {
 		private locationService: LocationService,
 		private infiniteService: InfiniteService
 	) {
-		this.posts = [];
-
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 		this.account = this.activatedRoute.snapshot.params['account'];
 		this.community = this.activatedRoute.snapshot.params['community'];
@@ -105,6 +105,12 @@ export class MainComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadRecommendations();
 		this.initialize();
+	}
+
+	reset(): void {
+		this.loadRecommendations();
+		this.sortComponent.reset();
+		this.changeState('all', 'id');
 	}
 
 	loadRecommendations(): void {
@@ -164,7 +170,7 @@ export class MainComponent implements OnInit {
 
 		if (!this.entrance && !this.comment) {
 			this.initSortData();
-			this.initPosts(() => this.loadAccount(this.account));
+			this.initPosts();
 		} else if (this.entrance) {
 			this.showEntrance();
 			this.showCommentsByEntrance();
@@ -175,7 +181,11 @@ export class MainComponent implements OnInit {
 	}
 
 	initSortData(): void {
-		if (this.sessionAccount && !this.account && !this.community) {
+		if (!this.sessionAccount) {
+			return;
+		}
+
+		if (!this.account && !this.community) {
 			this.state = 'all';
 			this.sortData = [
 				{
@@ -211,52 +221,52 @@ export class MainComponent implements OnInit {
 		}
 	}
 
-	initPosts(callback: Function = null): void {
+	initPosts(): void {
 		if (!this.account && !this.community) {
 			this.showAllEntrances();
 		} else if (this.community) {
+			this.showEntrancesByCommunity();
 			this.communitiesService
 				.findOne(this.community)
 				.subscribe(
 					(data: ICommunity) =>
 						(this.currentEntity = this.entitiesService.fromCommunity(data))
 				);
-			this.showEntrancesByCommunity();
 		} else {
 			this.showEntrancesByAccount();
-			if (callback) {
-				callback();
-			}
+			this.loadAccount(this.account);
 		}
 	}
 
-	changeState(key: string): void {
-		if (key === this.state) {
+	changeState(key: string, orderBy: string = this.dataSort.sort): void {
+		if (key === this.state && orderBy === this.dataSort.sort) {
 			return;
 		}
 
-		this.dataSort.page = 1;
-		this.posts = [];
 		this.state = key;
-		this.initPostsByKey();
+		this.dataSort.page = 1;
+		this.dataSort.sort = orderBy;
+		this.initPostsByKey(() => {
+			this.posts = [];
+		});
 	}
 
-	initPostsByKey(): void {
+	initPostsByKey(callback: Function): void {
 		switch (this.state) {
 			case 'entrances':
-				this.showEntrancesByAccount();
+				this.showEntrancesByAccount(callback);
 				break;
 			case 'comments':
-				this.showCommentsByAccount();
+				this.showCommentsByAccount(callback);
 				break;
 			case 'all':
-				this.showAllEntrances();
+				this.showAllEntrances(callback);
 				break;
 			case 'communities':
-				this.showEntrancesBySessionCommunities();
+				this.showEntrancesBySessionCommunities(callback);
 				break;
 			case 'accounts':
-				this.showEntrancesBySesssionFollowing();
+				this.showEntrancesBySesssionFollowing(callback);
 				break;
 		}
 	}
@@ -438,7 +448,7 @@ export class MainComponent implements OnInit {
 		});
 	}
 
-	fixIntoRandoms(_e: IEntity) {
+	fixIntoRandoms(_e: IEntity): void {
 		let array: IEntity[];
 
 		switch (_e.type) {
@@ -568,10 +578,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showAllEntrances(): void {
+	showAllEntrances(callback: Function = null): void {
 		this.entrancesService
 			.getAllEntrances(this.dataSort)
 			.subscribe((data: IEntrancePage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromEntrances(data.content)
@@ -579,10 +593,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showEntrancesBySessionCommunities(): void {
+	showEntrancesBySessionCommunities(callback: Function = null): void {
 		this.accountsService
 			.getEntrancesBySessionCommunities(this.dataSort)
 			.subscribe((data: IEntrancePage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromEntrances(data.content)
@@ -590,10 +608,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showEntrancesBySesssionFollowing(): void {
+	showEntrancesBySesssionFollowing(callback: Function = null): void {
 		this.accountsService
 			.getEntrancesBySessionFollowing(this.dataSort)
 			.subscribe((data: IEntrancePage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromEntrances(data.content)
@@ -601,10 +623,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showEntrancesByAccount(): void {
+	showEntrancesByAccount(callback: Function = null): void {
 		this.accountsService
 			.getEntrancesByAccount(this.account, this.dataSort)
 			.subscribe((data: IEntrancePage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromEntrances(data.content)
@@ -612,10 +638,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showEntrancesByCommunity(): void {
+	showEntrancesByCommunity(callback: Function = null): void {
 		this.communitiesService
 			.getEntrancesByCommunity(this.community, this.dataSort)
 			.subscribe((data: IEntrancePage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromEntrances(data.content)
@@ -623,10 +653,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showCommentsByAccount(): void {
+	showCommentsByAccount(callback: Function = null): void {
 		this.accountsService
 			.getCommentsByAccount(this.currentEntity.id, this.dataSort)
 			.subscribe((data: ICommentPage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromComments(data.content)
@@ -634,10 +668,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showCommentsByEntrance(): void {
+	showCommentsByEntrance(callback: Function = null): void {
 		this.entrancesService
 			.getResponses(this.entrance, this.dataSort)
 			.subscribe((data: ICommentPage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromComments(data.content)
@@ -645,10 +683,14 @@ export class MainComponent implements OnInit {
 			});
 	}
 
-	showCommentsByComment(): void {
+	showCommentsByComment(callback: Function = null): void {
 		this.commentsService
 			.getResponses(this.comment, this.dataSort)
 			.subscribe((data: ICommentPage) => {
+				if (callback) {
+					callback();
+				}
+
 				Array.prototype.push.apply(
 					this.posts,
 					this.postsService.fromComments(data.content)
