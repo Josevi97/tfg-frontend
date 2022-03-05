@@ -62,7 +62,7 @@
 					(click)="
 						onEditClick ? onEditClick(post) : null; $event.stopPropagation()
 					"
-					*ngIf="this.post?.type !== 'comment'"
+					*ngIf="this.post?.type !== 'comment' && showEditButton"
 					class="btn-normal"
 				>
 					<i class="{{ iconsService.getIcon('edit') }}">

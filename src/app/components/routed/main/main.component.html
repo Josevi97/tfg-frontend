@@ -23,6 +23,7 @@
 			[post]="post"
 			[arrowsAtStart]="false"
 			[showExtra]="true"
+			[showEditButton]="sessionAccount?.id === post?.account.id"
 			[showActionButtons]="
 				sessionAccount?.admin || sessionAccount?.id === post?.account.id
 			"
