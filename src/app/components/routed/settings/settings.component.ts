@@ -20,6 +20,9 @@ export class SettingsComponent implements OnInit {
 	public state: string;
 	public sessionAccount: IAccount;
 	public formGroup: FormGroup;
+	public file: File;
+	public filePath: any;
+	public fileReader: FileReader;
 
 	constructor(
 		private router: Router,
@@ -30,6 +33,7 @@ export class SettingsComponent implements OnInit {
 		private componentFactoryService: ComponentFactoryService,
 		public formsService: FormsService
 	) {
+		this.fileReader = new FileReader();
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
 
 		if (this.sessionAccount === null) {
@@ -120,28 +124,40 @@ export class SettingsComponent implements OnInit {
 			admin: this.sessionAccount.admin,
 		};
 
-		this.accountsService.update(this.sessionAccount.id, data).subscribe(() => {
-			this.sessionAccount.username = data.username;
-			this.sessionAccount.description = data.description;
-			this.sessionAccount.login = data.login;
-			this.sessionAccount.admin = data.admin;
+		const formData: FormData = new FormData();
 
-			const a = this.componentFactoryService.createAlert(this.alertRef);
-			a.instance.onAfterViewInit = () => {
-				const component = this.componentFactoryService.generateComponent(
-					ConfirmComponent,
-					a.instance.componentRef
-				);
+		formData.append('file', this.file);
+		formData.append(
+			'accountBean',
+			new Blob([JSON.stringify(data)], {
+				type: 'application/json',
+			})
+		);
 
-				component.instance.setMessage(
-					'Su cuenta ha sido actualizada correctamente'
-				);
-				component.instance.setButtonContent('Continuar');
-				component.instance.setButtonOnClick(() =>
-					this.componentFactoryService.destroyComponent(a)
-				);
-			};
-		});
+		this.accountsService
+			.update(this.sessionAccount.id, formData)
+			.subscribe(() => {
+				this.sessionAccount.username = data.username;
+				this.sessionAccount.description = data.description;
+				this.sessionAccount.login = data.login;
+				this.sessionAccount.admin = data.admin;
+
+				const a = this.componentFactoryService.createAlert(this.alertRef);
+				a.instance.onAfterViewInit = () => {
+					const component = this.componentFactoryService.generateComponent(
+						ConfirmComponent,
+						a.instance.componentRef
+					);
+
+					component.instance.setMessage(
+						'Su cuenta ha sido actualizada correctamente'
+					);
+					component.instance.setButtonContent('Continuar');
+					component.instance.setButtonOnClick(() =>
+						this.componentFactoryService.destroyComponent(a)
+					);
+				};
+			});
 	}
 
 	onCancel(): void {
@@ -207,5 +223,16 @@ export class SettingsComponent implements OnInit {
 					});
 				};
 			});
+	}
+
+	onFileChange(e: any): void {
+		this.file = e.target.files[0];
+
+		if (this.file) {
+			this.fileReader.readAsDataURL(this.file);
+			this.fileReader.onload = (e) => {
+				this.filePath = e.target.result;
+			};
+		}
 	}
 }

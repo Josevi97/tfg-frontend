@@ -24,10 +24,11 @@
 				<div class="settings-form-component">
 					<label class="settings-form__title">Avatar</label>
 					<div class="settings-form-content">
+						<input (change)="onFileChange($event)" type="file" />
 						<img
 							width="80"
 							class="settings-form__image"
-							src="../../../../assets/images/not-account-image-found.png"
+							src="{{ filePath | filePath }}"
 							alt="not found"
 						/>
 						<p class="settings-form__explain">

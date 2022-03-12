@@ -52,6 +52,7 @@ import { SortService } from './services/sort/sort.service';
 import { InfiniteService } from './services/infinite/infinite.service';
 import { TrimPipe } from './pipes/trim/trim.pipe';
 import { DeployComponent } from './components/unrouted/deploy/deploy.component';
+import { FilePathPipe } from './pipes/filePath/file-path.pipe';
 
 @NgModule({
 	declarations: [
@@ -88,8 +89,9 @@ import { DeployComponent } from './components/unrouted/deploy/deploy.component';
 		PaginationComponent,
 		RegisterCommunityComponent,
 		EntranceFormComponent,
-  TrimPipe,
-  DeployComponent,
+		TrimPipe,
+		DeployComponent,
+		FilePathPipe,
 	],
 	imports: [
 		HttpClientModule,

@@ -16,7 +16,11 @@ import {
 } from 'src/app/models/communities.interface';
 import { IEntrancePage } from 'src/app/models/entrances.interface';
 import { IDataSort } from 'src/app/models/sort.interface';
-import { API_URI, httpOptions } from 'src/environments/environment';
+import {
+	API_URI,
+	httpOptions,
+	httpOptionsPart,
+} from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
 import { SortService } from '../sort/sort.service';
 
@@ -38,9 +42,9 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	update(id: number, data: IUpdateAccount): Observable<String> {
+	update(id: number, data: FormData): Observable<String> {
 		return this.http
-			.put<String>(`${this.ACCOUNT_URI}/${id}`, data, httpOptions)
+			.put<String>(`${this.ACCOUNT_URI}/${id}`, data, httpOptionsPart)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
