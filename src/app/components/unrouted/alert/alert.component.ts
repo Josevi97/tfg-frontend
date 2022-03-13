@@ -3,6 +3,8 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	ElementRef,
+	OnDestroy,
 	OnInit,
 	ViewChild,
 	ViewContainerRef,
@@ -14,14 +16,16 @@ import {
 	styleUrls: ['./alert.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AlertComponent implements OnInit, AfterViewInit {
+export class AlertComponent implements OnInit, AfterViewInit, OnDestroy {
 	@ViewChild('component', { read: ViewContainerRef })
 	public componentRef: ViewContainerRef;
 
 	public close: Function;
 	public onAfterViewInit: Function;
 
-	constructor(private ref: ChangeDetectorRef) {}
+	constructor(private el: ElementRef, private ref: ChangeDetectorRef) {
+		document.getElementById('body').style.overflow = 'hidden';
+	}
 
 	ngOnInit(): void {}
 
@@ -30,5 +34,9 @@ export class AlertComponent implements OnInit, AfterViewInit {
 			this.onAfterViewInit();
 			this.ref.detectChanges();
 		}
+	}
+
+	ngOnDestroy(): void {
+		document.getElementById('body').style.overflow = 'auto';
 	}
 }
