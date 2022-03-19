@@ -34,13 +34,6 @@ export class TableComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		if (
-			!this.onFilterEnter ||
-			this.formGroup.get('input').value === this.currentValue
-		) {
-			return;
-		}
-
 		this.currentValue = this.formGroup.get('input').value;
 		this.onFilterEnter(this.currentValue);
 	}

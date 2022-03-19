@@ -46,21 +46,21 @@ export class AdminComponent implements OnInit {
 		this.sortData = {
 			page: 1,
 			sort: 'id',
-			size: 5,
+			size: 8,
 			direction: true,
 		};
 		this.state = 'accounts';
 		this.initData(1);
 	}
 
-	initData(page: number): void {
+	initData(page: number, filter: string = null): void {
 		const auxData: IDataSort = this.sortData;
 		auxData.page = page;
 
 		switch (this.state) {
 			case 'accounts':
 				this.accountsService
-					.getAllAccounts(auxData)
+					.getAllAccounts(auxData, filter)
 					.subscribe((data: IAccountPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromAccounts(data.content);
@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit {
 				break;
 			case 'communities':
 				this.communitiesService
-					.getAllCommunities(auxData)
+					.getAllCommunities(auxData, filter)
 					.subscribe((data: ICommunityPage) => {
 						this.sortData = auxData;
 						this.tableData = this.tableService.fromCommunities(data.content);
@@ -140,13 +140,14 @@ export class AdminComponent implements OnInit {
 
 	onInputEnter(value: string): void {
 		console.log(value);
+		this.initData(1, value);
 	}
 
 	changeState(key: string): void {
 		this.sortData = {
 			page: 1,
 			sort: 'id',
-			size: 5,
+			size: 8,
 			direction: true,
 		};
 		this.state = key;

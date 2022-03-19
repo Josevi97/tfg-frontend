@@ -80,12 +80,16 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getAllAccounts(sortData: IDataSort): Observable<IAccountPage> {
+	getAllAccounts(
+		sortData: IDataSort,
+		filter: string
+	): Observable<IAccountPage> {
+		const params = `${this.sortService.handleSort(sortData)}${
+			filter ? `&filter=${filter}` : ''
+		}`;
+
 		return this.http
-			.get<IAccountPage>(
-				`${this.ACCOUNT_URI}?${this.sortService.handleSort(sortData)}`,
-				httpOptions
-			)
+			.get<IAccountPage>(`${this.ACCOUNT_URI}?${params}`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

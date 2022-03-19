@@ -50,12 +50,16 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getAllCommunities(sortData: IDataSort): Observable<ICommunityPage> {
+	getAllCommunities(
+		sortData: IDataSort,
+		filter: string
+	): Observable<ICommunityPage> {
+		const params = `${this.sortService.handleSort(sortData)}${
+			filter ? `&filter=${filter}` : ''
+		}`;
+
 		return this.http
-			.get<ICommunityPage>(
-				`${this.COMMUNITY_URI}?${this.sortService.handleSort(sortData)}`,
-				httpOptions
-			)
+			.get<ICommunityPage>(`${this.COMMUNITY_URI}?${params}`, httpOptions)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
