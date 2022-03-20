@@ -19,6 +19,7 @@ import { InteractivityService } from 'src/app/services/interactivity/interactivi
 import { LocationService } from 'src/app/services/location/location.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ElistComponent } from '../elist/elist.component';
+import { InfiniteService } from '../../../services/infinite/infinite.service';
 
 @Component({
 	selector: 'app-menu',
@@ -50,6 +51,7 @@ export class MenuComponent implements OnInit {
 		private accountsService: AccountsService,
 		private communitiesService: CommunitiesService,
 		private entitiesService: EntitiesService,
+		private InfiniteService: InfiniteService,
 		public router: Router
 	) {
 		this.formGroup = this.formBuilder.group({

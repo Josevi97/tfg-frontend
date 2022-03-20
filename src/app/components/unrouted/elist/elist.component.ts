@@ -16,6 +16,7 @@ export class ElistComponent implements OnInit {
 	@Input() public hide: boolean;
 	@Input() public show: boolean;
 	@Input() public blackList: number[];
+	@Input() public onScroll: Function;
 
 	constructor(
 		private location: LocationService,

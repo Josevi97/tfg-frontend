@@ -1,40 +1,46 @@
-<div class="content {{ hide ? 'hide' : '' }}">
+<div class="{{ hide ? 'hide' : '' }}">
 	<app-separator [header]="header"></app-separator>
-	<div *ngIf="entities?.length > 0" class="container">
-		<div *ngFor="let entity of entities">
-			<div (click)="navigateToEntity(entity)" class="card">
-				<div class="head">
-					<img
-						width="50"
-						class="card__image"
-						src="../../../../assets/images/not-account-image-found.png"
-						alt="not found"
-					/>
-					<div>
-						<p class="card__title">{{ entity?.title }}</p>
-						<p *ngIf="entity?.subtitle" class="card__subtitle">
-							@{{ entity?.subtitle }}
-						</p>
+	<br />
+	<div (scroll)="onScroll ? onScroll($event) : null" class="content">
+		<div *ngIf="entities?.length > 0" class="container">
+			<div *ngFor="let entity of entities">
+				<div (click)="navigateToEntity(entity)" class="card">
+					<div class="head">
+						<img
+							width="50"
+							class="card__image"
+							src="../../../../assets/images/not-account-image-found.png"
+							alt="not found"
+						/>
+						<div>
+							<p class="card__title">{{ entity?.title }}</p>
+							<p *ngIf="entity?.subtitle" class="card__subtitle">
+								@{{ entity?.subtitle }}
+							</p>
+						</div>
 					</div>
+					<button
+						*ngIf="
+							isNotInBlackList(entity) &&
+							onFollowClick &&
+							(entity.type === 'community' || sessionAccount?.id !== entity.id)
+						"
+						(click)="
+							onFollowClick ? onFollowClick(entity) : null;
+							$event.stopPropagation()
+						"
+						class="btn-{{
+							entity?.sessionFollow | follow: true
+						}}primary card__button"
+					>
+						{{ entity?.sessionFollow | follow: false }}
+					</button>
 				</div>
-				<button
-					*ngIf="
-						isNotInBlackList(entity) &&
-						onFollowClick &&
-						(entity.type === 'community' || sessionAccount?.id !== entity.id)
-					"
-					(click)="
-						onFollowClick ? onFollowClick(entity) : null;
-						$event.stopPropagation()
-					"
-					class="btn-{{
-						entity?.sessionFollow | follow: true
-					}}primary card__button"
-				>
-					{{ entity?.sessionFollow | follow: false }}
-				</button>
 			</div>
 		</div>
+		<app-list-end
+			*ngIf="show"
+			[hasContent]="entities?.length > 0"
+		></app-list-end>
 	</div>
-	<app-list-end *ngIf="show" [hasContent]="entities?.length > 0"></app-list-end>
 </div>
