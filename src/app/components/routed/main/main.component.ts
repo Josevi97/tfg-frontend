@@ -38,6 +38,7 @@ import { ElistComponent } from '../../unrouted/elist/elist.component';
 import { EntranceFormComponent } from '../../unrouted/entrance-form/entrance-form.component';
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 import { SortComponent } from '../../unrouted/sort/sort.component';
+import { EntityDetailsComponent } from '../../unrouted/entity-details/entity-details.component';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -409,7 +410,15 @@ export class MainComponent implements OnInit {
 	}
 
 	onProfileButtonClick(entity: IEntity): void {
-		this.componentFactoryService.createAlert(this.alertRef);
+		const a = this.componentFactoryService.createAlert(this.alertRef);
+		a.instance.onAfterViewInit = () => {
+			const component = this.componentFactoryService.generateComponent(
+				EntityDetailsComponent,
+				a.instance.componentRef
+			);
+
+			component.instance.setEntity(entity);
+		};
 	}
 
 	onFollowClick(

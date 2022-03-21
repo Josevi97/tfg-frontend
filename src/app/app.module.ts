@@ -53,6 +53,7 @@ import { InfiniteService } from './services/infinite/infinite.service';
 import { TrimPipe } from './pipes/trim/trim.pipe';
 import { DeployComponent } from './components/unrouted/deploy/deploy.component';
 import { FilePathPipe } from './pipes/filePath/file-path.pipe';
+import { EntityDetailsComponent } from './components/unrouted/entity-details/entity-details.component';
 
 @NgModule({
 	declarations: [
@@ -92,6 +93,7 @@ import { FilePathPipe } from './pipes/filePath/file-path.pipe';
 		TrimPipe,
 		DeployComponent,
 		FilePathPipe,
+  EntityDetailsComponent,
 	],
 	imports: [
 		HttpClientModule,

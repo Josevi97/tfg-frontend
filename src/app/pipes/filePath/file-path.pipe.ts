@@ -9,6 +9,6 @@ export class FilePathPipe implements PipeTransform {
 			return p;
 		}
 
-		return '../../../../assets/images/not-account-image-found.png';
+		return '../../assets/images/not-account-image-found.png';
 	}
 }

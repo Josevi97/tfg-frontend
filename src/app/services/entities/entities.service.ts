@@ -18,9 +18,12 @@ export class EntitiesService {
 			following: account?.following,
 			followers: account?.followers,
 			communities: account?.communityList,
+			entrances: null,
 			body: account?.description,
 			tag: account?.admin ? 'admin' : null,
 			type: 'account',
+			createdAt: account?.createdAt,
+			lastConnection: account?.lastSessionAt,
 			sessionFollow: account?.sessionFollow,
 		};
 	}
@@ -38,9 +41,12 @@ export class EntitiesService {
 			following: null,
 			followers: community?.communityList,
 			communities: null,
+			entrances: community?.entrances,
 			body: community?.description,
 			tag: null,
 			type: 'community',
+			createdAt: community?.createdAt,
+			lastConnection: null,
 			sessionFollow: community?.sessionFollow,
 		};
 	}
