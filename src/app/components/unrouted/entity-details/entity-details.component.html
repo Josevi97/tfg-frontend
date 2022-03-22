@@ -1,3 +1,49 @@
 <div class="content">
-	<img src="entity?.image | filePath" />
+	<div class="component">
+		<img
+			class="content__img"
+			src="./../../../../assets/images/not-account-image-found.png"
+		/>
+
+		<form [formGroup]="formGroup" class="form">
+			<div
+				*ngFor="let data of entityFormData"
+				class="form-data-container special"
+			>
+				<label for="`entity-details.${data?.key}`">{{ data?.name }}</label>
+				<input
+					formControlName="{{ data?.key }}"
+					id="`entity-details.${data?.key}`"
+					type="text"
+				/>
+			</div>
+
+			<div class="form-data-container">
+				<label for="entity-details.description">Descripcion</label>
+				<textarea
+					formControlName="description"
+					id="entity-details.description"
+					rows="7"
+				>
+				</textarea>
+			</div>
+		</form>
+
+		<app-separator [header]="'Informacion extra'"></app-separator>
+
+		<div class="extra-data">
+			<div *ngFor="let data of entityData" class="data-container">
+				<p>{{ data?.name }}</p>
+				<span>{{ data?.value }}</span>
+			</div>
+		</div>
+
+		<div class="buttons">
+			<div class="entity-buttons">
+				<button class="btn-primary">Editar</button>
+				<button class="btn-outline-primary">Imprimir</button>
+			</div>
+			<button class="btn-error">Eliminar</button>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,72 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.component {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.content__img {
+	object-fit: cover;
+	width: 100px;
+	height: 100px;
+}
+
+.form {
+	margin: 0;
+	padding: 0;
+}
+
+.extra-data {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.data-container {
+	display: flex;
+}
+
+.form {
+	max-width: none;
+}
+
+.form-data-container {
+	display: flex;
+	align-items: center;
+}
+
+.form-data-container label,
+.data-container p {
+	display: block;
+	width: 300px;
+}
+
+.data-container span {
+	width: 100%;
+}
+
+.form-data-container input,
+.form-data-container textarea {
+	width: 100%;
+}
+
+.form-data-container textarea {
+	resize: none;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.entity-buttons {
+	display: flex;
+	gap: 10px;
+}
