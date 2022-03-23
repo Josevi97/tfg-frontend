@@ -28,7 +28,7 @@ export class InteractivityService {
 							entity.followers++;
 
 							if (callback) {
-								callback();
+								callback(entity);
 							}
 						});
 						break;
@@ -38,7 +38,7 @@ export class InteractivityService {
 							entity.followers--;
 
 							if (callback) {
-								callback();
+								callback(entity);
 							}
 						});
 						break;

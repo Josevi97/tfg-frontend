@@ -434,14 +434,14 @@ export class MainComponent implements OnInit {
 
 	onFollowClick(
 		findIntoRandoms: boolean = false,
-		callback: Function = null,
+		callback: Function,
 		entity: IEntity
 	): void {
 		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
-		this.interactivityService.calculateFollow(entity, () => {
+		this.interactivityService.calculateFollow(entity, (e: IEntity) => {
 			if (
 				this.sessionAccount.id === this.currentEntity.id &&
 				this.currentEntity.type === 'account'
@@ -462,7 +462,7 @@ export class MainComponent implements OnInit {
 				}
 
 				if (callback) {
-					callback();
+					callback(e);
 				}
 			}
 		});

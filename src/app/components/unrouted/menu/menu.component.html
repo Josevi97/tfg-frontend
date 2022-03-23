@@ -21,7 +21,9 @@
 					[show]="!accounts || accounts?.length === 0"
 					[blackList]="[sessionAccount?.id]"
 					[onFollowClick]="
-						onFollowClick ? onFollowClick.bind(this) : followClick.bind(this)
+						onFollowClick
+							? onFollowClick.bind(this, null)
+							: followClick.bind(this)
 					"
 				></app-elist>
 				<button
@@ -37,7 +39,9 @@
 					[entities]="communities"
 					[show]="!communities || communities?.length === 0"
 					[onFollowClick]="
-						onFollowClick ? onFollowClick.bind(this) : followClick.bind(this)
+						onFollowClick
+							? onFollowClick.bind(this, null)
+							: followClick.bind(this)
 					"
 				></app-elist>
 				<button

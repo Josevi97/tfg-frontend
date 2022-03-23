@@ -139,6 +139,22 @@ export class MenuComponent implements OnInit {
 				direction: true,
 			};
 
+			component.instance.sessionAccount = this.sessionAccount;
+
+			if (this.onFollowClick) {
+				component.instance.onFollowClick = (e: IEntity) => {
+					this.onFollowClick((_e: IEntity) => {
+						component.instance.updateEntity(_e);
+					}, e);
+				};
+			} else {
+				component.instance.onFollowClick = (e: IEntity) => {
+					this.followClick(e, (_e: IEntity) =>
+						component.instance.updateEntity(_e)
+					);
+				};
+			}
+
 			switch (key) {
 				case 'accounts':
 					component.instance.header = 'Cuentas';
@@ -164,12 +180,16 @@ export class MenuComponent implements OnInit {
 		};
 	}
 
-	followClick(entity: IEntity): boolean {
+	followClick(entity: IEntity, callback: Function): boolean {
 		if (!this.sessionAccount) {
 			this.locationService.navigateToAuth();
 		}
 
-		this.interactivityService.calculateFollow(entity, (_e: IEntity) => {});
+		this.interactivityService.calculateFollow(entity, (_e: IEntity) => {
+			if (callback) {
+				callback(_e);
+			}
+		});
 
 		return true;
 	}
