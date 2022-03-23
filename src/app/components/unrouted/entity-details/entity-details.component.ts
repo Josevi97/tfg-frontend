@@ -1,10 +1,15 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IUpdateAccount } from 'src/app/models/accounts.interface';
+import { IRegisterCommunity } from 'src/app/models/communities.interface';
 import {
 	IEntity,
 	IEntityDetails,
 	IFormEntityDetails,
 } from 'src/app/models/entities.interface';
+import { AccountsService } from 'src/app/services/accounts/accounts.service';
+import { CommunitiesService } from 'src/app/services/communities/communities.service';
+import { FormsService } from 'src/app/services/forms/forms.service';
 
 @Component({
 	selector: 'app-entity-details',
@@ -22,7 +27,10 @@ export class EntityDetailsComponent implements OnInit {
 
 	constructor(
 		private ref: ChangeDetectorRef,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private accountsService: AccountsService,
+		private communitiesService: CommunitiesService,
+		public formsService: FormsService
 	) {}
 
 	ngOnInit(): void {}
@@ -47,10 +55,25 @@ export class EntityDetailsComponent implements OnInit {
 
 	initAsAccount(): void {
 		this.formGroup = this.formBuilder.group({
-			login: [this.entity?.title],
-			username: [this.entity?.subtitle],
-			email: [this.entity?.email],
+			login: [
+				this.entity?.subtitle,
+				[Validators.required, Validators.minLength(4)],
+			],
+			username: [
+				this.entity?.title,
+				[Validators.required, Validators.minLength(4)],
+			],
+			email: [
+				this.entity?.email,
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-zA-Z0-9\\-_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{2,}$'
+					),
+				],
+			],
 			description: [this.entity?.body],
+			admin: [this.entity.tag === 'admin'],
 		});
 
 		this.entityFormData = [
@@ -102,7 +125,10 @@ export class EntityDetailsComponent implements OnInit {
 
 	initAsCommunity(): void {
 		this.formGroup = this.formBuilder.group({
-			name: [this.entity?.title],
+			name: [
+				this.entity?.title,
+				[Validators.required, Validators.minLength(4)],
+			],
 			description: [this.entity?.body],
 		});
 
@@ -130,22 +156,65 @@ export class EntityDetailsComponent implements OnInit {
 	}
 
 	editEntity(): void {
-		// ...
-		//
+		this.formsService.checkInvalid(this.formGroup, this.ref);
 
-		if (this.onEdit) {
-			this.onEdit(this.entity);
+		if (!this.formGroup.valid) {
+			return;
+		}
+
+		switch (this.entity.type) {
+			case 'account':
+				const accountData: IUpdateAccount = {
+					username: this.formGroup.get('username')!.value,
+					description: this.formGroup.get('description')!.value,
+					login: this.formGroup.get('login')!.value,
+					email: this.formGroup.get('email')!.value,
+					admin: this.formGroup.get('admin')!.value,
+				};
+
+				this.accountsService
+					.update(this.entity.id, accountData, null)
+					.subscribe(() => {
+						if (this.onEdit) {
+							this.onEdit(this.entity);
+						}
+					});
+				break;
+			case 'community':
+				const communityData: IRegisterCommunity = {
+					name: this.formGroup.get('name')!.value,
+					description: this.formGroup.get('description')!.value,
+				};
+
+				this.communitiesService
+					.update(this.entity.id, communityData)
+					.subscribe(() => {
+						if (this.onEdit) {
+							this.onEdit(this.entity);
+						}
+					});
+				break;
 		}
 	}
 
 	printEntity(): void {}
 
 	deleteEntity(): void {
-		// ...
-		//
-
-		if (this.onDelete) {
-			this.onDelete();
+		switch (this.entity.type) {
+			case 'account':
+				this.accountsService.delete(this.entity.id).subscribe(() => {
+					if (this.onDelete) {
+						this.onDelete();
+					}
+				});
+				break;
+			case 'community':
+				this.communitiesService.delete(this.entity.id).subscribe(() => {
+					if (this.onDelete) {
+						this.onDelete();
+					}
+				});
+				break;
 		}
 	}
 }

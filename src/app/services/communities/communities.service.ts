@@ -69,6 +69,18 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
+	update(id: number, data: IRegisterCommunity): Observable<String> {
+		return this.http
+			.put<String>(`${this.COMMUNITY_URI}/${id}`, data, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
+	delete(id: number): Observable<String> {
+		return this.http
+			.delete<String>(`${this.COMMUNITY_URI}/${id}`, httpOptions)
+			.pipe(catchError(this.errorService.handleError));
+	}
+
 	createEntrance(id: number, data: IEntranceForm): Observable<String> {
 		return this.http
 			.post<String>(`${this.COMMUNITY_URI}/${id}/entrances`, data, httpOptions)

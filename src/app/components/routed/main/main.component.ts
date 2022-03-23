@@ -418,6 +418,17 @@ export class MainComponent implements OnInit {
 			);
 
 			component.instance.setEntity(entity);
+			component.instance.onDelete = () => this.locationService.navigateToHome();
+			component.instance.onEdit = () => {
+				switch (entity.type) {
+					case 'account':
+						this.locationService.navigateToAccount(entity.id);
+						break;
+					case 'community':
+						this.locationService.navigateToCommunity(entity.id);
+						break;
+				}
+			};
 		};
 	}
 

@@ -124,18 +124,8 @@ export class SettingsComponent implements OnInit {
 			admin: this.sessionAccount.admin,
 		};
 
-		const formData: FormData = new FormData();
-
-		formData.append('file', this.file);
-		formData.append(
-			'accountBean',
-			new Blob([JSON.stringify(data)], {
-				type: 'application/json',
-			})
-		);
-
 		this.accountsService
-			.update(this.sessionAccount.id, formData)
+			.update(this.sessionAccount.id, data, this.file)
 			.subscribe(() => {
 				this.sessionAccount.username = data.username;
 				this.sessionAccount.description = data.description;

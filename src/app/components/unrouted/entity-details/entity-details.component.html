@@ -15,6 +15,7 @@
 					formControlName="{{ data?.key }}"
 					id="`entity-details.${data?.key}`"
 					type="text"
+					class="{{ formsService.inputValid(data?.key, formGroup) }}"
 				/>
 			</div>
 
@@ -26,6 +27,15 @@
 					rows="7"
 				>
 				</textarea>
+			</div>
+
+			<div *ngIf="this.entity?.type === 'account'" class="form-data-container">
+				<label for="entity-details.admin">Admin</label>
+				<input
+					formControlName="admin"
+					id="entity-details.admin"
+					type="checkbox"
+				/>
 			</div>
 		</form>
 
@@ -40,10 +50,12 @@
 
 		<div class="buttons">
 			<div class="entity-buttons">
-				<button class="btn-primary">Editar</button>
-				<button class="btn-outline-primary">Imprimir</button>
+				<button (click)="editEntity()" class="btn-primary">Editar</button>
+				<button (click)="printEntity()" class="btn-outline-primary">
+					Imprimir
+				</button>
 			</div>
-			<button class="btn-error">Eliminar</button>
+			<button (click)="deleteEntity()" class="btn-error">Eliminar</button>
 		</div>
 	</div>
 </div>

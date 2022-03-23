@@ -5,6 +5,7 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { AlertComponent } from 'src/app/components/unrouted/alert/alert.component';
+import { ConfirmComponent } from 'src/app/components/unrouted/confirm/confirm.component';
 
 @Injectable({
 	providedIn: 'root',

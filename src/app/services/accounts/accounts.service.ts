@@ -42,9 +42,19 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	update(id: number, data: FormData): Observable<String> {
+	update(id: number, data: IUpdateAccount, file: File): Observable<String> {
+		const formData: FormData = new FormData();
+
+		formData.append('file', file);
+		formData.append(
+			'accountBean',
+			new Blob([JSON.stringify(data)], {
+				type: 'application/json',
+			})
+		);
+
 		return this.http
-			.put<String>(`${this.ACCOUNT_URI}/${id}`, data, httpOptionsPart)
+			.put<String>(`${this.ACCOUNT_URI}/${id}`, formData, httpOptionsPart)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
