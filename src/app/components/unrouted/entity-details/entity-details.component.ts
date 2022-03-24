@@ -10,6 +10,7 @@ import {
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { CommunitiesService } from 'src/app/services/communities/communities.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { PrintService } from 'src/app/services/print/print.service';
 
 @Component({
 	selector: 'app-entity-details',
@@ -30,6 +31,7 @@ export class EntityDetailsComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private accountsService: AccountsService,
 		private communitiesService: CommunitiesService,
+		private printService: PrintService,
 		public formsService: FormsService
 	) {}
 
@@ -197,7 +199,10 @@ export class EntityDetailsComponent implements OnInit {
 		}
 	}
 
-	printEntity(): void {}
+	printEntity(): void {
+		const message = 'Esto es una prueba de informe';
+		this.printService.printReportFromEntity(this.entity, message);
+	}
 
 	deleteEntity(): void {
 		switch (this.entity.type) {

@@ -54,6 +54,7 @@ import { TrimPipe } from './pipes/trim/trim.pipe';
 import { DeployComponent } from './components/unrouted/deploy/deploy.component';
 import { FilePathPipe } from './pipes/filePath/file-path.pipe';
 import { EntityDetailsComponent } from './components/unrouted/entity-details/entity-details.component';
+import { PrintService } from './services/print/print.service';
 
 @NgModule({
 	declarations: [
@@ -93,7 +94,7 @@ import { EntityDetailsComponent } from './components/unrouted/entity-details/ent
 		TrimPipe,
 		DeployComponent,
 		FilePathPipe,
-  EntityDetailsComponent,
+		EntityDetailsComponent,
 	],
 	imports: [
 		HttpClientModule,
@@ -118,6 +119,7 @@ import { EntityDetailsComponent } from './components/unrouted/entity-details/ent
 		TableService,
 		SortService,
 		InfiniteService,
+		PrintService,
 	],
 	bootstrap: [AppComponent],
 })
