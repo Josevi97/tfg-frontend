@@ -3,7 +3,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
 	OnDestroy,
 	OnInit,
 	ViewChild,
@@ -23,7 +22,7 @@ export class AlertComponent implements OnInit, AfterViewInit, OnDestroy {
 	public close: Function;
 	public onAfterViewInit: Function;
 
-	constructor(private el: ElementRef, private ref: ChangeDetectorRef) {
+	constructor(private ref: ChangeDetectorRef) {
 		document.getElementById('body').style.overflow = 'hidden';
 	}
 
