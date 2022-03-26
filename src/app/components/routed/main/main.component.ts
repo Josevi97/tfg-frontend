@@ -306,8 +306,13 @@ export class MainComponent implements OnInit {
 
 			component.instance.sessionAccount = this.sessionAccount;
 			component.instance.post = post;
-			component.instance.onCiteClick = (p: IPost) =>
-				this.locationService.navigateToComment(p.id);
+			component.instance.onCiteClick = (p: IPost) => {
+				if (p.post) {
+					this.locationService.navigateToComment(p.id);
+				} else {
+					this.locationService.navigateToEntrance(p.id);
+				}
+			};
 			component.instance.onSubmit = (comment: string) => {
 				switch (post.type) {
 					case 'entrance':
