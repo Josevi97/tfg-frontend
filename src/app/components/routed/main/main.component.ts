@@ -65,7 +65,7 @@ export class MainComponent implements OnInit {
 
 	@HostListener('window:scroll', ['$event'])
 	onScroll(): void {
-		this.infiniteService.onScroll(window, () => {
+		this.infiniteService.onScroll(() => {
 			this.dataSort.page++;
 
 			if (this.community) {
@@ -77,7 +77,7 @@ export class MainComponent implements OnInit {
 			} else {
 				this.initPostsByKey(null);
 			}
-		});
+		}, null);
 	}
 
 	constructor(
@@ -350,12 +350,23 @@ export class MainComponent implements OnInit {
 				this.onFollowClick(true, () => component.instance.updateEntity(e), e);
 			};
 
+			const sortData: IDataSort = {
+				page: 1,
+				sort: '',
+				size: 20,
+				direction: true,
+			};
+
 			switch (type) {
 				case 'account':
-					this.handleAccountFollowList(key, component);
+					this.handleAccountFollowList(key, component, sortData);
+					component.instance.onScroll = () =>
+						this.handleAccountFollowList(key, component, sortData);
 					break;
 				case 'community':
-					this.handleCommunityFollowList(component);
+					this.handleCommunityFollowList(component, sortData);
+					component.instance.onScroll = () =>
+						this.handleCommunityFollowList(component, sortData);
 					break;
 			}
 		};
@@ -363,14 +374,15 @@ export class MainComponent implements OnInit {
 
 	handleAccountFollowList(
 		key: string,
-		component: ComponentRef<ElistComponent>
+		component: ComponentRef<ElistComponent>,
+		sortData: IDataSort
 	): void {
 		switch (key) {
 			case 'following':
 				this.accountsService
-					.getFollowingByAccount(this.currentEntity.id)
+					.getFollowingByAccount(this.currentEntity.id, sortData)
 					.subscribe((data: IAccountFollowPage) => {
-						component.instance.setEntities(
+						component.instance.addEntities(
 							this.entitiesService.fromAccounts(
 								this.accountsService.getFollowing(data)
 							)
@@ -379,9 +391,9 @@ export class MainComponent implements OnInit {
 				break;
 			case 'followers':
 				this.accountsService
-					.getFollowersByAccount(this.currentEntity.id)
+					.getFollowersByAccount(this.currentEntity.id, sortData)
 					.subscribe((data: IAccountFollowPage) => {
-						component.instance.setEntities(
+						component.instance.addEntities(
 							this.entitiesService.fromAccounts(
 								this.accountsService.getFollowers(data)
 							)
@@ -390,9 +402,9 @@ export class MainComponent implements OnInit {
 				break;
 			case 'communities':
 				this.accountsService
-					.getCommunitiesByAccount(this.currentEntity.id)
+					.getCommunitiesByAccount(this.currentEntity.id, sortData)
 					.subscribe((data: ICommunityListPage) => {
-						component.instance.setEntities(
+						component.instance.addEntities(
 							this.entitiesService.fromCommunities(
 								this.accountsService.getCommunities(data)
 							)
@@ -400,18 +412,25 @@ export class MainComponent implements OnInit {
 					});
 				break;
 		}
+
+		sortData.page++;
 	}
 
-	handleCommunityFollowList(component: ComponentRef<ElistComponent>): void {
+	handleCommunityFollowList(
+		component: ComponentRef<ElistComponent>,
+		sortData: IDataSort
+	): void {
 		this.communitiesService
-			.getFollowersByCommunity(this.currentEntity.id)
+			.getFollowersByCommunity(this.currentEntity.id, sortData)
 			.subscribe((data: ICommunityListPage) => {
-				component.instance.setEntities(
+				component.instance.addEntities(
 					this.entitiesService.fromAccounts(
 						this.communitiesService.getFollowers(data)
 					)
 				);
 			});
+
+		sortData.page++;
 	}
 
 	onProfileButtonClick(entity: IEntity): void {

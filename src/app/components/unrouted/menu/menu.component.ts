@@ -135,11 +135,13 @@ export class MenuComponent implements OnInit {
 			const sortData: IDataSort = {
 				page: 1,
 				sort: 'id',
-				size: 10,
+				size: 20,
 				direction: true,
 			};
 
 			component.instance.sessionAccount = this.sessionAccount;
+			component.instance.onScroll = () =>
+				this.addEntities(key, component, value, sortData);
 
 			if (this.onFollowClick) {
 				component.instance.onFollowClick = (e: IEntity) => {
@@ -155,29 +157,40 @@ export class MenuComponent implements OnInit {
 				};
 			}
 
-			switch (key) {
-				case 'accounts':
-					component.instance.header = 'Cuentas';
-					this.accountsService
-						.getAccountsByLogin(value, sortData)
-						.subscribe((data: IAccountPage) =>
-							component.instance.setEntities(
-								this.entitiesService.fromAccounts(data.content)
-							)
-						);
-					break;
-				case 'communities':
-					component.instance.header = 'Comunidades';
-					this.communitiesService
-						.getCommunitiesByName(value, sortData)
-						.subscribe((data: ICommunityPage) =>
-							component.instance.setEntities(
-								this.entitiesService.fromCommunities(data.content)
-							)
-						);
-					break;
-			}
+			this.addEntities(key, component, value, sortData);
 		};
+	}
+
+	addEntities(
+		key: string,
+		component: any,
+		value: string,
+		sortData: IDataSort
+	): void {
+		switch (key) {
+			case 'accounts':
+				component.instance.header = 'Cuentas';
+				this.accountsService
+					.getAccountsByLogin(value, sortData)
+					.subscribe((data: IAccountPage) => {
+						component.instance.addEntities(
+							this.entitiesService.fromAccounts(data.content)
+						);
+					});
+				break;
+			case 'communities':
+				component.instance.header = 'Comunidades';
+				this.communitiesService
+					.getCommunitiesByName(value, sortData)
+					.subscribe((data: ICommunityPage) => {
+						component.instance.addEntities(
+							this.entitiesService.fromCommunities(data.content)
+						);
+					});
+				break;
+		}
+
+		sortData.page++;
 	}
 
 	followClick(entity: IEntity, callback: Function): boolean {

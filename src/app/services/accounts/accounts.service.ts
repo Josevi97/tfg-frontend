@@ -157,28 +157,43 @@ export class AccountsService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getFollowingByAccount(id: number): Observable<IAccountFollowPage> {
+	getFollowingByAccount(
+		id: number,
+		sortData: IDataSort
+	): Observable<IAccountFollowPage> {
 		return this.http
 			.get<IAccountFollowPage>(
-				`${this.ACCOUNT_URI}/${id}/following`,
+				`${this.ACCOUNT_URI}/${id}/following?${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getFollowersByAccount(id: number): Observable<IAccountFollowPage> {
+	getFollowersByAccount(
+		id: number,
+		sortData: IDataSort
+	): Observable<IAccountFollowPage> {
 		return this.http
 			.get<IAccountFollowPage>(
-				`${this.ACCOUNT_URI}/${id}/followers`,
+				`${this.ACCOUNT_URI}/${id}/followers?${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getCommunitiesByAccount(id: number): Observable<ICommunityListPage> {
+	getCommunitiesByAccount(
+		id: number,
+		sortData: IDataSort
+	): Observable<ICommunityListPage> {
 		return this.http
 			.get<ICommunityListPage>(
-				`${this.ACCOUNT_URI}/${id}/communities`,
+				`${this.ACCOUNT_URI}/${id}/communities?${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));

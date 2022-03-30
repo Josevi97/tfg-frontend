@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { IAccount } from 'src/app/models/accounts.interface';
 import { IEntity } from 'src/app/models/entities.interface';
+import { InfiniteService } from 'src/app/services/infinite/infinite.service';
 import { LocationService } from 'src/app/services/location/location.service';
 
 @Component({
@@ -20,10 +21,12 @@ export class ElistComponent implements OnInit {
 
 	constructor(
 		private location: LocationService,
-		private ref: ChangeDetectorRef
+		private ref: ChangeDetectorRef,
+		private infiniteService: InfiniteService
 	) {
 		this.show = true;
 		this.blackList = [];
+		this.entities = [];
 	}
 
 	ngOnInit(): void {}
@@ -46,5 +49,18 @@ export class ElistComponent implements OnInit {
 
 	isNotInBlackList(entity: IEntity): boolean {
 		return this.blackList.findIndex((id: number) => id === entity.id) === -1;
+	}
+
+	scroll(e: any): void {
+		this.infiniteService.onScroll(() => {
+			if (this.onScroll()) {
+				this.onScroll();
+			}
+		}, e.target);
+	}
+
+	addEntities(entities: IEntity[]): void {
+		Array.prototype.push.apply(this.entities, entities);
+		this.ref.detectChanges();
 	}
 }

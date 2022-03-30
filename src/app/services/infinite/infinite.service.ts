@@ -4,15 +4,20 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root',
 })
 export class InfiniteService {
-	private INFINITE_SCROLL_OFFSET = 5;
+	private INFINITE_SCROLL_OFFSET = 0;
 
 	constructor() {}
 
-	onScroll(component: any, callback: Function): void {
-		if (
-			component.innerHeight + component.scrollY + this.INFINITE_SCROLL_OFFSET >=
-			document.body.offsetHeight
-		) {
+	onScroll(callback: Function, component: any): void {
+		const height: number = component
+			? component.offsetHeight
+			: window.innerHeight;
+		const size: number = component ? component.scrollTop : window.scrollY;
+		const limit: number = component
+			? component.scrollHeight
+			: document.body.offsetHeight;
+
+		if (height + size + this.INFINITE_SCROLL_OFFSET >= limit) {
 			callback();
 		}
 	}

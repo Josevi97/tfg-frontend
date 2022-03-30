@@ -3,7 +3,7 @@
 	flex-direction: column;
 	gap: 20px;
 	min-width: 350px;
-	max-height: 300px;
+	max-height: 500px;
 	overflow: auto;
 }
 
@@ -52,5 +52,11 @@
 @media screen and (max-width: 1400px) {
 	.hide {
 		display: none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.content {
+		max-height: 100vh;
 	}
 }

@@ -1,7 +1,7 @@
 <div class="{{ hide ? 'hide' : '' }}">
 	<app-separator [header]="header"></app-separator>
 	<br />
-	<div (scroll)="onScroll ? onScroll($event) : null" class="content">
+	<div #div (scroll)="scroll($event)" class="content">
 		<div *ngIf="entities?.length > 0" class="container">
 			<div *ngFor="let entity of entities">
 				<div (click)="navigateToEntity(entity)" class="card">

@@ -101,10 +101,15 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	getFollowersByCommunity(id: number): Observable<ICommunityListPage> {
+	getFollowersByCommunity(
+		id: number,
+		sortData: IDataSort
+	): Observable<ICommunityListPage> {
 		return this.http
 			.get<ICommunityListPage>(
-				`${this.COMMUNITY_URI}/${id}/followers`,
+				`${this.COMMUNITY_URI}/${id}/followers?${this.sortService.handleSort(
+					sortData
+				)}`,
 				httpOptions
 			)
 			.pipe(catchError(this.errorService.handleError));
