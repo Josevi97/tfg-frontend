@@ -1,7 +1,11 @@
+.component {
+	display: flex;
+	flex-direction: column;
+}
+
 .content {
 	display: flex;
 	flex-direction: column;
-	max-height: 750px;
 	gap: 50px;
 	overflow: auto;
 }
@@ -10,7 +14,7 @@
 	display: flex;
 	gap: 30px;
 	padding-top: 15px;
-	margin-top: 20px;
+	margin-top: 10px;
 	border-top: 1px solid var(--light-color);
 }
 
@@ -31,6 +35,10 @@
 }
 
 @media screen and (max-width: 768px) {
+	.component {
+		height: 100%;
+	}
+
 	.content {
 		width: 100%;
 		height: 100vh;

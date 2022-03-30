@@ -37,6 +37,7 @@
 	font-size: 1.5rem;
 	font-weight: bold;
 	color: var(--primary-color);
+	word-break: break-all;
 }
 
 .post__subtitle {
@@ -50,6 +51,7 @@
 .post__body {
 	display: block;
 	white-space: pre-line;
+	word-break: break-all;
 }
 
 .icons {

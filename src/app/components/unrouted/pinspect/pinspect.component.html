@@ -1,23 +1,25 @@
-<div class="content">
-	<app-post
-		[showAccount]="true"
-		[showCommunity]="true"
-		[post]="post"
-		[showActionButtons]="false"
-		[showCommentButton]="false"
-		[showCite]="true"
-		[onCiteClick]="onCiteClick ? onCiteClick.bind(this) : null"
-	></app-post>
-</div>
+<div class="component">
+	<div class="content">
+		<app-post
+			[showAccount]="true"
+			[showCommunity]="true"
+			[post]="post"
+			[showActionButtons]="false"
+			[showCommentButton]="false"
+			[showCite]="true"
+			[onCiteClick]="onCiteClick ? onCiteClick.bind(this) : null"
+		></app-post>
+	</div>
 
-<div class="comment-content">
-	<form (submit)="submit()" [formGroup]="formGroup" class="comment-form">
-		<input
-			formControlName="comment"
-			class="comment-content__input"
-			type="text"
-			placeholder="Comentar algo.."
-		/>
-		<input class="btn-primary" type="submit" value="Enviar" />
-	</form>
+	<div class="comment-content">
+		<form (submit)="submit()" [formGroup]="formGroup" class="comment-form">
+			<input
+				formControlName="comment"
+				class="comment-content__input"
+				type="text"
+				placeholder="Comentar algo.."
+			/>
+			<input class="btn-primary" type="submit" value="Enviar" />
+		</form>
+	</div>
 </div>
