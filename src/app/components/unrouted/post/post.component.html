@@ -10,6 +10,7 @@
 		[onClick]="onVotesClick ? onVotesClick.bind(this, post) : null"
 		[vote]="post?.sessionVoted"
 		[votes]="post?.votes"
+		[offset]="arrowsAtStart"
 	></app-votes>
 	<div class="post__content">
 		<div class="header">
@@ -43,7 +44,7 @@
 			[onClick]="onCiteClick ? onCiteClick.bind(this) : null"
 			[post]="post"
 		></app-cite>
-		<p class="post__body">{{ post?.body | trim: 200:trim }}</p>
+		<p class="post__body bodyContent">{{ post?.body | trim: 200:trim }}</p>
 		<div class="icons">
 			<a
 				*ngIf="showCommentButton"

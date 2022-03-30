@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content {{ offset ? 'moved' : '' }}">
 	<button
 		class="btn-normal"
 		(click)="onClick ? onClick('up') : null; $event.stopPropagation()"

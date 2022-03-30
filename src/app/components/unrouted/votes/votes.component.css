@@ -22,3 +22,7 @@
 .element__votes {
 	font-size: 1.3rem;
 }
+
+.moved {
+	margin-top: 20px;
+}
