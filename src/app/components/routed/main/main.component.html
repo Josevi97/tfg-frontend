@@ -60,7 +60,7 @@
 				[onCommentsClick]="onCommentsClick.bind(this, p)"
 				[onDeleteClick]="onDeleteClick.bind(this, p)"
 				[showCite]="post === undefined"
-				[trimBody]="entrance === undefined && comment === undefined"
+				[trim]="!entrance || !comment"
 			></app-post>
 		</div>
 

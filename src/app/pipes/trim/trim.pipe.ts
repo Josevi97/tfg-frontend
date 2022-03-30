@@ -9,12 +9,18 @@ export class TrimPipe implements PipeTransform {
 			return content;
 		}
 
+		const suffix = '...';
+
 		if (content.indexOf('\n') !== -1) {
-			return content.substring(0, content.indexOf('\n'));
+			if (content.indexOf('\n') > value) {
+				return `${content.substring(0, value)}${suffix}`;
+			}
+
+			return `${content.substring(0, content.indexOf('\n'))}${suffix}`;
 		}
 
 		return content.length > value
-			? `${content.substring(0, value)}...`
+			? `${content.substring(0, value)}${suffix}`
 			: content;
 	}
 }

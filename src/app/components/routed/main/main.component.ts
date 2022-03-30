@@ -542,20 +542,17 @@ export class MainComponent implements OnInit {
 							});
 						break;
 					case 'put':
-						let auxPost: IPost;
+						const data = this.formsService.toEntranceForm(
+							componentRef.instance.formGroup
+						);
 
-						this.entrancesService
-							.update(
-								this.post.id,
-								this.formsService.updatePost(
-									auxPost,
-									componentRef.instance.formGroup
-								)
-							)
-							.subscribe(() => {
-								this.post = auxPost;
-								this.componentFactoryService.destroyComponent(a);
-							});
+						this.entrancesService.update(this.post.id, data).subscribe(() => {
+							this.formsService.updatePost(
+								this.post,
+								componentRef.instance.formGroup
+							);
+							this.componentFactoryService.destroyComponent(a);
+						});
 				}
 			};
 		};
