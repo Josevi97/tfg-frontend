@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IUpdateAccount } from 'src/app/models/accounts.interface';
+import { IAccount, IUpdateAccount } from 'src/app/models/accounts.interface';
 import { IRegisterCommunity } from 'src/app/models/communities.interface';
 import {
 	IEntity,
@@ -36,6 +36,11 @@ export class EntityDetailsComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {}
+
+	setSessionAccount(account: IEntity): void {
+		this.printService.sessionAccount = account;
+		this.ref.detectChanges();
+	}
 
 	setEntity(entity: IEntity): void {
 		this.entity = entity;

@@ -442,6 +442,9 @@ export class MainComponent implements OnInit {
 			);
 
 			component.instance.setEntity(entity);
+			component.instance.setSessionAccount(
+				this.entitiesService.fromAccount(this.sessionAccount)
+			);
 			component.instance.onDelete = () => this.locationService.navigateToHome();
 			component.instance.onEdit = () => {
 				switch (entity.type) {

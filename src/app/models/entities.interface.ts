@@ -8,6 +8,7 @@ export interface IEntity {
 	followers: number;
 	communities: number;
 	entrances: number;
+	comments: number;
 	body: string;
 	tag: string;
 	type: string;
