@@ -211,6 +211,7 @@ export class MenuComponent implements OnInit {
 		if (this.router.url === '/home') {
 			if (this.onHomeReset) {
 				this.onHomeReset();
+				window.scrollTo(0, 0);
 			}
 		} else this.router.navigate(['home']);
 	}
