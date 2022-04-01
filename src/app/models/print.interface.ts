@@ -1,4 +1,9 @@
 export interface ITextFormat {
 	size: number;
-	jumLine: number;
+	jumpLine: number;
+}
+
+export interface IDataText {
+	text: string;
+	data: string;
 }

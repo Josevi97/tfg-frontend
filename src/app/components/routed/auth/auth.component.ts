@@ -1,8 +1,16 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+	Component,
+	ComponentRef,
+	OnInit,
+	ViewChild,
+	ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NO_DATA } from 'src/app/constants/form.constants';
 import { IAccount } from 'src/app/models/accounts.interface';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { InitSessionComponent } from '../../unrouted/init-session/init-session.component';
+import { PopupComponent } from '../../unrouted/popup/popup.component';
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
 
 @Component({
@@ -11,8 +19,10 @@ import { RegisterAccountComponent } from '../../unrouted/register-account/regist
 })
 export class AuthComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
+	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
 
 	private sessionAccount: IAccount;
+	private popup: ComponentRef<PopupComponent>;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -34,10 +44,22 @@ export class AuthComponent implements OnInit {
 		a.instance.onAfterViewInit = () => {
 			switch (type) {
 				case 'init':
-					this.componentFactory.generateComponent(
+					const component = this.componentFactory.generateComponent(
 						InitSessionComponent,
 						a.instance.componentRef
 					);
+
+					component.instance.onFail = () => {
+						this.popup = this.componentFactory.createPopup(
+							this.popupRef,
+							NO_DATA,
+							'init-session',
+							this.popup,
+							() => {
+								this.popup = null;
+							}
+						);
+					};
 					break;
 				case 'register':
 					const componentRef = this.componentFactory.generateComponent(

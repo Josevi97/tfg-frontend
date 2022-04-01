@@ -1,4 +1,10 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	HostListener,
+	OnInit,
+} from '@angular/core';
 
 @Component({
 	selector: 'app-popup',
@@ -6,24 +12,30 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 	styleUrls: ['./popup.component.css'],
 })
 export class PopupComponent implements OnInit {
-	private clicksCount: number;
-	public outClick: Function;
+	public onClick: Function;
+	public id: string;
+	public texts: string[];
+	public index: number;
 
-	constructor(private elementRef: ElementRef) {
-		this.clicksCount = 0;
+	constructor(private ref: ChangeDetectorRef) {
+		this.index = 0;
 	}
 
 	ngOnInit(): void {}
 
-	@HostListener('document:click', ['$event'])
-	clickout(event: any) {
-		if (
-			this.clicksCount != 0 &&
-			!this.elementRef.nativeElement.contains(event.target)
-		) {
-			this.outClick();
-		}
+	setOnClick(onClick: Function): void {
+		this.onClick = onClick;
+		this.ref.detectChanges();
+	}
 
-		this.clicksCount++;
+	init(id: string, texts: string[]): void {
+		this.id = id;
+		this.texts = texts;
+		this.ref.detectChanges();
+	}
+
+	next(): void {
+		this.index = this.index + 1 >= this.texts.length ? 0 : this.index + 1;
+		this.ref.detectChanges();
 	}
 }
