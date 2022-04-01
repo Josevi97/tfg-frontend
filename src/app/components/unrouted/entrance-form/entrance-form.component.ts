@@ -13,6 +13,7 @@ export class EntranceFormComponent implements OnInit {
 	public onSuccess: Function;
 	public formGroup: FormGroup;
 	public formData: IFormData[];
+	public onFail: Function;
 
 	public state: string;
 
@@ -52,7 +53,13 @@ export class EntranceFormComponent implements OnInit {
 	onSubmit(): void {
 		this.formsService.checkInvalid(this.formGroup, this.ref);
 
-		if (this.formGroup.valid && this.onSuccess !== undefined) {
+		if (!this.formGroup.valid) {
+			if (this.onFail) {
+				this.onFail('void');
+			}
+
+			return;
+		} else if (this.onSuccess !== undefined) {
 			this.onSuccess();
 		}
 	}

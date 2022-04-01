@@ -1,20 +1,45 @@
-.content {
-	display: flex;
-	gap: 20px;
-	align-items: center;
+.popup {
 	position: fixed;
-	padding: 10px 20px;
-	background-color: rgba(0, 0, 0, 0.8);
-	border-radius: var(--component-border);
-	width: fit-content;
-
 	left: 50%;
-	transform: translateX(-50%);
 	bottom: 80px;
-
+	transform: translateX(-50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	z-index: var(--hard-front-priority);
+}
+
+.backpopup {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	animation: popup 0.15s;
+	border-radius: var(--component-border);
 }
 
 .content_message {
 	color: white;
+}
+
+.content {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	padding: 10px 20px;
+	width: 100%;
+	height: 100%;
+	animation: fade 0.3s;
+	z-index: 2;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.componentContainer {
+	padding: 20px 0 20px 0;
+	height: 100%;
+	width: 100%;
 }

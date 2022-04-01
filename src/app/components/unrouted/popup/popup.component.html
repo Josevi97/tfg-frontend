@@ -1,6 +1,9 @@
-<div class="content">
-	<p class="content_message">{{ texts[index] }}</p>
-	<button (click)="onClick ? onClick() : null" class="btn-normal">
-		<i class="material-icons">close</i>
-	</button>
+<div class="popup">
+	<div class="backpopup"></div>
+	<div class="content">
+		<p class="content_message">{{ texts[index] }}</p>
+		<button (click)="onClick ? onClick() : null" class="btn-normal">
+			<i class="material-icons">close</i>
+		</button>
+	</div>
 </div>

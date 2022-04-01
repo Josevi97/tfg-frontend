@@ -1,6 +1,13 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+	Component,
+	ComponentRef,
+	OnInit,
+	ViewChild,
+	ViewContainerRef,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { INVALID_DATA, NO_DATA } from 'src/app/constants/form.constants';
 import { IAccount, IUpdateAccount } from 'src/app/models/accounts.interface';
 import { ISettingsMenu } from 'src/app/models/settings-menu.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
@@ -8,6 +15,7 @@ import { ComponentFactoryService } from 'src/app/services/componentFactory/compo
 import { FormsService } from 'src/app/services/forms/forms.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
+import { PopupComponent } from '../../unrouted/popup/popup.component';
 
 @Component({
 	templateUrl: './settings.component.html',
@@ -15,6 +23,7 @@ import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
 })
 export class SettingsComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
+	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
 
 	public menuData: ISettingsMenu[];
 	public state: string;
@@ -23,6 +32,7 @@ export class SettingsComponent implements OnInit {
 	public file: File;
 	public filePath: any;
 	public fileReader: FileReader;
+	public popup: ComponentRef<PopupComponent>;
 
 	constructor(
 		private router: Router,
@@ -116,6 +126,11 @@ export class SettingsComponent implements OnInit {
 			return;
 		}
 
+		if (!this.formGroup.valid) {
+			this.onFail('edit-account', 'void');
+			return;
+		}
+
 		const data: IUpdateAccount = {
 			username: this.formGroup.get('username').value,
 			description: this.formGroup.get('description').value,
@@ -126,28 +141,31 @@ export class SettingsComponent implements OnInit {
 
 		this.accountsService
 			.update(this.sessionAccount.id, data, this.file)
-			.subscribe(() => {
-				this.sessionAccount.username = data.username;
-				this.sessionAccount.description = data.description;
-				this.sessionAccount.login = data.login;
-				this.sessionAccount.admin = data.admin;
+			.subscribe(
+				() => {
+					this.sessionAccount.username = data.username;
+					this.sessionAccount.description = data.description;
+					this.sessionAccount.login = data.login;
+					this.sessionAccount.admin = data.admin;
 
-				const a = this.componentFactoryService.createAlert(this.alertRef);
-				a.instance.onAfterViewInit = () => {
-					const component = this.componentFactoryService.generateComponent(
-						ConfirmComponent,
-						a.instance.componentRef
-					);
+					const a = this.componentFactoryService.createAlert(this.alertRef);
+					a.instance.onAfterViewInit = () => {
+						const component = this.componentFactoryService.generateComponent(
+							ConfirmComponent,
+							a.instance.componentRef
+						);
 
-					component.instance.setMessage(
-						'Su cuenta ha sido actualizada correctamente'
-					);
-					component.instance.setButtonContent('Continuar');
-					component.instance.setButtonOnClick(() =>
-						this.componentFactoryService.destroyComponent(a)
-					);
-				};
-			});
+						component.instance.setMessage(
+							'Su cuenta ha sido actualizada correctamente'
+						);
+						component.instance.setButtonContent('Continuar');
+						component.instance.setButtonOnClick(() =>
+							this.componentFactoryService.destroyComponent(a)
+						);
+					};
+				},
+				() => this.onFail('edit-account', 'invalid')
+			);
 	}
 
 	onCancel(): void {
@@ -185,6 +203,7 @@ export class SettingsComponent implements OnInit {
 		this.formsService.checkInvalid(this.formGroup);
 
 		if (!this.formGroup.valid) {
+			this.onFail('reset-password', 'void');
 			return;
 		}
 
@@ -193,9 +212,8 @@ export class SettingsComponent implements OnInit {
 			repeatedPassword: this.formGroup.get('repeatedPassword')!.value,
 		};
 
-		this.accountsService
-			.updatePassword(this.sessionAccount.id, data)
-			.subscribe(() => {
+		this.accountsService.updatePassword(this.sessionAccount.id, data).subscribe(
+			() => {
 				const a = this.componentFactoryService.createAlert(this.alertRef);
 				a.instance.onAfterViewInit = () => {
 					const component = this.componentFactoryService.generateComponent(
@@ -212,7 +230,9 @@ export class SettingsComponent implements OnInit {
 						this.componentFactoryService.destroyComponent(a);
 					});
 				};
-			});
+			},
+			() => this.onFail('reset-password', 'invalid')
+		);
 	}
 
 	onFileChange(e: any): void {
@@ -224,5 +244,17 @@ export class SettingsComponent implements OnInit {
 				this.filePath = e.target.result;
 			};
 		}
+	}
+
+	onFail(id: string, key: string): void {
+		this.popup = this.componentFactoryService.createPopup(
+			this.popupRef,
+			key === 'void' ? NO_DATA : INVALID_DATA,
+			`${id}_${key}`,
+			this.popup,
+			() => {
+				this.popup = null;
+			}
+		);
 	}
 }

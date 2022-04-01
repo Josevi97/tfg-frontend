@@ -16,6 +16,7 @@ export class RegisterAccountComponent implements OnInit {
 	public onError: Function;
 	public formGroup: FormGroup;
 	public formData: IFormData[];
+	public onFail: Function;
 
 	constructor(
 		private sessionService: SessionService,
@@ -87,6 +88,9 @@ export class RegisterAccountComponent implements OnInit {
 		this.formsService.checkInvalid(this.formGroup, this.ref);
 
 		if (!this.formGroup.valid) {
+			if (this.onFail) {
+				this.onFail('void');
+			}
 			return;
 		}
 
@@ -101,7 +105,10 @@ export class RegisterAccountComponent implements OnInit {
 
 		this.accountsService.register(data).subscribe(
 			() => (this.onSuccess ? this.onSuccess() : null),
-			() => (this.onError ? this.onError(this.formGroup.valid) : null)
+			() => {
+				this.onFail ? this.onFail('invalid') : null;
+				this.onError ? this.onError(this.formGroup.valid) : null;
+			}
 		);
 	}
 }

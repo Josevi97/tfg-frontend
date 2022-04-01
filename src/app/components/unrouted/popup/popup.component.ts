@@ -1,10 +1,4 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	HostListener,
-	OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-popup',
@@ -16,9 +10,11 @@ export class PopupComponent implements OnInit {
 	public id: string;
 	public texts: string[];
 	public index: number;
+	public timeout: any;
 
 	constructor(private ref: ChangeDetectorRef) {
 		this.index = 0;
+		this.startTimeout();
 	}
 
 	ngOnInit(): void {}
@@ -36,6 +32,19 @@ export class PopupComponent implements OnInit {
 
 	next(): void {
 		this.index = this.index + 1 >= this.texts.length ? 0 : this.index + 1;
+		this.startTimeout();
 		this.ref.detectChanges();
+	}
+
+	startTimeout(): void {
+		this.timeout = setTimeout(() => {
+			if (this.onClick) {
+				this.onClick();
+			}
+		}, 3000);
+	}
+
+	clearTimeout(): void {
+		clearTimeout(this.timeout);
 	}
 }

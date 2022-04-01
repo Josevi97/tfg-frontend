@@ -6,7 +6,7 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NO_DATA } from 'src/app/constants/form.constants';
+import { INVALID_DATA, NO_DATA } from 'src/app/constants/form.constants';
 import { IAccount } from 'src/app/models/accounts.interface';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { InitSessionComponent } from '../../unrouted/init-session/init-session.component';
@@ -40,37 +40,44 @@ export class AuthComponent implements OnInit {
 
 	generateComponent(type: string) {
 		const a = this.componentFactory.createAlert(this.alertRef);
+		let component;
 
 		a.instance.onAfterViewInit = () => {
 			switch (type) {
 				case 'init':
-					const component = this.componentFactory.generateComponent(
+					component = this.componentFactory.generateComponent(
 						InitSessionComponent,
 						a.instance.componentRef
 					);
 
-					component.instance.onFail = () => {
-						this.popup = this.componentFactory.createPopup(
-							this.popupRef,
-							NO_DATA,
-							'init-session',
-							this.popup,
-							() => {
-								this.popup = null;
-							}
-						);
-					};
+					this.createPopup(component, 'init-session');
 					break;
 				case 'register':
-					const componentRef = this.componentFactory.generateComponent(
+					component = this.componentFactory.generateComponent(
 						RegisterAccountComponent,
 						a.instance.componentRef
 					);
 
-					componentRef.instance.onSuccess = () =>
+					component.instance.onSuccess = () =>
 						this.componentFactory.destroyComponent(a);
+
+					this.createPopup(component, 'register-account');
 					break;
 			}
+		};
+	}
+
+	createPopup(component: ComponentRef<any>, id: string): void {
+		component.instance.onFail = (key: string) => {
+			this.popup = this.componentFactory.createPopup(
+				this.popupRef,
+				key === 'void' ? NO_DATA : INVALID_DATA,
+				`${id}_${key}`,
+				this.popup,
+				() => {
+					this.popup = null;
+				}
+			);
 		};
 	}
 }

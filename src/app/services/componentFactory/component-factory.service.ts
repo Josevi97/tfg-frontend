@@ -43,6 +43,10 @@ export class ComponentFactoryService {
 		popup: ComponentRef<PopupComponent> = null,
 		onClick: Function = null
 	): ComponentRef<PopupComponent> {
+		if (popup) {
+			popup.instance.clearTimeout();
+		}
+
 		if (!popup || id !== popup.instance.id) {
 			const p = this.generateComponent(PopupComponent, componentRef);
 

@@ -56,7 +56,7 @@ export class InitSessionComponent implements OnInit {
 
 		if (!this.formGroup.valid) {
 			if (this.onFail) {
-				this.onFail();
+				this.onFail('void');
 			}
 
 			return;
@@ -69,7 +69,7 @@ export class InitSessionComponent implements OnInit {
 
 		this.sessionService.login(data).subscribe(
 			() => this.router.navigate(['']),
-			() => (this.onFail ? this.onFail() : null)
+			() => (this.onFail ? this.onFail('invalid') : null)
 		);
 	}
 }

@@ -17,6 +17,7 @@ export class RegisterCommunityComponent implements OnInit {
 	public onError: Function;
 	public formGroup: FormGroup;
 	public formData: IFormData[];
+	public onFail: Function;
 
 	constructor(
 		private ref: ChangeDetectorRef,
@@ -54,6 +55,9 @@ export class RegisterCommunityComponent implements OnInit {
 		this.formsService.checkInvalid(this.formGroup, this.ref);
 
 		if (!this.formGroup.valid) {
+			if (this.onFail) {
+				this.onFail('void');
+			}
 			return;
 		}
 
@@ -64,7 +68,10 @@ export class RegisterCommunityComponent implements OnInit {
 
 		this.communitiesService.register(data).subscribe(
 			() => (this.onSuccess ? this.onSuccess() : null),
-			() => (this.onError ? this.onError(this.formGroup.valid) : null)
+			() => {
+				this.onError ? this.onError(this.formGroup.valid) : null;
+				this.onFail ? this.onFail('invalid') : null;
+			}
 		);
 	}
 }

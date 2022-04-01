@@ -18,6 +18,7 @@
 }
 
 :root {
+	--light-primary-color: #ffd68a;
 	--primary-color: #fca503;
 	--primary-color-hover: #fc8c03;
 	--primary-color-active: #fc7703;

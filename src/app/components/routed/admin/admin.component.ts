@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+	Component,
+	ComponentRef,
+	OnInit,
+	ViewChild,
+	ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { INVALID_DATA, NO_DATA } from 'src/app/constants/form.constants';
 import { IAccount, IAccountPage } from 'src/app/models/accounts.interface';
 import { ICommunityPage } from 'src/app/models/communities.interface';
 import { IDataSort } from 'src/app/models/sort.interface';
@@ -9,6 +16,7 @@ import { CommunitiesService } from 'src/app/services/communities/communities.ser
 import { LocationService } from 'src/app/services/location/location.service';
 import { TableService } from 'src/app/services/table/table.service';
 import { ComponentFactoryService } from '../../../services/componentFactory/component-factory.service';
+import { PopupComponent } from '../../unrouted/popup/popup.component';
 import { RegisterAccountComponent } from '../../unrouted/register-account/register-account.component';
 import { RegisterCommunityComponent } from '../../unrouted/register-community/register-community.component';
 import { TableComponent } from '../../unrouted/table/table.component';
@@ -19,12 +27,14 @@ import { TableComponent } from '../../unrouted/table/table.component';
 })
 export class AdminComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
+	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
 	@ViewChild(TableComponent) private tableRef: TableComponent;
 
 	public sessionAccount: IAccount;
 	public tableData: TableData;
 	public state: string;
 	public sortData: IDataSort;
+	public popup: ComponentRef<PopupComponent>;
 
 	constructor(
 		private locationService: LocationService,
@@ -94,6 +104,8 @@ export class AdminComponent implements OnInit {
 					this.initData(this.sortData.page);
 				}
 			};
+
+			this.createPopup(componentRef, 'register-admin');
 		};
 	}
 
@@ -112,6 +124,8 @@ export class AdminComponent implements OnInit {
 					this.initData(this.sortData.page);
 				}
 			};
+
+			this.createPopup(componentRef, 'create-community');
 		};
 	}
 
@@ -152,5 +166,19 @@ export class AdminComponent implements OnInit {
 		};
 		this.state = key;
 		this.initData(1);
+	}
+
+	createPopup(component: ComponentRef<any>, id: string): void {
+		component.instance.onFail = (key: string) => {
+			this.popup = this.componentFactory.createPopup(
+				this.popupRef,
+				key === 'void' ? NO_DATA : INVALID_DATA,
+				`${id}_${key}`,
+				this.popup,
+				() => {
+					this.popup = null;
+				}
+			);
+		};
 	}
 }

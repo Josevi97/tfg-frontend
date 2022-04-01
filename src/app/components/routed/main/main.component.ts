@@ -39,6 +39,8 @@ import { EntranceFormComponent } from '../../unrouted/entrance-form/entrance-for
 import { PinspectComponent } from '../../unrouted/pinspect/pinspect.component';
 import { SortComponent } from '../../unrouted/sort/sort.component';
 import { EntityDetailsComponent } from '../../unrouted/entity-details/entity-details.component';
+import { PopupComponent } from '../../unrouted/popup/popup.component';
+import { INVALID_DATA, NO_DATA } from 'src/app/constants/form.constants';
 
 @Component({
 	templateUrl: './main.component.html',
@@ -46,6 +48,7 @@ import { EntityDetailsComponent } from '../../unrouted/entity-details/entity-det
 })
 export class MainComponent implements OnInit {
 	@ViewChild('alert', { read: ViewContainerRef }) alertRef: ViewContainerRef;
+	@ViewChild('popup', { read: ViewContainerRef }) popupRef: ViewContainerRef;
 	@ViewChild(SortComponent) public sortComponent: SortComponent;
 
 	public sessionAccount: IAccount;
@@ -62,6 +65,8 @@ export class MainComponent implements OnInit {
 	public state: string;
 	public sortData: ISort[];
 	public dataSort: IDataSort;
+
+	public popup: ComponentRef<PopupComponent>;
 
 	@HostListener('window:scroll', ['$event'])
 	onScroll(): void {
@@ -456,6 +461,9 @@ export class MainComponent implements OnInit {
 						break;
 				}
 			};
+
+			component.instance.onFail = (key: string) =>
+				this.createPopup('profile-click', key);
 		};
 	}
 
@@ -529,6 +537,9 @@ export class MainComponent implements OnInit {
 			componentRef.instance.setEntranceData(
 				this.formsService.fromPost(this.post)
 			);
+
+			componentRef.instance.onFail = (key: string) =>
+				this.createPopup(componentRef.instance.state, key);
 			componentRef.instance.onSuccess = () => {
 				switch (componentRef.instance.state) {
 					case 'post':
@@ -743,5 +754,17 @@ export class MainComponent implements OnInit {
 					this.postsService.fromComments(data.content)
 				);
 			});
+	}
+
+	createPopup(id: string, key: string): void {
+		this.popup = this.componentFactoryService.createPopup(
+			this.popupRef,
+			key === 'void' ? NO_DATA : INVALID_DATA,
+			`${id}_${key}`,
+			this.popup,
+			() => {
+				this.popup = null;
+			}
+		);
 	}
 }

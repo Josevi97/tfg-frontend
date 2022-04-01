@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAccount, IUpdateAccount } from 'src/app/models/accounts.interface';
+import { IUpdateAccount } from 'src/app/models/accounts.interface';
 import { IRegisterCommunity } from 'src/app/models/communities.interface';
 import {
 	IEntity,
@@ -25,6 +25,7 @@ export class EntityDetailsComponent implements OnInit {
 	public entityFormData: IFormEntityDetails[];
 	public entityData: IEntityDetails[];
 	public formGroup: FormGroup;
+	public onFail: Function;
 
 	constructor(
 		private ref: ChangeDetectorRef,
@@ -166,6 +167,9 @@ export class EntityDetailsComponent implements OnInit {
 		this.formsService.checkInvalid(this.formGroup, this.ref);
 
 		if (!this.formGroup.valid) {
+			if (this.onFail) {
+				this.onFail('void');
+			}
 			return;
 		}
 
@@ -181,11 +185,14 @@ export class EntityDetailsComponent implements OnInit {
 
 				this.accountsService
 					.update(this.entity.id, accountData, null)
-					.subscribe(() => {
-						if (this.onEdit) {
-							this.onEdit(this.entity);
-						}
-					});
+					.subscribe(
+						() => {
+							if (this.onEdit) {
+								this.onEdit(this.entity);
+							}
+						},
+						() => (this.onFail ? this.onFail('invalid') : null)
+					);
 				break;
 			case 'community':
 				const communityData: IRegisterCommunity = {
@@ -193,13 +200,14 @@ export class EntityDetailsComponent implements OnInit {
 					description: this.formGroup.get('description')!.value,
 				};
 
-				this.communitiesService
-					.update(this.entity.id, communityData)
-					.subscribe(() => {
+				this.communitiesService.update(this.entity.id, communityData).subscribe(
+					() => {
 						if (this.onEdit) {
 							this.onEdit(this.entity);
 						}
-					});
+					},
+					() => (this.onFail ? this.onFail('invalid') : null)
+				);
 				break;
 		}
 	}
