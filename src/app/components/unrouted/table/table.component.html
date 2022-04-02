@@ -16,7 +16,16 @@
 					!row.sort ? 'cursor-default' : ''
 				}} {{ row.sort ? 'sort' : '' }}"
 			>
-				{{ row.text }}
+				<div class="header-container">
+					<span>{{ row.text }}</span>
+					<i
+						class="
+                               {{
+							row.sort && state === row.key ? '' : 'invisible'
+						}}
+                               {{ iconsService.getIcon(direction | arrow) }}"
+					></i>
+				</div>
 			</th>
 		</tr>
 		<tr

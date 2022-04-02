@@ -32,6 +32,12 @@
 	border-bottom: 1px solid var(--primary-color);
 }
 
+.header-container {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
 .table th.sort {
 	color: var(--primary-color);
 }
@@ -47,6 +53,10 @@
 .table tr:hover td {
 	background-color: var(--white-color);
 	color: var(--secondary-color-hover);
+}
+
+.invisible {
+	opacity: 0;
 }
 
 @media screen and (max-width: 1200px) {

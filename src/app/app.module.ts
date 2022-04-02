@@ -55,6 +55,7 @@ import { DeployComponent } from './components/unrouted/deploy/deploy.component';
 import { FilePathPipe } from './pipes/filePath/file-path.pipe';
 import { EntityDetailsComponent } from './components/unrouted/entity-details/entity-details.component';
 import { PrintService } from './services/print/print.service';
+import { ArrowPipe } from './pipes/arrow/arrow.pipe';
 
 @NgModule({
 	declarations: [
@@ -95,6 +96,7 @@ import { PrintService } from './services/print/print.service';
 		DeployComponent,
 		FilePathPipe,
 		EntityDetailsComponent,
+  ArrowPipe,
 	],
 	imports: [
 		HttpClientModule,

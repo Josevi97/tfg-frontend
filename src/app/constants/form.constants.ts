@@ -1,5 +1,5 @@
 export const NO_DATA = [
-	'Campos vacios!',
+	'El formulario no esta completo!',
 	'Falta informacion!',
 	'Debes rellenar los datos!',
 ];

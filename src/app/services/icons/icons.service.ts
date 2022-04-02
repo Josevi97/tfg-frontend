@@ -20,6 +20,10 @@ export class IconsService {
 				return 'far fa-trash-alt';
 			case 'copyright':
 				return 'far fa-copyright';
+			case 'up-arrow':
+				return 'fa fa-caret-up';
+			case 'down-arrow':
+				return 'fa fa-caret-down';
 		}
 
 		return '';

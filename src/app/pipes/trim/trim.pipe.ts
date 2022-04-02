@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TrimPipe implements PipeTransform {
 	transform(content: string, value: number, b: boolean): unknown {
+		if (!content) {
+			return '';
+		}
+
 		if (!b) {
 			return content;
 		}

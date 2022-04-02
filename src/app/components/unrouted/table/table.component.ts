@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableData } from 'src/app/models/table.interface';
+import { IconsService } from 'src/app/services/icons/icons.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
@@ -22,7 +23,10 @@ export class TableComponent implements OnInit {
 	public state: string;
 	public direction: boolean;
 
-	constructor(private formBuilder: FormBuilder) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		public iconsService: IconsService
+	) {}
 
 	ngOnInit(): void {
 		this.state = 'id';

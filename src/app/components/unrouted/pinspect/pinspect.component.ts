@@ -15,7 +15,7 @@ export class PinspectComponent implements OnInit {
 
 	constructor(private formBuilder: FormBuilder) {
 		this.formGroup = this.formBuilder.group({
-			comment: ['', [Validators.required, Validators.minLength(2)]],
+			comment: ['', [Validators.required, Validators.minLength(1)]],
 		});
 	}
 
