@@ -7,7 +7,7 @@
 			<div class="head__avatar">
 				<img
 					class="head__image"
-					src="./../../../../assets/images/not-account-image-found.png"
+					src="{{ entity.image | filePath: entity.type }}"
 					alt="not found"
 				/>
 			</div>

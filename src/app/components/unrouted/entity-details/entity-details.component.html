@@ -2,7 +2,7 @@
 	<div class="component">
 		<img
 			class="content__img"
-			src="./../../../../assets/images/not-account-image-found.png"
+			src="{{ entity.image | filePath: entity.type }}"
 		/>
 
 		<form [formGroup]="formGroup" class="form">

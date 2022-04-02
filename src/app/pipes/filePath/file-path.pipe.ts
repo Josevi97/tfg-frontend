@@ -1,14 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { RESOURCES_URI } from 'src/environments/environment';
 
 @Pipe({
 	name: 'filePath',
 })
 export class FilePathPipe implements PipeTransform {
-	transform(p: string): string {
-		if (p) {
-			return p;
+	transform(image: string, type: string): string {
+		if (image) {
+			return `${RESOURCES_URI}/${image}`;
+		} else if (type === 'account') {
+			return `${RESOURCES_URI}/default-account.png`;
+		} else {
+			return `${RESOURCES_URI}/default-community.png`;
 		}
-
-		return '../../assets/images/not-account-image-found.png';
 	}
 }

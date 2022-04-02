@@ -9,6 +9,7 @@ export const environment = {
 };
 
 export const API_URI = 'http://localhost:8080';
+export const RESOURCES_URI = 'http://localhost:80';
 
 export const httpOptions = {
 	headers: new HttpHeaders({
