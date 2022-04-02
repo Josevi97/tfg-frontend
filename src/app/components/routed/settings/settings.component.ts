@@ -33,6 +33,7 @@ export class SettingsComponent implements OnInit {
 	public filePath: any;
 	public fileReader: FileReader;
 	public popup: ComponentRef<PopupComponent>;
+	public fileRoute: string;
 
 	constructor(
 		private router: Router,
@@ -45,6 +46,7 @@ export class SettingsComponent implements OnInit {
 	) {
 		this.fileReader = new FileReader();
 		this.sessionAccount = this.activatedRoute.snapshot.data['session'];
+		this.fileRoute = this.sessionAccount.avatar;
 
 		if (this.sessionAccount === null) {
 			this.router.navigate(['']);
@@ -117,7 +119,8 @@ export class SettingsComponent implements OnInit {
 			this.sessionAccount.description ===
 				this.formGroup.get('description').value &&
 			this.sessionAccount.login === this.formGroup.get('login').value &&
-			this.sessionAccount.email === this.formGroup.get('email').value
+			this.sessionAccount.email === this.formGroup.get('email').value &&
+			this.sessionAccount.avatar === this.fileRoute
 		);
 	}
 
@@ -173,6 +176,7 @@ export class SettingsComponent implements OnInit {
 		this.formGroup.get('description').setValue(this.sessionAccount.description);
 		this.formGroup.get('login').setValue(this.sessionAccount.login);
 		this.formGroup.get('email').setValue(this.sessionAccount.email);
+		this.fileRoute = this.sessionAccount.avatar;
 	}
 
 	onDelete(): void {
@@ -240,9 +244,7 @@ export class SettingsComponent implements OnInit {
 
 		if (this.file) {
 			this.fileReader.readAsDataURL(this.file);
-			this.fileReader.onload = (e) => {
-				this.filePath = e.target.result;
-			};
+			this.fileRoute = 'new';
 		}
 	}
 

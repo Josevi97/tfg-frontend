@@ -23,6 +23,9 @@
 .card__image {
 	border: 3px solid white;
 	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
 }
 
 .head {

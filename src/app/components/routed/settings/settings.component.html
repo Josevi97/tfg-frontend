@@ -25,12 +25,27 @@
 				<div class="settings-form-component">
 					<label class="settings-form__title">Avatar</label>
 					<div class="settings-form-content">
-						<input (change)="onFileChange($event)" type="file" />
-						<img
-							width="80"
-							class="settings-form__image"
-							src="{{ sessionAccount.avatar | filePath: 'account' }}"
-							alt="not found"
+						<label for="settings-file-chooser" class="file-chooser__label">
+							<img
+								width="80"
+								class="settings-form__image"
+								src="{{ sessionAccount.avatar | filePath: 'account' }}"
+								alt="not found"
+							/>
+							<button
+								(click)="$event.stopPropagation()"
+								class="file-chooser__button btn-primary"
+							>
+								<span class="material-icons head__icon">{{
+									fileRoute | entityImgButton
+								}}</span>
+							</button>
+						</label>
+						<input
+							(change)="onFileChange($event)"
+							id="settings-file-chooser"
+							class="file-chooser__input"
+							type="file"
 						/>
 						<p class="settings-form__explain">
 							Imagen por la que te podra identificar el resto de usuarios. Tenga

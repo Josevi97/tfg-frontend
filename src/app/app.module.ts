@@ -56,6 +56,7 @@ import { FilePathPipe } from './pipes/filePath/file-path.pipe';
 import { EntityDetailsComponent } from './components/unrouted/entity-details/entity-details.component';
 import { PrintService } from './services/print/print.service';
 import { ArrowPipe } from './pipes/arrow/arrow.pipe';
+import { EntityImgButtonPipe } from './pipes/entityImgButton/entity-img-button.pipe';
 
 @NgModule({
 	declarations: [
@@ -97,6 +98,7 @@ import { ArrowPipe } from './pipes/arrow/arrow.pipe';
 		FilePathPipe,
 		EntityDetailsComponent,
   ArrowPipe,
+  EntityImgButtonPipe,
 	],
 	imports: [
 		HttpClientModule,
