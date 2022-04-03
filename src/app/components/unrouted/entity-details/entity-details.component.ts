@@ -181,6 +181,7 @@ export class EntityDetailsComponent implements OnInit {
 					login: this.formGroup.get('login')!.value,
 					email: this.formGroup.get('email')!.value,
 					admin: this.formGroup.get('admin')!.value,
+					changeImage: true,
 				};
 
 				this.accountsService

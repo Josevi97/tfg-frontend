@@ -29,15 +29,18 @@
 							<img
 								width="80"
 								class="settings-form__image"
-								src="{{ sessionAccount.avatar | filePath: 'account' }}"
+								src="{{
+									sessionAccount?.avatar | filePath: 'account':fileRoute
+								}}"
 								alt="not found"
 							/>
 							<button
-								(click)="$event.stopPropagation()"
+								*ngIf="sessionAccount?.avatar || fileRoute"
+								(click)="$event.stopPropagation(); onImageButtonClick()"
 								class="file-chooser__button btn-primary"
 							>
 								<span class="material-icons head__icon">{{
-									fileRoute | entityImgButton
+									sessionAccount?.avatar | entityImgButton: fileRoute
 								}}</span>
 							</button>
 						</label>
@@ -46,6 +49,7 @@
 							id="settings-file-chooser"
 							class="file-chooser__input"
 							type="file"
+							accept=".png, .jpg"
 						/>
 						<p class="settings-form__explain">
 							Imagen por la que te podra identificar el resto de usuarios. Tenga

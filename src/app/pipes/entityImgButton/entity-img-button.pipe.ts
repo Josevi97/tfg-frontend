@@ -4,10 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 	name: 'entityImgButton',
 })
 export class EntityImgButtonPipe implements PipeTransform {
-	transform(value: string): string {
-		if (!value) {
+	transform(image: string, newFile: string): string {
+		if (!newFile && newFile !== image) {
 			return 'undo';
-		} else if (value === 'new') {
+		} else if (newFile !== image) {
 			return 'close';
 		}
 

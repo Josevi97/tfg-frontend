@@ -40,6 +40,7 @@ export interface IUpdateAccount {
 	login: string;
 	email: string;
 	admin: boolean;
+	changeImage: boolean;
 }
 
 export interface IResetPassword {

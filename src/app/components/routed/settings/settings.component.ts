@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 	public filePath: any;
 	public fileReader: FileReader;
 	public popup: ComponentRef<PopupComponent>;
-	public fileRoute: string;
+	public fileRoute: any;
 
 	constructor(
 		private router: Router,
@@ -140,6 +140,7 @@ export class SettingsComponent implements OnInit {
 			login: this.formGroup.get('login').value,
 			email: this.formGroup.get('email').value,
 			admin: this.sessionAccount.admin,
+			changeImage: this.fileRoute === null,
 		};
 
 		this.accountsService
@@ -162,9 +163,10 @@ export class SettingsComponent implements OnInit {
 							'Su cuenta ha sido actualizada correctamente'
 						);
 						component.instance.setButtonContent('Continuar');
-						component.instance.setButtonOnClick(() =>
-							this.componentFactoryService.destroyComponent(a)
-						);
+						component.instance.setButtonOnClick(() => {
+							this.componentFactoryService.destroyComponent(a);
+							this.router.navigate(['/home']);
+						});
 					};
 				},
 				() => this.onFail('edit-account', 'invalid')
@@ -232,6 +234,7 @@ export class SettingsComponent implements OnInit {
 					component.instance.setButtonOnClick(() => {
 						this.formGroup.reset();
 						this.componentFactoryService.destroyComponent(a);
+						this.router.navigate(['/home']);
 					});
 				};
 			},
@@ -244,7 +247,11 @@ export class SettingsComponent implements OnInit {
 
 		if (this.file) {
 			this.fileReader.readAsDataURL(this.file);
-			this.fileRoute = 'new';
+			this.fileReader.onload = () => {
+				this.fileRoute = this.fileReader.result;
+				e.target.value = '';
+				console.log(this.file);
+			};
 		}
 	}
 
@@ -258,5 +265,17 @@ export class SettingsComponent implements OnInit {
 				this.popup = null;
 			}
 		);
+	}
+
+	onImageButtonClick(): boolean {
+		const img = this.sessionAccount?.avatar;
+
+		if (!this.fileRoute || this.fileRoute !== img) {
+			this.fileRoute = img;
+		} else {
+			this.fileRoute = null;
+		}
+
+		return false;
 	}
 }
