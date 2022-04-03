@@ -14,7 +14,11 @@ import {
 	IEntrancePage,
 } from 'src/app/models/entrances.interface';
 import { IDataSort } from 'src/app/models/sort.interface';
-import { API_URI, httpOptions } from 'src/environments/environment';
+import {
+	API_URI,
+	httpOptions,
+	httpOptionsPart,
+} from 'src/environments/environment';
 import { ErrorService } from '../error/error.service';
 import { SortService } from '../sort/sort.service';
 
@@ -69,9 +73,19 @@ export class CommunitiesService {
 			.pipe(catchError(this.errorService.handleError));
 	}
 
-	update(id: number, data: IRegisterCommunity): Observable<String> {
+	update(id: number, data: IRegisterCommunity, file: File): Observable<String> {
+		const formData: FormData = new FormData();
+
+		formData.append('file', file);
+		formData.append(
+			'communityBean',
+			new Blob([JSON.stringify(data)], {
+				type: 'application/json',
+			})
+		);
+
 		return this.http
-			.put<String>(`${this.COMMUNITY_URI}/${id}`, data, httpOptions)
+			.put<String>(`${this.COMMUNITY_URI}/${id}`, formData, httpOptionsPart)
 			.pipe(catchError(this.errorService.handleError));
 	}
 

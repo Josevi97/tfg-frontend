@@ -1,11 +1,30 @@
 <div class="content">
 	<div class="component">
-		<img
-			class="content__img"
-			src="{{ entity.image | filePath: entity.type }}"
-		/>
-
 		<form [formGroup]="formGroup" class="form">
+			<label for="entity-details-file-chooser" class="file-chooser__label">
+				<img
+					width="80"
+					class="content__img"
+					src="{{ entity?.image | filePath: entity?.type:fileRoute }}"
+					alt="not found"
+				/>
+				<button
+					*ngIf="entity?.image || fileRoute"
+					(click)="$event.stopPropagation(); onImageButtonClick()"
+					class="file-chooser__button btn-primary"
+				>
+					<span class="material-icons head__icon">{{
+						entity?.image | entityImgButton: fileRoute
+					}}</span>
+				</button>
+			</label>
+			<input
+				(change)="onFileChange($event)"
+				id="entity-details-file-chooser"
+				class="file-chooser__input"
+				type="file"
+				accept=".png, .jpg"
+			/>
 			<div
 				*ngFor="let data of entityFormData"
 				class="form-data-container special"

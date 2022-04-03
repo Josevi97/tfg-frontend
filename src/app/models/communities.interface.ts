@@ -14,6 +14,7 @@ export interface ICommunity {
 export interface IRegisterCommunity {
 	name: string;
 	description: string;
+	changeImage: boolean;
 }
 
 export interface ICommunityPage {

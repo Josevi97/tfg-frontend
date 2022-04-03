@@ -64,6 +64,7 @@ export class RegisterCommunityComponent implements OnInit {
 		const data: IRegisterCommunity = {
 			name: this.formGroup.get('name')!.value,
 			description: this.formGroup.get('description')!.value,
+			changeImage: false,
 		};
 
 		this.communitiesService.register(data).subscribe(

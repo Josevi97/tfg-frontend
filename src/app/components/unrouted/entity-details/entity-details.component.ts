@@ -26,6 +26,9 @@ export class EntityDetailsComponent implements OnInit {
 	public entityData: IEntityDetails[];
 	public formGroup: FormGroup;
 	public onFail: Function;
+	public fileRoute: any;
+	public file: File;
+	public fileReader: FileReader;
 
 	constructor(
 		private ref: ChangeDetectorRef,
@@ -34,7 +37,9 @@ export class EntityDetailsComponent implements OnInit {
 		private communitiesService: CommunitiesService,
 		private printService: PrintService,
 		public formsService: FormsService
-	) {}
+	) {
+		this.fileReader = new FileReader();
+	}
 
 	ngOnInit(): void {}
 
@@ -45,9 +50,25 @@ export class EntityDetailsComponent implements OnInit {
 
 	setEntity(entity: IEntity): void {
 		this.entity = entity;
+		this.fileRoute = this.entity?.image;
 		this.initData();
 
 		this.ref.detectChanges();
+		console.log(this.entity);
+	}
+
+	detectChanges(): boolean {
+		return this.entity.type === 'account'
+			? this.entity.title === this.formGroup.get('username').value &&
+					this.entity.body === this.formGroup.get('description').value &&
+					this.entity.subtitle === this.formGroup.get('login').value &&
+					this.entity.email === this.formGroup.get('email').value &&
+					this.entity.tag ===
+						(this.formGroup.get('admin').value ? 'admin' : '') &&
+					this.entity.image === this.fileRoute
+			: this.entity.title === this.formGroup.get('name').value &&
+					this.entity.body === this.formGroup.get('description').value &&
+					this.entity.image === this.fileRoute;
 	}
 
 	initData(): void {
@@ -164,6 +185,10 @@ export class EntityDetailsComponent implements OnInit {
 	}
 
 	editEntity(): void {
+		if (this.detectChanges()) {
+			return;
+		}
+
 		this.formsService.checkInvalid(this.formGroup, this.ref);
 
 		if (!this.formGroup.valid) {
@@ -181,11 +206,11 @@ export class EntityDetailsComponent implements OnInit {
 					login: this.formGroup.get('login')!.value,
 					email: this.formGroup.get('email')!.value,
 					admin: this.formGroup.get('admin')!.value,
-					changeImage: true,
+					changeImage: this.fileRoute === null,
 				};
 
 				this.accountsService
-					.update(this.entity.id, accountData, null)
+					.update(this.entity.id, accountData, this.file)
 					.subscribe(
 						() => {
 							if (this.onEdit) {
@@ -199,16 +224,19 @@ export class EntityDetailsComponent implements OnInit {
 				const communityData: IRegisterCommunity = {
 					name: this.formGroup.get('name')!.value,
 					description: this.formGroup.get('description')!.value,
+					changeImage: this.fileRoute === null,
 				};
 
-				this.communitiesService.update(this.entity.id, communityData).subscribe(
-					() => {
-						if (this.onEdit) {
-							this.onEdit(this.entity);
-						}
-					},
-					() => (this.onFail ? this.onFail('invalid') : null)
-				);
+				this.communitiesService
+					.update(this.entity.id, communityData, this.file)
+					.subscribe(
+						() => {
+							if (this.onEdit) {
+								this.onEdit(this.entity);
+							}
+						},
+						() => (this.onFail ? this.onFail('invalid') : null)
+					);
 				break;
 		}
 	}
@@ -235,5 +263,30 @@ export class EntityDetailsComponent implements OnInit {
 				});
 				break;
 		}
+	}
+
+	onFileChange(e: any): void {
+		this.file = e.target.files[0];
+
+		if (this.file) {
+			this.fileReader.readAsDataURL(this.file);
+			this.fileReader.onload = () => {
+				this.fileRoute = this.fileReader.result;
+				e.target.value = '';
+				this.ref.detectChanges();
+			};
+		}
+	}
+
+	onImageButtonClick(): boolean {
+		const img = this.entity?.image;
+
+		if (!this.fileRoute || this.fileRoute !== img) {
+			this.fileRoute = img;
+		} else {
+			this.fileRoute = null;
+		}
+
+		return false;
 	}
 }
