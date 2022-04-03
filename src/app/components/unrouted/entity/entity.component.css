@@ -96,6 +96,10 @@
 	color: black;
 }
 
+.body__text {
+	word-wrap: break-word;
+}
+
 .entity-active {
 	cursor: default;
 }
