@@ -86,11 +86,19 @@ export class EntityDetailsComponent implements OnInit {
 		this.formGroup = this.formBuilder.group({
 			login: [
 				this.entity?.subtitle,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
 			],
 			username: [
 				this.entity?.title,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
 			],
 			email: [
 				this.entity?.email,
@@ -99,9 +107,10 @@ export class EntityDetailsComponent implements OnInit {
 					Validators.pattern(
 						'^[a-zA-Z0-9\\-_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{2,}$'
 					),
+					Validators.maxLength(50),
 				],
 			],
-			description: [this.entity?.body],
+			description: [this.entity?.body, [Validators.maxLength(200)]],
 			admin: [this.entity.tag === 'admin'],
 		});
 
@@ -156,9 +165,13 @@ export class EntityDetailsComponent implements OnInit {
 		this.formGroup = this.formBuilder.group({
 			name: [
 				this.entity?.title,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
 			],
-			description: [this.entity?.body],
+			description: [this.entity?.body, [Validators.maxLength(200)]],
 		});
 
 		this.entityFormData = [

@@ -76,12 +76,20 @@ export class SettingsComponent implements OnInit {
 		this.formGroup = this.formBuilder.group({
 			username: [
 				this.sessionAccount.username,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
 			],
-			description: [this.sessionAccount.description],
+			description: [this.sessionAccount.description, Validators.maxLength(200)],
 			login: [
 				this.sessionAccount.login,
-				[Validators.required, Validators.minLength(4)],
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
 			],
 			email: [
 				this.sessionAccount.email,
@@ -90,6 +98,7 @@ export class SettingsComponent implements OnInit {
 					Validators.pattern(
 						'^[a-zA-Z0-9\\-_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{2,}$'
 					),
+					Validators.maxLength(50),
 				],
 			],
 		});
@@ -97,8 +106,22 @@ export class SettingsComponent implements OnInit {
 
 	setFormForSecurity(): void {
 		this.formGroup = this.formBuilder.group({
-			originalPassword: ['', [Validators.required, Validators.minLength(4)]],
-			repeatedPassword: ['', [Validators.required, Validators.minLength(4)]],
+			originalPassword: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(20),
+				],
+			],
+			repeatedPassword: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(20),
+				],
+			],
 		});
 	}
 

@@ -44,8 +44,22 @@ export class InitSessionComponent implements OnInit {
 		];
 
 		this.formGroup = this.formBuilder.group({
-			login: ['', [Validators.required, Validators.minLength(4)]],
-			password: ['', [Validators.required, Validators.minLength(4)]],
+			login: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
+			],
+			password: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(20),
+				],
+			],
 		});
 	}
 

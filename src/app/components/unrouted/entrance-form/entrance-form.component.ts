@@ -33,8 +33,22 @@ export class EntranceFormComponent implements OnInit {
 		];
 
 		this.formGroup = this.formBuilder.group({
-			title: ['', [Validators.required, Validators.minLength(4)]],
-			body: ['', [Validators.required, Validators.minLength(4)]],
+			title: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(30),
+				],
+			],
+			body: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(3000),
+				],
+			],
 		});
 	}
 

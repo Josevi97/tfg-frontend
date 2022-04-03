@@ -36,8 +36,15 @@ export class RegisterCommunityComponent implements OnInit {
 		];
 
 		this.formGroup = this.formBuilder.group({
-			name: ['', [Validators.required, Validators.minLength(4)]],
-			description: [''],
+			name: [
+				'',
+				[
+					Validators.required,
+					Validators.minLength(4),
+					Validators.maxLength(15),
+				],
+			],
+			description: ['', [Validators.maxLength(200)]],
 		});
 	}
 
