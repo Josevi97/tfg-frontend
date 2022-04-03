@@ -13,6 +13,7 @@ import { ISettingsMenu } from 'src/app/models/settings-menu.interface';
 import { AccountsService } from 'src/app/services/accounts/accounts.service';
 import { ComponentFactoryService } from 'src/app/services/componentFactory/component-factory.service';
 import { FormsService } from 'src/app/services/forms/forms.service';
+import { LocationService } from 'src/app/services/location/location.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ConfirmComponent } from '../../unrouted/confirm/confirm.component';
 import { PopupComponent } from '../../unrouted/popup/popup.component';
@@ -42,6 +43,7 @@ export class SettingsComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private componentFactoryService: ComponentFactoryService,
+		private locationService: LocationService,
 		public formsService: FormsService
 	) {
 		this.fileReader = new FileReader();
@@ -147,11 +149,6 @@ export class SettingsComponent implements OnInit {
 			.update(this.sessionAccount.id, data, this.file)
 			.subscribe(
 				() => {
-					this.sessionAccount.username = data.username;
-					this.sessionAccount.description = data.description;
-					this.sessionAccount.login = data.login;
-					this.sessionAccount.admin = data.admin;
-
 					const a = this.componentFactoryService.createAlert(this.alertRef);
 					a.instance.onAfterViewInit = () => {
 						const component = this.componentFactoryService.generateComponent(
@@ -165,7 +162,7 @@ export class SettingsComponent implements OnInit {
 						component.instance.setButtonContent('Continuar');
 						component.instance.setButtonOnClick(() => {
 							this.componentFactoryService.destroyComponent(a);
-							this.router.navigate(['/home']);
+							this.locationService.navigateToSettings();
 						});
 					};
 				},

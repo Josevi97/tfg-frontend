@@ -42,4 +42,10 @@ export class LocationService {
 			.navigateByUrl('/', { skipLocationChange: true })
 			.then(() => this.router.navigate(['/auth']));
 	}
+
+	navigateToSettings(): void {
+		this.router
+			.navigateByUrl('/', { skipLocationChange: true })
+			.then(() => this.router.navigate(['/settings']));
+	}
 }
