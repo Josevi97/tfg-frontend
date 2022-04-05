@@ -296,6 +296,7 @@ export class EntityDetailsComponent implements OnInit {
 
 		if (!this.fileRoute || this.fileRoute !== img) {
 			this.fileRoute = img;
+			this.file = null;
 		} else {
 			this.fileRoute = null;
 		}
