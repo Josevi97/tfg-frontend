@@ -32,6 +32,7 @@ export class PopupComponent implements OnInit {
 
 	next(): void {
 		this.index = this.index + 1 >= this.texts.length ? 0 : this.index + 1;
+        this.clearTimeout();
 		this.startTimeout();
 		this.ref.detectChanges();
 	}
