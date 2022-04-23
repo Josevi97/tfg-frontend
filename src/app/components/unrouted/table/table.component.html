@@ -1,7 +1,12 @@
 <div class="manage">
 	<div class="header">
 		<form (submit)="onSubmit()" [formGroup]="formGroup">
-			<input formControlName="input" type="text" placeholder="Buscar.." />
+			<input
+				formControlName="input"
+				class="header__input"
+				type="text"
+				placeholder="Buscar.."
+			/>
 		</form>
 		<app-pagination
 			[onInputChange]="onInputChange ? onInputChange.bind(this) : null"

@@ -281,12 +281,20 @@ textarea {
 }
 
 @media screen and (max-width: 992px) {
+	* {
+		font-size: 13px;
+	}
+
 	.wrap {
 		width: 90%;
 	}
 }
 
 @media screen and (max-width: 768px) {
+	* {
+		font-size: 12px;
+	}
+
 	.wrap {
 		width: 100%;
 	}
