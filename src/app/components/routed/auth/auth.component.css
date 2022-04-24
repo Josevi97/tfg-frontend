@@ -1,6 +1,6 @@
 .background {
 	position: absolute;
-	background-image: url('../../../../assets/images/auth_img.jpg');
+	background-image: url('^assets/images/auth_img.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 100vw;

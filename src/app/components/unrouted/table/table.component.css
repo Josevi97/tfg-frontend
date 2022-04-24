@@ -11,10 +11,6 @@
 	justify-content: space-between;
 }
 
-.header__input {
-	width: 150px;
-}
-
 .table {
 	table-layout: fixed;
 	border-collapse: collapse;
@@ -63,9 +59,6 @@
 	opacity: 0;
 }
 
-@media screen and (max-width: 1200px) {
-}
-
 @media screen and (max-width: 992px) {
 	.hide {
 		display: none;
@@ -73,7 +66,7 @@
 }
 
 @media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 576px) {
+	.header__input {
+		width: 150px;
+	}
 }
