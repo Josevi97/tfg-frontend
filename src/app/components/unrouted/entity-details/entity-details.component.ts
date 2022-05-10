@@ -219,7 +219,7 @@ export class EntityDetailsComponent implements OnInit {
 					login: this.formGroup.get('login')!.value,
 					email: this.formGroup.get('email')!.value,
 					admin: this.formGroup.get('admin')!.value,
-					changeImage: this.fileRoute === null,
+					changeImage: this.fileRoute !== this.entity.image,
 				};
 
 				this.accountsService
@@ -237,7 +237,7 @@ export class EntityDetailsComponent implements OnInit {
 				const communityData: IRegisterCommunity = {
 					name: this.formGroup.get('name')!.value,
 					description: this.formGroup.get('description')!.value,
-					changeImage: this.fileRoute === null,
+					changeImage: this.fileRoute !== this.entity.image,
 				};
 
 				this.communitiesService

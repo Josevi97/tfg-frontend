@@ -165,7 +165,7 @@ export class SettingsComponent implements OnInit {
 			login: this.formGroup.get('login').value,
 			email: this.formGroup.get('email').value,
 			admin: this.sessionAccount.admin,
-			changeImage: this.fileRoute === null,
+			changeImage: this.fileRoute !== this.sessionAccount.avatar,
 		};
 
 		this.accountsService
