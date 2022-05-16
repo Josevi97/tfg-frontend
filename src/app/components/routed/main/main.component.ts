@@ -189,6 +189,11 @@ export class MainComponent implements OnInit {
 	initSortData(): void {
 		if (!this.account && !this.community) {
 			this.state = 'all';
+
+			if (!this.sessionAccount) {
+				return;
+			}
+
 			this.sortData = [
 				{
 					icon: 'apps',
